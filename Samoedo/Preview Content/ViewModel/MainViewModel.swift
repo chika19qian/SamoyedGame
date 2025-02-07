@@ -14,7 +14,6 @@ import Combine
         @Published var pet: Pet
         private var repository = PetRepository()
         private var journalRepository = JournalRepository()
-        private var cancellables = Set<AnyCancellable>()
         
         private static let greetings = [
                     "Good morning! How do you feel today?",
@@ -100,15 +99,7 @@ import Combine
             objectWillChange.send()
         }
 
-        func observeJournalViewModel(_ journalViewModel: JournalViewModel) {
-            journalViewModel.$didSaveJournal
-                .sink { [weak self] didSave in
-                    if didSave {
-                        self?.checkJournalStatus()
-                    }
-                }
-                .store(in: &cancellables)
-        }
+
         func skipJournal() {
             showJournalPrompt = false
             journalChoicePhase = false

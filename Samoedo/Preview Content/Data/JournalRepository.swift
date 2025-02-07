@@ -21,7 +21,6 @@ class JournalRepository {
         let key = morning ? morningKey : eveningKey
         if let savedData = UserDefaults.standard.data(forKey: key),
            let entry = try? JSONDecoder().decode(JournalEntry.self, from: savedData) {
-            print("🔍 检测到日记: \(entry.content) ")
             return Calendar.current.isDateInToday(entry.date)
         }
         return false
@@ -29,29 +28,27 @@ class JournalRepository {
 
 
 
-    func saveJournal(morning: Bool, content: String) {
-        let key = morning ? morningKey : eveningKey
-        let entry = JournalEntry(date: Date(), content: content)
-
-
+    func saveJournal(_ entry: JournalEntry) {
+        let key = entry.isMorning ? morningKey : eveningKey
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         let formattedDate = formatter.string(from: entry.date)
 
         if let encoded = try? JSONEncoder().encode(entry) {
             UserDefaults.standard.set(encoded, forKey: key)
-            print("✅ 日记已保存: \(content) 到 key: \(key) - 存储时间: \(formattedDate)")
+            print("✅ 日记已保存: \(entry.step1Response) 到 key: \(key) - 存储时间: \(formattedDate)")
 
-            // 🔍 立即读取存储的数据，确保它真的存进去了
+            // 🔍 Verify storage
             if let retrievedData = UserDefaults.standard.data(forKey: key),
                let retrievedEntry = try? JSONDecoder().decode(JournalEntry.self, from: retrievedData) {
                 let retrievedDate = formatter.string(from: retrievedEntry.date)
-                print("确认存储: \(retrievedEntry.content) - 读取时间: \(retrievedDate)")
+                print("🔍 Confirmed stored: \(retrievedEntry.step1Response) - Retrieved at: \(retrievedDate)")
             } else {
-                print("❌ 存储失败，无法读取数据")
+                print("❌ Storage failed, unable to retrieve data")
             }
         } else {
-            print("❌ JSON 编码失败！")
+            print("❌ JSON encoding failed!")
         }
 
         var allJournals = loadAllJournals()
@@ -88,7 +85,7 @@ class JournalRepository {
         if let encoded = try? JSONEncoder().encode(journals) {
             UserDefaults.standard.set(encoded, forKey: allJournalsKey)
         }
-        print("Deleted successfully!")
+        print("🗑 Deleted journal with ID: \(id)")
     }
 }
 

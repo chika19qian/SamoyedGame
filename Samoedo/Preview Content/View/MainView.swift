@@ -76,7 +76,7 @@ struct MainView: View {
                         
                         if vm.journalChoicePhase && vm.showJournalPrompt {
                             HStack {
-                                NavigationLink(destination: JournalView(journalViewModel: JournalViewModel(), mainViewModel: MainViewModel())){
+                                NavigationLink(destination: StepFlowView()){
                                     Text("Yes, now")                           .chalkboardFont(size: 25)
                                         .foregroundColor(Color.white)
                                         .padding()

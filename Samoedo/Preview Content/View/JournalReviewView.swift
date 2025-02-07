@@ -33,7 +33,7 @@ struct JournalRowView: View {
                 .font(.custom("Chalkboard SE", size: 16))
                 .foregroundColor(.gray)
 
-            Text(entry.content)
+            Text(entry.step3Response)
                 .font(.body)
                 .font(.custom("Chalkboard SE", size: 16))
                 .lineLimit(3)  // ✅ 只显示前 3 行，多余部分省略

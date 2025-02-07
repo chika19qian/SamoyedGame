@@ -19,7 +19,7 @@ struct JournalDetailView: View {
                     .foregroundColor(.gray)
                 Spacer()
 
-                Text(entry.content)
+                Text(entry.journalContent)
                     .font(.custom("Chalkboard SE", size: 18))
                     .padding()
             }
@@ -38,6 +38,15 @@ struct JournalDetailView: View {
 }
 
 #Preview {
-    JournalDetailView(entry: JournalEntry(date: Date(), content: "Today is very goodd,happyssdddds"))
+    JournalDetailView(entry: JournalEntry(
+        id: UUID(),
+        date: Date(),
+        step1Response: "Slept well 😴",
+        step2Response: [Event(id: UUID(), name: "Study", icon: "📖")],
+        step3Response: "Had a productive study session",
+        step4Response: "Plan to review notes",
+        step5Response: "Looking forward to tomorrow!"
+    ))
 }
+
 
