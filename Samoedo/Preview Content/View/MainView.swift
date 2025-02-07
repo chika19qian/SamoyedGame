@@ -14,7 +14,6 @@ struct MainView: View {
     var body: some View {
         NavigationView{
             ZStack{
-                // 背景房间
                 Image("room_background")
                     .resizable()
                     .scaledToFill()
@@ -25,8 +24,8 @@ struct MainView: View {
                     
                     VStack(alignment: .leading) {
                         TextField("Name your pet!", text: $vm.pet.name)
-                            .font(.custom("Chalkboard SE", size: 28)) // 设置字体
-                            .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1)) // 让文字变成白色
+                            .chalkboardFont(size: 28)
+                            .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                         
                         Text("Age: **\(vm.pet.age)** seconds")
                         Text("Status: ") +
@@ -34,7 +33,7 @@ struct MainView: View {
                         Text(" and ") +
                         Text("\(vm.pet.hunger)").bold()
                         
-                    }.font(.custom("Chalkboard SE", size: 20))
+                    }.chalkboardFont(size: 20)
                         .foregroundColor(.brown)
                         .padding(.horizontal, 30)
                     
@@ -49,7 +48,7 @@ struct MainView: View {
                         Spacer().frame(width: 70)
                         Button(action: vm.feed) {
                             Text("Feed")
-                                .font(.custom("Chalkboard SE", size: 25))
+                                .chalkboardFont(size: 25)
                                 .foregroundColor(Color.white)
                                 .padding()
                                 .frame(width: 150, height: 50)
@@ -78,7 +77,7 @@ struct MainView: View {
                         if vm.journalChoicePhase {
                             HStack {
                                 NavigationLink(destination: JournalView(journalViewModel: JournalViewModel(morning: true), mainViewModel: MainViewModel())){
-                                    Text("Yes, now")                           .font(.custom("Chalkboard SE", size: 25))
+                                    Text("Yes, now")                           .chalkboardFont(size: 25)
                                         .foregroundColor(Color.white)
                                         .padding()
                                         .frame(width: 150, height: 50)
@@ -96,7 +95,7 @@ struct MainView: View {
                                     vm.journalChoicePhase = false
                                     vm.objectWillChange.send()
                                 }
-                                .font(.custom("Chalkboard SE", size: 25))
+                                .chalkboardFont(size: 25)
                                 .foregroundColor(Color.white)
                                 .padding()
                                 .frame(width: 150, height: 50)
@@ -110,8 +109,7 @@ struct MainView: View {
                             
                         } else {
                             Text(vm.currentMessage)
-                                .font(.system(size: 23, weight: .bold))
-                                .foregroundColor(.white)
+                                .chalkboardFont(size: 28)                     .foregroundColor(.white)
                                 .padding(.horizontal)
                                 .frame(height: 140)
                                 .frame(maxWidth: .infinity)

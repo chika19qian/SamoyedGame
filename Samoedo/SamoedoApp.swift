@@ -10,6 +10,9 @@ import SwiftData
 
 @main
 struct SamoedoApp: App {
+    init() {
+        setupNavigationBarAppearance()  
+    }
 
     var body: some Scene {
         WindowGroup {

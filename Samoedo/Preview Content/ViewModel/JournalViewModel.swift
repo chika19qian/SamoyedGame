@@ -13,6 +13,7 @@ class JournalViewModel: ObservableObject {
     @Published var content: String = ""
     @Published var didSaveJournal = false
     var morning: Bool
+    var onSave: (() -> Void)?
 
     init(morning: Bool) {
         self.morning = morning
@@ -28,6 +29,7 @@ class JournalViewModel: ObservableObject {
     func saveJournal() {
         journalRepository.saveJournal(morning: morning, content: content)
         didSaveJournal = true
+        onSave?()
     }
 }
 
