@@ -87,5 +87,20 @@ class JournalRepository {
         }
         print("🗑 Deleted journal with ID: \(id)")
     }
+    
+    func updateJournal(entry: JournalEntry) {
+        var journals = loadAllJournals()
+
+        if let index = journals.firstIndex(where: { $0.id == entry.id }) {
+            journals[index] = entry
+        }
+
+        if let encoded = try? JSONEncoder().encode(journals) {
+            UserDefaults.standard.set(encoded, forKey: allJournalsKey)
+            UserDefaults.standard.synchronize()
+        }
+        print("✏️ Updated journal with ID: \(entry.id)")
+    }
+
 }
 

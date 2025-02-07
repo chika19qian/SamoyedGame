@@ -20,8 +20,6 @@ struct MainView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    
-                    
                     VStack(alignment: .leading) {
                         TextField("Name your pet!", text: $vm.pet.name)
                             .chalkboardFont(size: 28)

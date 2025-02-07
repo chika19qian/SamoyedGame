@@ -101,6 +101,12 @@ class JournalViewModel: ObservableObject {
                 return morning ? "What beautiful memories do you have about \(eventNames)?" : "Why did \(eventNames) make you feel good?"
             }
         }
+    func generateStep4Question() -> String {
+            let selectedEvents = currentEntry.step2Response
+            let eventNames = selectedEvents.map { "\($0.icon) \($0.name)" }.joined(separator: ", ")
+
+            return morning ? "What is your plan for \(eventNames) today?" : "How would you praise yourself?"
+        }
     
 }
 

@@ -9,11 +9,12 @@ import SwiftUI
 
 struct Step4View: View {
     @ObservedObject var viewModel: JournalViewModel
+    
 
     var body: some View {
         VStack {
             Spacer()
-            Text(viewModel.morning ? "What is your plan for \(viewModel.currentEntry.step2Response) today?" : "How would you praise yourself?")
+            Text(viewModel.generateStep4Question())
                 .chalkboardFont(size: 28)
                 .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 .frame(alignment:.center)

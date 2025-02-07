@@ -9,11 +9,12 @@ import SwiftUI
 
 struct JournalReviewView: View {
     @StateObject var viewModel = JournalReviewViewModel()
+    
 
     var body: some View {
         NavigationView {
             List(viewModel.journalEntries) { entry in
-                NavigationLink(destination: JournalDetailView(entry: entry)) {
+                NavigationLink(destination: JournalDetailView(viewModel: JournalReviewViewModel(), entry: entry)) {
                     JournalRowView(entry: entry)  // ✅ 复用组件，保持整洁
                 }
             }
@@ -25,6 +26,7 @@ struct JournalReviewView: View {
 
 /// **📌 复用组件 - 每个日记条目**
 struct JournalRowView: View {
+    @StateObject var viewModel = JournalReviewViewModel()
     let entry: JournalEntry
 
     var body: some View {
@@ -33,10 +35,10 @@ struct JournalRowView: View {
                 .font(.custom("Chalkboard SE", size: 16))
                 .foregroundColor(.gray)
 
-            Text(entry.step3Response)
+            Text(viewModel.randomizedPreviewText(entry.journalContent))
                 .font(.body)
                 .font(.custom("Chalkboard SE", size: 16))
-                .lineLimit(3)  // ✅ 只显示前 3 行，多余部分省略
+                .lineLimit(2)  
                 .truncationMode(.tail)
         }
         .padding(.vertical, 8)
