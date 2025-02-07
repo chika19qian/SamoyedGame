@@ -34,9 +34,11 @@ struct Step2View: View {
                             Text(event.icon)
                                 .font(.largeTitle)
                             Text(event.name)
+                                .foregroundColor(Color.brown)
                         }
                         .padding()
                         .chalkboardFont(size: 15)
+                        .frame(width:115,height: 105)
                         .background(viewModel.currentEntry.step2Response.contains(where: { $0.id == event.id }) ? Color.blue.opacity(0.2) : Color.gray.opacity(0.1))
                         .cornerRadius(10)
                     }
@@ -56,6 +58,8 @@ struct Step2View: View {
                     )
                     .cornerRadius(15)
             }
+            .opacity(viewModel.currentEntry.step2Response.isEmpty ? 0:1)
+            .disabled(viewModel.currentEntry.step2Response.isEmpty)
         }
         .padding()
     }

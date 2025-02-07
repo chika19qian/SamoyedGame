@@ -49,17 +49,7 @@ struct JournalView: View {
                         .cornerRadius(15)
                 }
                 
-                TextEditor(text: $journalViewModel.content)
-                    .font(.custom("Chalkboard SE", size: 18))
-                    .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
-                    .frame(height: 400)
-                    .border(Color.gray, width: 2)
-                    .cornerRadius(15)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.brown, lineWidth: 4)
-                    )
-                    .padding()
+                
                 
                 Button("Save") {
                     print("Save被点击")

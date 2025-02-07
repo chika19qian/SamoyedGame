@@ -13,7 +13,7 @@ struct Step4View: View {
     var body: some View {
         VStack {
             Spacer()
-            Text(viewModel.morning ? "What is your plan for these focus areas today?" : "How would you praise yourself?")
+            Text(viewModel.morning ? "What is your plan for \(viewModel.currentEntry.step2Response) today?" : "How would you praise yourself?")
                 .chalkboardFont(size: 28)
                 .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 .frame(alignment:.center)

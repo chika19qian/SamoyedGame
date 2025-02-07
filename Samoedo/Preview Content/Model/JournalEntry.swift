@@ -15,6 +15,7 @@ struct JournalEntry: Codable, Identifiable {
     var step3Response: String
     var step4Response: String
     var step5Response: String
+    var journalContent: String
     
     
     var isMorning: Bool {
@@ -26,16 +27,6 @@ struct JournalEntry: Codable, Identifiable {
     }
 }
 
-extension JournalEntry {
-    var journalContent: String {
-        """
-        \(step1Response)
-        \(step2Response.map { $0.name }.joined(separator: ", "))
-        \(step3Response)
-        \(step4Response)
-        \(step5Response)
-        """
-    }
-}
+
 
 

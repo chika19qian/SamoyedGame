@@ -54,6 +54,8 @@ struct Step1View: View {
                     )
                     .cornerRadius(15)
             }
+            .opacity(viewModel.currentEntry.step1Response.isEmpty ? 0:1)
+            .disabled(viewModel.currentEntry.step1Response.isEmpty)
             
             Spacer()
         }

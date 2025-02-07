@@ -45,7 +45,8 @@ struct JournalDetailView: View {
         step2Response: [Event(id: UUID(), name: "Study", icon: "📖")],
         step3Response: "Had a productive study session",
         step4Response: "Plan to review notes",
-        step5Response: "Looking forward to tomorrow!"
+        step5Response: "Looking forward to tomorrow!",
+        journalContent: "ok"
     ))
 }
 

@@ -35,22 +35,25 @@ struct Step5View: View {
                         .stroke(Color.brown, lineWidth: 4)
                 )
                 .padding()
-            Button("Save") {
-                print("Save被点击")
-                viewModel.saveJournal()
+            
+            Button(action: { viewModel.saveJournal()
                 
-                presentationMode.wrappedValue.dismiss()
-            }.padding()
-                .chalkboardFont(size: 25)
-                .foregroundColor(Color.white)
-                .padding()
-                .frame(width: 150, height: 50)
-                .background(Color.brown.opacity(0.9))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color.white, lineWidth: 5)
-                )
-                .cornerRadius(15)
+                presentationMode.wrappedValue.dismiss()}) {
+                Text("Save")
+                    .chalkboardFont(size: 25)
+                    .foregroundColor(Color.white)
+                    .padding()
+                    .frame(width: 150, height: 50)
+                    .background(Color.brown.opacity(0.9))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.white, lineWidth: 5)
+                    )
+                    .cornerRadius(15)
+            }
+            
+          
+                
 
         }
         .padding()
