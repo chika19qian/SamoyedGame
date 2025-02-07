@@ -14,27 +14,30 @@ struct JournalDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 Text(formattedDate(entry.date))
-                    .font(.custom("Chalkboard SE", size: 16))
+                    .frame(alignment: .center)
+                    .font(.custom("Chalkboard SE", size: 18))
                     .foregroundColor(.gray)
+                Spacer()
 
                 Text(entry.content)
-                    .font(.custom("Chalkboard SE", size: 16)) 
+                    .font(.custom("Chalkboard SE", size: 18))
                     .padding()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
         }
-        .navigationTitle("📜 日记详情")
+        .navigationTitle("📜 Journal Details")
     }
 
     /// **📌 格式化日期（YYYY/MM/DD）**
     private func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
         return formatter.string(from: date)
     }
 }
 
 #Preview {
-    JournalDetailView(entry: JournalEntry(date: Date(), content: "今天是个好日子，阳光明媚，心情很好！"))
+    JournalDetailView(entry: JournalEntry(date: Date(), content: "Today is very goodd,happyssdddds"))
 }
 

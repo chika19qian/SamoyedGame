@@ -31,7 +31,7 @@ import Combine
         
         
         
-        @Published var showJournalPrompt = false // 是否提示记录日记
+        @Published var showJournalPrompt = false
         @Published var hasMorningJournal = false
         @Published var hasEveningJournal = false
         
@@ -80,7 +80,6 @@ import Combine
             currentMessageIndex = (currentMessageIndex + 1) % Self.messages.count
             objectWillChange.send()
         }
-            
 
         
 
@@ -89,6 +88,16 @@ import Combine
             hasMorningJournal = journalRepository.hasJournalForToday(morning: true)
             hasEveningJournal = journalRepository.hasJournalForToday(morning: false)
             showJournalPrompt = isMorning ? !hasMorningJournal : !hasEveningJournal
+            if !showJournalPrompt {
+                journalChoicePhase = false
+            }
+            let previousPrompt = showJournalPrompt
+                showJournalPrompt = isMorning ? !hasMorningJournal : !hasEveningJournal
+            print("🛠 `checkJournalStatus()` 运行中...")
+            print("⏳ 早晨日记: \(hasMorningJournal), 晚上日记: \(hasEveningJournal), 当前时间早晨? \(isMorning)")
+            print("🔄 `showJournalPrompt` 之前: \(previousPrompt) -> 现在: \(showJournalPrompt)")
+
+            objectWillChange.send()
         }
 
         func observeJournalViewModel(_ journalViewModel: JournalViewModel) {

@@ -49,6 +49,7 @@ struct JournalView: View {
                     .padding()
                 
                 Button("Save") {
+                    print("Save被点击")
                     journalViewModel.saveJournal()
                     presentationMode.wrappedValue.dismiss()
                 }.padding()
@@ -64,10 +65,15 @@ struct JournalView: View {
                     .cornerRadius(15)
                 Spacer()
             }
-            
+            .onAppear {
+                journalViewModel.onSave = {
+                    mainViewModel.checkJournalStatus()  // 
+                }
+            }
+
     }
 }
 
 #Preview {
-    JournalView(journalViewModel: JournalViewModel(morning: true), mainViewModel: MainViewModel())
+    JournalView(journalViewModel: JournalViewModel(), mainViewModel: MainViewModel())
 }

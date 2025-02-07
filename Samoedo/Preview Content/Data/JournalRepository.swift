@@ -21,27 +21,45 @@ class JournalRepository {
         let key = morning ? morningKey : eveningKey
         if let savedData = UserDefaults.standard.data(forKey: key),
            let entry = try? JSONDecoder().decode(JournalEntry.self, from: savedData) {
-            return entry.isToday()
+            print("🔍 检测到日记: \(entry.content) ")
+            return Calendar.current.isDateInToday(entry.date)
         }
         return false
     }
+
+
 
     func saveJournal(morning: Bool, content: String) {
         let key = morning ? morningKey : eveningKey
         let entry = JournalEntry(date: Date(), content: content)
 
 
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        let formattedDate = formatter.string(from: entry.date)
+
         if let encoded = try? JSONEncoder().encode(entry) {
             UserDefaults.standard.set(encoded, forKey: key)
+            print("✅ 日记已保存: \(content) 到 key: \(key) - 存储时间: \(formattedDate)")
+
+            // 🔍 立即读取存储的数据，确保它真的存进去了
+            if let retrievedData = UserDefaults.standard.data(forKey: key),
+               let retrievedEntry = try? JSONDecoder().decode(JournalEntry.self, from: retrievedData) {
+                let retrievedDate = formatter.string(from: retrievedEntry.date)
+                print("确认存储: \(retrievedEntry.content) - 读取时间: \(retrievedDate)")
+            } else {
+                print("❌ 存储失败，无法读取数据")
+            }
+        } else {
+            print("❌ JSON 编码失败！")
         }
 
         var allJournals = loadAllJournals()
-        allJournals.append(entry)  // ✅ 追加新日记，不覆盖旧日记
+        allJournals.append(entry)
         if let encoded = try? JSONEncoder().encode(allJournals) {
             UserDefaults.standard.set(encoded, forKey: allJournalsKey)
         }
 
-        print("Saved successfully!")
     }
 
 

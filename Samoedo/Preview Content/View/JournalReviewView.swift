@@ -45,7 +45,7 @@ struct JournalRowView: View {
     /// **📌 格式化日期（YYYY/MM/DD）**
     private func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
         return formatter.string(from: date)
     }
 }

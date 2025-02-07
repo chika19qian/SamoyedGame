@@ -12,7 +12,7 @@ struct MainView: View {
     private let timer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 Image("room_background")
                     .resizable()
@@ -74,9 +74,9 @@ struct MainView: View {
                             }
                         
                         
-                        if vm.journalChoicePhase {
+                        if vm.journalChoicePhase && vm.showJournalPrompt {
                             HStack {
-                                NavigationLink(destination: JournalView(journalViewModel: JournalViewModel(morning: true), mainViewModel: MainViewModel())){
+                                NavigationLink(destination: JournalView(journalViewModel: JournalViewModel(), mainViewModel: MainViewModel())){
                                     Text("Yes, now")                           .chalkboardFont(size: 25)
                                         .foregroundColor(Color.white)
                                         .padding()
@@ -131,7 +131,10 @@ struct MainView: View {
                         vm.saveData()
                     }
                 }
+            }.onAppear {
+                vm.checkJournalStatus()
             }
+
         }
         
         
