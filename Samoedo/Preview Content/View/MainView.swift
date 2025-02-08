@@ -25,12 +25,12 @@ struct MainView: View {
                         TextField("Name your pet!", text: $vm.pet.name)
                             .chalkboardFont(size: 28)
                             .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
-
+                        
                         Text("\(vm.pet.happinessLevel)").bold() +
                         Text(" and ") +
                         Text("\(vm.pet.hunger)").bold()
                         Text("**Food** : **\(vm.pet.foodCount)**")
-
+                        
                     }.chalkboardFont(size: 20)
                         .foregroundColor(.brown)
                         .padding(.horizontal, 30)
@@ -50,12 +50,12 @@ struct MainView: View {
                     ProgressView(value: vm.pet.stageProgress)
                         .progressViewStyle(VerticalBrownProgressViewStyle())
                         .frame(width: 30, height: 200)
-                        
+                    
                         .onTapGesture {
                             vm.showAgeInfo = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                 vm.showAgeInfo = false
-                                }
+                            }
                         }
                     
                     if vm.showAgeInfo {
@@ -72,69 +72,65 @@ struct MainView: View {
                 
                 HStack {
                     //Feed
-                    ZStack {
-                        Circle()
-                            .fill(Color.brown)
-                            .frame(width: 60, height: 60)
-                            .overlay(
-                                Circle().stroke(Color.white, lineWidth: 3)
-                            )
-                        
-                        Button(action: vm.feed) {
+                    Button(action: vm.feed) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.brown)
+                                .frame(width: 60, height: 60)
+                                .overlay(Circle().stroke(Color.white, lineWidth: 3))
+                            
                             Image("pet-bowl")
                                 .resizable()
                                 .frame(width: 50, height: 50)
                                 .clipShape(Circle())
-                                
                         }
-                        .disabled(vm.pet.foodCount == 0)
                     }
+                    .disabled(vm.pet.foodCount == 0)
+                    
                     
                     Spacer().frame(width: 20)
                     
                     // Journal Review
-                    ZStack {
-                        Circle()
-                            .fill(Color.brown)
-                            .frame(width: 60, height: 60)
-                            .overlay(
-                                Circle().stroke(Color.white, lineWidth: 3)
-                            )
-                        
-                        NavigationLink(destination: JournalReviewView()){
+                    NavigationLink(destination: JournalReviewView()) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.brown)
+                                .frame(width: 60, height: 60)
+                                .overlay(Circle().stroke(Color.white, lineWidth: 3))
+                            
+                            
                             Image("diary")
                                 .resizable()
                                 .frame(width: 43, height: 40)
                         }
                     }
+                    
                 }.offset(x: -110, y: -200)
                 
                 
-                
-                    ZStack {
-                        // button
-                        if vm.journalChoicePhase && vm.showJournalPrompt {
-                            HStack {
-                                NavigationLink(destination: StepFlowView(mainViewModel: vm)){
-                                    Text("Yes, now")                           .chalkboardFont(size: 25)
-                                        .foregroundColor(Color.white)
-                                        .padding()
-                                        .frame(width: 150, height: 50)
-                                        .background(Color.brown.opacity(0.9))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 15)
-                                                .stroke(Color.white, lineWidth: 5)
-                                        )
-                                        .cornerRadius(15)
-                                }
-                                
-                                
-                                Button("No, later") {
-                                    vm.showJournalPrompt = false
-                                    vm.journalChoicePhase = false
-                                    vm.objectWillChange.send()
-                                }
-                                .chalkboardFont(size: 25)
+                if vm.showJournalPrompt {
+                    VStack {
+                        Text(Dialogues.journalPrompt)
+                            .chalkboardFont(size: 28)                     .foregroundColor(.white)
+                            .frame(width:350, height: 150)
+                            .background(Color.brown.opacity(0.98))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white, lineWidth: 7)
+                            )
+                            .multilineTextAlignment(.center)
+                            .cornerRadius(12)
+                            .padding()
+                            .onTapGesture {
+                                vm.showJournalButtons()
+                            }
+                    }
+                }
+                    
+                if vm.journalChoicePhase {
+                    HStack {
+                        NavigationLink(destination: StepFlowView(mainViewModel: vm)){
+                            Text("Yes, now")                           .chalkboardFont(size: 25)
                                 .foregroundColor(Color.white)
                                 .padding()
                                 .frame(width: 150, height: 50)
@@ -144,31 +140,47 @@ struct MainView: View {
                                         .stroke(Color.white, lineWidth: 5)
                                 )
                                 .cornerRadius(15)
-                            }
-                            
-                        } else {
-                            // Message box
-                            Text(vm.currentMessage)
-                                .chalkboardFont(size: 28)                     .foregroundColor(.white)
-                                .frame(height: 150)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.brown.opacity(0.55))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 0)
-                                        .stroke(Color.white, lineWidth: 2)
-                                )
-                                .multilineTextAlignment(.center)
-                                .offset( y: 230)
-                                .onTapGesture {
-                                    vm.didTapChatbot()
-                                }
                         }
-
-                    }
-                    .padding()
-                    .onReceive(timer) {_ in
-                        vm.saveData()
-                    }
+                        
+                        
+                        Button("No, later") {
+                            vm.skipJournal()
+                        }
+                        .chalkboardFont(size: 25)
+                        .foregroundColor(Color.white)
+                        .padding()
+                        .frame(width: 150, height: 50)
+                        .background(Color.brown.opacity(0.9))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(Color.white, lineWidth: 5)
+                        )
+                        .cornerRadius(15)
+                    }.transition(.opacity)
+                        .animation(.easeInOut, value: vm.journalChoicePhase)
+                    
+                }
+                
+                
+                if vm.showingDialog {
+                    Text(vm.dialogMessage)
+                        .chalkboardFont(size: 28)                     .foregroundColor(.white)
+                        .frame(height: 150)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.brown.opacity(0.55))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 0)
+                                .stroke(Color.white, lineWidth: 2)
+                        )
+                        .multilineTextAlignment(.center)
+                        .offset( y: 230)
+                        .onTapGesture {
+                            vm.didTapChatbot()
+                        }
+                }
+                                
+                    }.onReceive(timer) {_ in
+                    vm.saveData()
             }.onAppear {
                 vm.checkJournalStatus()
             }
