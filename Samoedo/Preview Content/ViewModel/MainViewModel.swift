@@ -19,6 +19,9 @@ class MainViewModel: ObservableObject {
     // First Scenes Check
     @Published var showOpeningScene = false
     @Published var openingDialogueIndex = 0
+    @Published var dogName: String = ""
+    @Published var isNamingDog = false
+    
 
 
 
@@ -50,17 +53,27 @@ class MainViewModel: ObservableObject {
     
 // Story First !
     func nextOpeningDialogue() {
-        if openingDialogueIndex < Dialogues.fullStory.count - 1 {
+        if openingDialogueIndex == 7 {
+            isNamingDog = true
+            return
+        }
+        if openingDialogueIndex < Dialogues.story.count - 1 {
             openingDialogueIndex += 1
         } else {
-            // 剧情结束，进入日记引导
-            showOpeningScene = false
             storyRepository.setSeenOpening()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self.showJournalPrompt = true
+
+            withAnimation {
+                showOpeningScene = false
+                showJournalPrompt = true
             }
         }
+    }
+    
+    func confirmDogName(newName: String) {
+        pet.name = newName
+        repository.saveData(pet: pet)
+        isNamingDog = false
+        openingDialogueIndex += 1
     }
     
 // Daily

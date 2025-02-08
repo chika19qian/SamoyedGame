@@ -23,7 +23,7 @@ struct MainView: View {
                 VStack {
                     Spacer().frame(height: 30)
                     VStack(alignment: .leading) {
-                        TextField("Name your pet!", text: $vm.pet.name)
+                        TextField("Change Name!", text: $vm.pet.name)
                             .chalkboardFont(size: 28)
                             .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                         
@@ -185,28 +185,72 @@ struct MainView: View {
                         }
                 }
                 
+// Story 1st
                 
                 if vm.showOpeningScene {
                     VStack {
-                        Text(Dialogues.firstEncounter[vm.openingDialogueIndex])
-                            .chalkboardFont(size: 24)
-                            .foregroundColor(.white)
+                        if vm.isNamingDog {
+                            VStack {
+                                Text("What will you name your puppy?")
+                                    .chalkboardFont(size: 24)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                // 待解决问题： 输入时整个页面上移
+                                TextField("Enter a name", text: $vm.pet.name)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .frame(width: 200)
+                                    .padding()
+                                    .background(Color.white.opacity(0.9))
+                                    .cornerRadius(10)
+
+                                Button("Confirm") {
+                                    vm.confirmDogName(newName: vm.pet.name)
+                                }
+                                .chalkboardFont(size: 22)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.brown.opacity(0.8))
+                                .cornerRadius(10)
+                            }
                             .frame(width: 350, height: 200)
                             .background(Color.brown.opacity(0.9))
-                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white, lineWidth: 5))
-                            .multilineTextAlignment(.center)
                             .cornerRadius(12)
-                            .padding()
+                            .transition(.opacity)
+                            
+                        } else {
+                            // 📖 获取当前对话内容
+                            let dialogueLine = Dialogues.story[vm.openingDialogueIndex]
+                            let speaker = dialogueLine.speaker.replacingOccurrences(of: "{dogName}", with: vm.pet.name)
+                            let message = dialogueLine.message.replacingOccurrences(of: "{dogName}", with: vm.pet.name)
+
+                            VStack {
+                                Text(speaker)
+                                    .bold()
+                                    .chalkboardFont(size: 28)
+                                    .foregroundColor(speaker == "Narration" ? .white : .yellow)  // 旁白是灰色，角色名字是黄色
+                                    .padding(.bottom, 2)
+
+                                Text(message)
+                                    .chalkboardFont(size: 24)
+                                    .foregroundColor(.white)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: 340, height: 180)
+                                    .background(Color.brown.opacity(0.9))
+                                    .cornerRadius(12)
+                                    .padding()
+                            }
                             .onTapGesture {
                                 vm.nextOpeningDialogue()
                             }
+                        }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5)) // 半透明背景，增强剧情沉浸感
-                    .edgesIgnoringSafeArea(.all) // 覆盖整个屏幕
-                    .transition(.opacity) // 添加渐变效果
+                    .background(Color.black.opacity(0.5))
+                    .edgesIgnoringSafeArea(.all)
+                    .transition(.opacity)
                     .animation(.easeInOut, value: vm.showOpeningScene)
                 }
+
 
                                 
                     }.onReceive(timer) {_ in
