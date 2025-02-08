@@ -9,15 +9,16 @@ import SwiftUI
 
 struct StepFlowView: View {
     @StateObject var viewModel = JournalViewModel()
+    @ObservedObject var mainViewModel: MainViewModel
 
     var body: some View {
         VStack {
-            StepNavigationView(viewModel: viewModel) // ✅ 确保导航栏可见
+            StepNavigationView(viewModel: viewModel)
 
             switch viewModel.step {
             case 1:
                 Step1View(viewModel: viewModel)
-                    .navigationBarBackButtonHidden(true) // ✅ 这里确保隐藏 Back 按钮
+                    .navigationBarBackButtonHidden(true)
             case 2:
                 Step2View(viewModel: viewModel)
                     .navigationBarBackButtonHidden(true)
@@ -28,7 +29,7 @@ struct StepFlowView: View {
                 Step4View(viewModel: viewModel)
                     .navigationBarBackButtonHidden(true)
             case 5:
-                Step5View(viewModel: viewModel)
+                Step5View(viewModel: viewModel, mainViewModel: mainViewModel)
                     .navigationBarBackButtonHidden(true)
             default:
                 Text("Unknown Step")

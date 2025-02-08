@@ -24,7 +24,7 @@ struct JournalReviewView: View {
     }
 }
 
-/// **📌 复用组件 - 每个日记条目**
+
 struct JournalRowView: View {
     @StateObject var viewModel = JournalReviewViewModel()
     let entry: JournalEntry

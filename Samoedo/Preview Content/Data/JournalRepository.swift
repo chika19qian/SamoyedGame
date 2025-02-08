@@ -14,7 +14,7 @@ class JournalRepository {
     
     func isMorningNow() -> Bool {
         let hour = Calendar.current.component(.hour, from: Date())
-        return hour < 14
+        return hour > 5 && hour < 14
     }
 
     func hasJournalForToday(morning: Bool) -> Bool {

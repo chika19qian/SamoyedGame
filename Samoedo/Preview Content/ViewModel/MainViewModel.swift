@@ -38,6 +38,7 @@ import Combine
         @Published private var greetingPhase = true
         @Published var journalChoicePhase = false
         @Published private var useGreeting = true
+        @Published var showAgeInfo = false
 
         
         init() {
@@ -113,8 +114,16 @@ import Combine
         }
         
         func feed() {
-            pet.lastMeal = Date()
+            pet.feed()
             saveData()
+        }
+        
+        func gainFoodJournal() {
+            print("📖 写日记获得 3 份狗粮")
+            pet.gainFood(amount: 3)
+            objectWillChange.send()
+            saveData()
+            print("🍖 当前狗粮数量: \(pet.foodCount)")
         }
         
         func didTapSamoyed() {

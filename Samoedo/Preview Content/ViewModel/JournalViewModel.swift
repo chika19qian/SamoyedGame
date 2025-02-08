@@ -62,15 +62,17 @@ class JournalViewModel: ObservableObject {
 
     init() {
         let hour = Calendar.current.component(.hour, from: Date())
-        self.morning = hour < 14  
+        self.morning = hour < 14 && hour > 5
     }
 
 
-    func saveJournal() {
+    func saveJournal(vm: MainViewModel) {
         print("保存日记")
         currentEntry.journalContent = content
         currentEntry.date = Date()
         journalRepository.saveJournal(currentEntry)
+        vm.gainFoodJournal()
+        
         onSave?()
     }
     

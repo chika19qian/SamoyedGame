@@ -53,7 +53,7 @@ struct JournalView: View {
                 
                 Button("Save") {
                     print("Save被点击")
-                    journalViewModel.saveJournal()
+                    journalViewModel.saveJournal(vm: MainViewModel())
                     presentationMode.wrappedValue.dismiss()
                 }.padding()
                     .chalkboardFont(size: 25)

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Step5View: View {
     @ObservedObject var viewModel: JournalViewModel
+    @ObservedObject var mainViewModel: MainViewModel
     @Environment(\.presentationMode) private var presentationMode
 
 
@@ -36,7 +37,7 @@ struct Step5View: View {
                 )
                 .padding()
             
-            Button(action: { viewModel.saveJournal()
+            Button(action: { viewModel.saveJournal(vm: mainViewModel)
                 
                 presentationMode.wrappedValue.dismiss()}) {
                 Text("Save")
@@ -61,5 +62,5 @@ struct Step5View: View {
 }
 
 #Preview {
-    Step5View(viewModel: JournalViewModel())
+    Step5View(viewModel: JournalViewModel(),mainViewModel: MainViewModel())
 }
