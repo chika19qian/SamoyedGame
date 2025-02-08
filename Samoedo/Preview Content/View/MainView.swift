@@ -19,6 +19,7 @@ struct MainView: View {
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
                 
+// Leftup Information
                 VStack {
                     Spacer().frame(height: 30)
                     VStack(alignment: .leading) {
@@ -45,7 +46,8 @@ struct MainView: View {
                             vm.didTapSamoyed()
                         }
                 }
-                
+
+// Right up Status
                 ZStack {
                     ProgressView(value: vm.pet.stageProgress)
                         .progressViewStyle(VerticalBrownProgressViewStyle())
@@ -70,6 +72,8 @@ struct MainView: View {
                     }
                 }.offset(x: 120, y: -250)
                 
+                
+// Two Buttons
                 HStack {
                     //Feed
                     Button(action: vm.feed) {
@@ -108,6 +112,7 @@ struct MainView: View {
                 }.offset(x: -110, y: -200)
                 
                 
+// Daily Journal Prompt
                 if vm.showJournalPrompt {
                     VStack {
                         Text(Dialogues.journalPrompt)
@@ -161,7 +166,8 @@ struct MainView: View {
                     
                 }
                 
-                
+
+// Daily Talk
                 if vm.showingDialog {
                     Text(vm.dialogMessage)
                         .chalkboardFont(size: 28)                     .foregroundColor(.white)
@@ -178,6 +184,30 @@ struct MainView: View {
                             vm.didTapChatbot()
                         }
                 }
+                
+                
+                if vm.showOpeningScene {
+                    VStack {
+                        Text(Dialogues.firstEncounter[vm.openingDialogueIndex])
+                            .chalkboardFont(size: 24)
+                            .foregroundColor(.white)
+                            .frame(width: 350, height: 200)
+                            .background(Color.brown.opacity(0.9))
+                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white, lineWidth: 5))
+                            .multilineTextAlignment(.center)
+                            .cornerRadius(12)
+                            .padding()
+                            .onTapGesture {
+                                vm.nextOpeningDialogue()
+                            }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.5)) // 半透明背景，增强剧情沉浸感
+                    .edgesIgnoringSafeArea(.all) // 覆盖整个屏幕
+                    .transition(.opacity) // 添加渐变效果
+                    .animation(.easeInOut, value: vm.showOpeningScene)
+                }
+
                                 
                     }.onReceive(timer) {_ in
                     vm.saveData()

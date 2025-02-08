@@ -14,7 +14,14 @@ class MainViewModel: ObservableObject {
     @Published var pet: Pet
     private var repository = PetRepository()
     private var journalRepository = JournalRepository()
+    private var storyRepository = StoryRepository()
     
+    // First Scenes Check
+    @Published var showOpeningScene = false
+    @Published var openingDialogueIndex = 0
+
+
+
     // initial prompt
     @Published var hasMorningJournal = false
     @Published var hasEveningJournal = false
@@ -34,9 +41,35 @@ class MainViewModel: ObservableObject {
     init() {
         pet = repository.loadData()
         checkJournalStatus()
+        
+        //check first story
+        if !storyRepository.hasSeenOpening() {
+            showOpeningScene = true
+        }
     }
     
+// Story First !
+    func nextOpeningDialogue() {
+        if openingDialogueIndex < Dialogues.fullStory.count - 1 {
+            openingDialogueIndex += 1
+        } else {
+            // 剧情结束，进入日记引导
+            showOpeningScene = false
+            storyRepository.setSeenOpening()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.showJournalPrompt = true
+            }
+        }
+    }
+    
+// Daily
+    
     func checkJournalStatus() {
+        if showOpeningScene {
+            showJournalPrompt = false
+            return }
+        
         let isMorning = journalRepository.isMorningNow()
         hasMorningJournal = journalRepository.hasJournalForToday(morning: true)
         hasEveningJournal = journalRepository.hasJournalForToday(morning: false)
