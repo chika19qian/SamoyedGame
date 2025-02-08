@@ -20,107 +20,98 @@ struct MainView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    ZStack {
-                        VStack(alignment: .leading) {
-                            TextField("Name your pet!", text: $vm.pet.name)
-                                .chalkboardFont(size: 28)
-                                .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+                    Spacer().frame(height: 30)
+                    VStack(alignment: .leading) {
+                        TextField("Name your pet!", text: $vm.pet.name)
+                            .chalkboardFont(size: 28)
+                            .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
 
-                            Text("\(vm.pet.happinessLevel)").bold() +
-                            Text(" and ") +
-                            Text("\(vm.pet.hunger)").bold()
-                            Text("Food : **\(vm.pet.foodCount)**")
-                                    
-                            
-                            
-                            
-                        }.chalkboardFont(size: 20)
-                            .foregroundColor(.brown)
-                            .padding(.horizontal, 30)
+                        Text("\(vm.pet.happinessLevel)").bold() +
+                        Text(" and ") +
+                        Text("\(vm.pet.hunger)").bold()
+                        Text("**Food** : **\(vm.pet.foodCount)**")
+
+                    }.chalkboardFont(size: 20)
+                        .foregroundColor(.brown)
+                        .padding(.horizontal, 30)
+                    
+                    Spacer()
+                    // samoyed image
+                    Image(vm.pet.stageImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 400, height: 400)
+                        .onTapGesture {
+                            vm.didTapSamoyed()
+                        }
+                }
+                
+                ZStack {
+                    ProgressView(value: vm.pet.stageProgress)
+                        .progressViewStyle(VerticalBrownProgressViewStyle())
+                        .frame(width: 30, height: 200)
                         
-                        ZStack {
-                            if vm.showAgeInfo {
-                                VStack {
-                                    Text(" **\(vm.pet.age)** /**\(vm.pet.currentStageEnd)**")
-                                    Text("**\(vm.pet.stage )** ")
-                                }.chalkboardFont(size: 20)
-                                    .foregroundColor(.brown)
-                                    .padding(.horizontal, 0)
-                                    .transition(.opacity)
-                                    .animation(.easeInOut, value: vm.showAgeInfo)
-                            }
-                            
-                            
-                            
-                            ProgressView(value: vm.pet.stageProgress)
-                                .progressViewStyle(VerticalBrownProgressViewStyle())
-                                .frame(width: 30, height: 200)
-                                .offset(x: 100, y: 50)
-                                .onTapGesture {
-                                    vm.showAgeInfo = true
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                        vm.showAgeInfo = false
-                                        }
+                        .onTapGesture {
+                            vm.showAgeInfo = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                vm.showAgeInfo = false
                                 }
                         }
+                    
+                    if vm.showAgeInfo {
+                        VStack {
+                            Text("**\(vm.pet.stage )** ")
+                            Text(" **\(vm.pet.age)** /**\(vm.pet.currentStageEnd)**")
+                        }.chalkboardFont(size: 20)
+                            .foregroundColor(.brown)
+                            .padding(.horizontal, 0)
+                            .transition(.opacity)
+                            .animation(.easeInOut, value: vm.showAgeInfo)
                     }
-                    
-                    
-                    
-                    HStack {
-                        //Feed
-                        ZStack {
-                            Circle()
-                                .fill(Color.brown)
-                                .frame(width: 60, height: 60)
-                                .overlay(
-                                    Circle().stroke(Color.white, lineWidth: 3)
-                                )
-                            
-                            Button(action: vm.feed) {
-                                Image("pet-bowl")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .clipShape(Circle())
-                                    
-                            }
-                            .disabled(vm.pet.foodCount == 0)
-                        }
-                        
-                        Spacer().frame(width: 70)
-                        
-                        // Journal Review
-                        ZStack {
-                            Circle()
-                                .fill(Color.brown)
-                                .frame(width: 60, height: 60)
-                                .overlay(
-                                    Circle().stroke(Color.white, lineWidth: 3)
-                                )
-                            
-                            NavigationLink(destination: JournalReviewView()){
-                                Image("diary")
-                                    .resizable()
-                                    .frame(width: 43, height: 40)
-                            }
-                        }
-                        
-                        
-                    }
-                    Spacer().frame(height: 90)
-                    
-                    
-                    // 对话框 ✅
+                }.offset(x: 120, y: -250)
+                
+                HStack {
+                    //Feed
                     ZStack {
-                        // samoyed image
-                        Image(vm.pet.stageImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 400, height: 400)
-                            .onTapGesture {
-                                vm.didTapSamoyed()
-                            }
+                        Circle()
+                            .fill(Color.brown)
+                            .frame(width: 60, height: 60)
+                            .overlay(
+                                Circle().stroke(Color.white, lineWidth: 3)
+                            )
                         
+                        Button(action: vm.feed) {
+                            Image("pet-bowl")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                                
+                        }
+                        .disabled(vm.pet.foodCount == 0)
+                    }
+                    
+                    Spacer().frame(width: 20)
+                    
+                    // Journal Review
+                    ZStack {
+                        Circle()
+                            .fill(Color.brown)
+                            .frame(width: 60, height: 60)
+                            .overlay(
+                                Circle().stroke(Color.white, lineWidth: 3)
+                            )
+                        
+                        NavigationLink(destination: JournalReviewView()){
+                            Image("diary")
+                                .resizable()
+                                .frame(width: 43, height: 40)
+                        }
+                    }
+                }.offset(x: -110, y: -200)
+                
+                
+                
+                    ZStack {
                         // button
                         if vm.journalChoicePhase && vm.showJournalPrompt {
                             HStack {
@@ -159,7 +150,7 @@ struct MainView: View {
                             // Message box
                             Text(vm.currentMessage)
                                 .chalkboardFont(size: 28)                     .foregroundColor(.white)
-                                .frame(height: 140)
+                                .frame(height: 150)
                                 .frame(maxWidth: .infinity)
                                 .background(Color.brown.opacity(0.55))
                                 .overlay(
@@ -167,7 +158,7 @@ struct MainView: View {
                                         .stroke(Color.white, lineWidth: 2)
                                 )
                                 .multilineTextAlignment(.center)
-                                .offset(x:-18, y: 65)
+                                .offset( y: 230)
                                 .onTapGesture {
                                     vm.didTapChatbot()
                                 }
@@ -178,14 +169,10 @@ struct MainView: View {
                     .onReceive(timer) {_ in
                         vm.saveData()
                     }
-                }
             }.onAppear {
                 vm.checkJournalStatus()
             }
-
         }
-        
-        
     }
 }
 
