@@ -23,7 +23,7 @@ class MainViewModel: ObservableObject {
     @Published var isNamingDog = false
     @Published var openJournal = false
     @Published var navigateToMain = false
-
+    @Published var isOpeningSceneFinished = false
 
 
     // initial prompt
@@ -75,17 +75,13 @@ class MainViewModel: ObservableObject {
                 withAnimation {
                     self.showOpeningScene = false
                     self.showJournalPrompt = true
+                    self.isOpeningSceneFinished = true
                     print("🏠 Transitioning to MainView")
                 }
             }
         }
     }
     
-    var isOpeningSceneFinished: Bool {
-        let finished = openingDialogueIndex > Dialogues.story.count
-        print("🔍 isOpeningSceneFinished: \(finished)")
-        return finished
-    }
     
     func confirmDogName(newName: String) {
         if newName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {

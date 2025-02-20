@@ -38,7 +38,7 @@ struct LoadingView: View {
         }
     }
 
-    /// **📌 模拟加载进度**
+
     private func startLoading() {
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
             if self.progress < 1.0 {
@@ -49,7 +49,6 @@ struct LoadingView: View {
         }
     }
 }
-
 
 struct ProgressBar: View {
     var progress: CGFloat
@@ -62,17 +61,18 @@ struct ProgressBar: View {
 
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.yellow)
-                .frame(width: 250 * progress, height: 20)
+                .frame(width: max(0, min(250 * progress, 250)), height: 20)
 
             HStack {
                 Spacer()
-                    .frame(width: 250 * progress - 20) 
+                    .frame(width: max(0, min(250 * progress - 20, 230))) //
                 Text("🐾")
                     .font(.system(size: 16))
             }
         }
     }
 }
+
 
 #Preview {
     LoadingView()
