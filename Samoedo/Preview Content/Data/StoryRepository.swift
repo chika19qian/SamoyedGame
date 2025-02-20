@@ -13,10 +13,17 @@ class StoryRepository {
     private let userDefaults = UserDefaults.standard
     
     func hasSeenOpening() -> Bool {
-        return userDefaults.bool(forKey: hasSeenOpeningKey)
+        let seen = userDefaults.bool(forKey: hasSeenOpeningKey)
+        print("🔍 storyRepository.hasSeenOpening() -> \(seen)")
+        return seen
     }
     
     func setSeenOpening() {
+        print("～～～～～～～～～")
         userDefaults.set(true, forKey: hasSeenOpeningKey)
+        userDefaults.synchronize()
+        
+        let savedValue = userDefaults.bool(forKey: hasSeenOpeningKey)
+        print("✅ storyRepository.setSeenOpening() -> Opening scene marked as seen, UserDefaults: \(savedValue)")
     }
 }

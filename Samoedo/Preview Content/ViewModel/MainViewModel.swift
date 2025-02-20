@@ -19,9 +19,10 @@ class MainViewModel: ObservableObject {
     // First Scenes Check
     @Published var showOpeningScene = false
     @Published var openingDialogueIndex = 0
-    @Published var dogName: String = ""
+    @Published var dogName: String = "Samoyed"
     @Published var isNamingDog = false
-    
+    @Published var openJournal = false
+    @Published var navigateToMain = false
 
 
 
@@ -48,32 +49,54 @@ class MainViewModel: ObservableObject {
         //check first story
         if !storyRepository.hasSeenOpening() {
             showOpeningScene = true
+            print("✅ First launch: Showing opening scene")
+        } else {
+            showOpeningScene = false
+            print("✅ Opening scene already seen: Skipping to main")
         }
     }
     
 // Story First !
+
     func nextOpeningDialogue() {
-        if openingDialogueIndex == 7 {
+        print("🔍 Check: openingDialogueIndex = \(openingDialogueIndex), story count = \(Dialogues.story.count), isOpeningSceneFinished = \(isOpeningSceneFinished)")
+
+        if openingDialogueIndex == 8 {
             isNamingDog = true
             return
         }
-        if openingDialogueIndex < Dialogues.story.count - 1 {
+        if openingDialogueIndex < Dialogues.story.count - 1  {
             openingDialogueIndex += 1
+            print("➡️ Moving to next dialogue: \(openingDialogueIndex)")
         } else {
+            print("✅ nextOpeningDialogue: Marking opening scene as seen")
             storyRepository.setSeenOpening()
-
-            withAnimation {
-                showOpeningScene = false
-                showJournalPrompt = true
+            DispatchQueue.main.async {
+                withAnimation {
+                    self.showOpeningScene = false
+                    self.showJournalPrompt = true
+                    print("🏠 Transitioning to MainView")
+                }
             }
         }
     }
     
+    var isOpeningSceneFinished: Bool {
+        let finished = openingDialogueIndex > Dialogues.story.count
+        print("🔍 isOpeningSceneFinished: \(finished)")
+        return finished
+    }
+    
     func confirmDogName(newName: String) {
-        pet.name = newName
-        repository.saveData(pet: pet)
-        isNamingDog = false
-        openingDialogueIndex += 1
+        if newName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            dogName = "Samoyed"
+        } else {
+            pet.name = newName
+            repository.saveData(pet: pet)
+            isNamingDog = false
+            openingDialogueIndex += 1
+        }
+        
     }
     
 // Daily
@@ -151,10 +174,6 @@ class MainViewModel: ObservableObject {
         saveData()
         print("🍖 当前狗粮数量: \(pet.foodCount)")
     }
-    
-
-      
-    
 
 }
 

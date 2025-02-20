@@ -35,13 +35,11 @@ class JournalReviewViewModel: ObservableObject {
         }
     }
 
-    func randomizedPreviewText(_ content: String) -> String {
-        let responses = content.split(separator: "\n\n")
-            .map { String($0) }
-            .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-        
-        return responses.randomElement() ?? "No content available"
+    
+    func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        return formatter.string(from: date)
     }
-
 
 }

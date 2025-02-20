@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject private var vm = MainViewModel()
+    @ObservedObject var vm = MainViewModel()
     private let timer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -165,101 +165,37 @@ struct MainView: View {
                         .animation(.easeInOut, value: vm.journalChoicePhase)
                     
                 }
-                
+                    
 
-// Daily Talk
-                if vm.showingDialog {
-                    Text(vm.dialogMessage)
-                        .chalkboardFont(size: 28)                     .foregroundColor(.white)
-                        .frame(height: 150)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.brown.opacity(0.55))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 0)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
-                        .multilineTextAlignment(.center)
-                        .offset( y: 230)
-                        .onTapGesture {
-                            vm.didTapChatbot()
-                        }
-                }
-                
-// Story 1st
-                
-                if vm.showOpeningScene {
-                    VStack {
-                        if vm.isNamingDog {
-                            VStack {
-                                Text("What will you name your puppy?")
-                                    .chalkboardFont(size: 24)
-                                    .foregroundColor(.white)
-                                    .padding()
-                                // 待解决问题： 输入时整个页面上移
-                                TextField("Enter a name", text: $vm.pet.name)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .frame(width: 200)
-                                    .padding()
-                                    .background(Color.white.opacity(0.9))
-                                    .cornerRadius(10)
-
-                                Button("Confirm") {
-                                    vm.confirmDogName(newName: vm.pet.name)
-                                }
-                                .chalkboardFont(size: 22)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.brown.opacity(0.8))
-                                .cornerRadius(10)
-                            }
-                            .frame(width: 350, height: 200)
-                            .background(Color.brown.opacity(0.9))
-                            .cornerRadius(12)
-                            .transition(.opacity)
-                            
-                        } else {
-                            // 📖 获取当前对话内容
-                            let dialogueLine = Dialogues.story[vm.openingDialogueIndex]
-                            let speaker = dialogueLine.speaker.replacingOccurrences(of: "{dogName}", with: vm.pet.name)
-                            let message = dialogueLine.message.replacingOccurrences(of: "{dogName}", with: vm.pet.name)
-
-                            VStack {
-                                Text(speaker)
-                                    .bold()
-                                    .chalkboardFont(size: 28)
-                                    .foregroundColor(speaker == "Narration" ? .white : .yellow)  // 旁白是灰色，角色名字是黄色
-                                    .padding(.bottom, 2)
-
-                                Text(message)
-                                    .chalkboardFont(size: 24)
-                                    .foregroundColor(.white)
-                                    .multilineTextAlignment(.center)
-                                    .frame(width: 340, height: 180)
-                                    .background(Color.brown.opacity(0.9))
-                                    .cornerRadius(12)
-                                    .padding()
-                            }
+    // Daily Talk
+                    if vm.showingDialog {
+                        Text(vm.dialogMessage)
+                            .chalkboardFont(size: 28)                     .foregroundColor(.white)
+                            .frame(height: 150)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.brown.opacity(0.55))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 0)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
+                            .multilineTextAlignment(.center)
+                            .offset( y: 230)
                             .onTapGesture {
-                                vm.nextOpeningDialogue()
+                                vm.didTapChatbot()
                             }
-                        }
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .edgesIgnoringSafeArea(.all)
-                    .transition(.opacity)
-                    .animation(.easeInOut, value: vm.showOpeningScene)
+                    
+                    
+                                    
+                        }.onReceive(timer) {_ in
+                        vm.saveData()
+                }.onAppear {
+                    vm.checkJournalStatus()
                 }
-
-
-                                
-                    }.onReceive(timer) {_ in
-                    vm.saveData()
-            }.onAppear {
-                vm.checkJournalStatus()
             }
-        }
-    }
+
+        
+            }
 }
 
 #Preview {

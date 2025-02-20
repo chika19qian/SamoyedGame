@@ -11,13 +11,13 @@ import SwiftData
 @main
 struct SamoedoApp: App {
     init() {
-        setupNavigationBarAppearance()  
+        print("✅ App is launching...")
+        setupNavigationBarAppearance()
     }
 
     var body: some Scene {
         WindowGroup {
-            MainView()
-                
+            StartView()
         }
     }
 }
