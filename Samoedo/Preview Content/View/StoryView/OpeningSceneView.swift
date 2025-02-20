@@ -79,6 +79,7 @@ struct OpeningSceneView: View {
                 .bold()
                 .chalkboardFont(size: 28)
                 .foregroundColor(speaker == "Narration" ? .white : .yellow)
+                .cornerRadius(12)
                 .padding(.bottom, 2)
 
             Text(message)

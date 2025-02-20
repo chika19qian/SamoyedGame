@@ -17,6 +17,7 @@ struct JournalDetailView: View {
 
     var body: some View {
         ScrollView {
+                                
             VStack(alignment: .leading, spacing: 10) {
                 Text(formattedDate(entry.date))
                     .frame(alignment: .center)
@@ -30,6 +31,7 @@ struct JournalDetailView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
+            
         }
         .navigationTitle("📜 Journal Details")
         .toolbar {

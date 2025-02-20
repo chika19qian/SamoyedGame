@@ -42,3 +42,16 @@ struct EditJournalView: View {
         .padding()
     }
 }
+
+#Preview {
+    EditJournalView(viewModel: JournalReviewViewModel(), entry: JournalEntry(
+        id: UUID(),
+        date: Date(),
+        step1Response: "Slept well 😴",
+        step2Response: [Event(id: UUID(), name: "Study", icon: "📖")],
+        step3Response: "Had a productive study session",
+        step4Response: "Plan to review notes",
+        step5Response: "Looking forward to tomorrow!",
+        journalContent: "ok"
+    ))
+}

@@ -13,14 +13,20 @@ struct JournalReviewView: View {
     var body: some View {
         
         NavigationView {
-            
-            List(viewModel.journalEntries) { entry in
-                NavigationLink(destination: JournalDetailView(viewModel: JournalReviewViewModel(), entry: entry)) {
-                    JournalRowView(viewModel:viewModel, entry: entry)
+            ZStack {
+                Image("bookshelf")
+                    .resizable()
+                    .scaledToFill()
+                    .edgesIgnoringSafeArea(.all)
+                List(viewModel.journalEntries) { entry in
+                    NavigationLink(destination: JournalDetailView(viewModel: JournalReviewViewModel(), entry: entry)) {
+                        JournalRowView(viewModel:viewModel, entry: entry)
+                    }
                 }
+                .navigationTitle("📖 Journal Reveiw")
+                .font(.custom("Chalkboard SE", size: 18))
+                .toolbarBackground(.hidden, for: .navigationBar)
             }
-            .navigationTitle("📖 Journal Reveiw")
-            .font(.custom("Chalkboard SE", size: 18))
         }
     }
 }

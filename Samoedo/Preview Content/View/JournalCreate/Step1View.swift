@@ -25,6 +25,11 @@ struct Step1View: View {
                 .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 .frame(alignment:.center)
                 .padding()
+            Text( " (From 1-not good to 5-very good)")
+                .chalkboardFont(size: 18)
+                .foregroundColor(Color(red: 0.4, green: 0.23, blue: 0.1))
+                .frame(alignment:.center)
+                .padding()
             
             Spacer().frame(height: 150)
 

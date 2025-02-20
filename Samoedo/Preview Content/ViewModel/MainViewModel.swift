@@ -61,7 +61,7 @@ class MainViewModel: ObservableObject {
     func nextOpeningDialogue() {
         print("🔍 Check: openingDialogueIndex = \(openingDialogueIndex), story count = \(Dialogues.story.count), isOpeningSceneFinished = \(isOpeningSceneFinished)")
 
-        if openingDialogueIndex == 8 {
+        if openingDialogueIndex == 7 {
             isNamingDog = true
             return
         }
