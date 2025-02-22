@@ -44,31 +44,44 @@ struct MainView: View {
                         .onTapGesture {
                             vm.didTapSamoyed()
                         }
+                        .onLongPressGesture {
+                            vm.startMeditation()
+                        }
                 }
 
 // Right up Status
                 ZStack {
-                    ProgressView(value: vm.pet.stageProgress)
-                        .progressViewStyle(VerticalBrownProgressViewStyle())
-                        .frame(width: 30, height: 200)
-                    
-                        .onTapGesture {
-                            vm.showAgeInfo = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                vm.showAgeInfo = false
-                            }
+                    VStack {
+                        Button(action: vm.openSettings) {
+                            Image(systemName: "gearshape.fill")
+                                .resizable()
+                                .frame(width:30, height: 30)
+                                .foregroundColor(.brown)
                         }
-                    
-                    if vm.showAgeInfo {
-                        VStack {
-                            Text("**\(vm.pet.stage )** ")
-                            Text(" **\(vm.pet.age)** /**\(vm.pet.currentStageEnd)**")
-                        }.chalkboardFont(size: 20)
-                            .foregroundColor(.brown)
-                            .padding(.horizontal, 0)
-                            .transition(.opacity)
-                            .animation(.easeInOut, value: vm.showAgeInfo)
+                        
+                        ProgressView(value: vm.pet.stageProgress)
+                            .progressViewStyle(VerticalBrownProgressViewStyle())
+                            .frame(width: 30, height: 200)
+                        
+                            .onTapGesture {
+                                vm.showAgeInfo = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                    vm.showAgeInfo = false
+                                }
+                            }
+                        
+                        if vm.showAgeInfo {
+                            VStack {
+                                Text("**\(vm.pet.stage )** ")
+                                Text(" **\(vm.pet.age)** /**\(vm.pet.currentStageEnd)**")
+                            }.chalkboardFont(size: 20)
+                                .foregroundColor(.brown)
+                                .padding(.horizontal, 0)
+                                .transition(.opacity)
+                                .animation(.easeInOut, value: vm.showAgeInfo)
+                        }
                     }
+                    
                 }.offset(x: 120, y: -250)
                 
                 
@@ -93,7 +106,7 @@ struct MainView: View {
                     
                     Spacer().frame(width: 20)
                     
-// Journal Review
+                    // Journal Review
                     NavigationLink(destination: JournalReviewView()) {
                         ZStack {
                             Circle()
@@ -192,7 +205,13 @@ struct MainView: View {
                 }.onAppear {
                     vm.checkJournalStatus()
                 }
-            }
+                .navigationDestination(isPresented: $vm.navigateToSettings) {
+                            SettingsView()
+                        }
+                .navigationDestination(isPresented: $vm.isMeditationActive){
+                    MeditationView(viewModel: MeditationViewModel(), mainViewModel: vm)
+                }
+        }
 
         
             }

@@ -79,6 +79,35 @@ struct VerticalBrownProgressViewStyle: ProgressViewStyle {
     }
 }
 
+struct HorizontalBrownProgressViewStyle: ProgressViewStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                // 背景 (浅褐色)
+                RoundedRectangle(cornerRadius: geometry.size.height / 2)
+                    .fill(Color.brown.opacity(0.3))
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+
+                // 进度部分 (深褐色)
+                RoundedRectangle(cornerRadius: geometry.size.height / 2)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.yellow, Color.yellow.opacity(0.7)]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .frame(
+                        width: geometry.size.width * CGFloat(configuration.fractionCompleted ?? 0),
+                        height: geometry.size.height
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: geometry.size.height / 2))
+            }
+        }
+        .frame(height: 15)  
+    }
+}
+
 struct KeyboardAwareModifier: ViewModifier {
     @State private var keyboardHeight: CGFloat = 0
 

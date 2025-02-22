@@ -40,12 +40,18 @@ class MainViewModel: ObservableObject {
     var emotionScore: Int {
         return journalRepository.getLatestEmotionScore()
     }
+    
+    // meditation
+    @Published var isMeditationActive = false
 
     
     @Published var showAgeInfo = false
 
+    // change views
+    @Published var navigateToSettings = false
     
     init() {
+        AudioManager.shared.playBGM(filename: "main_bgm")
         pet = repository.loadData()
         checkJournalStatus()
         
@@ -178,6 +184,21 @@ class MainViewModel: ObservableObject {
     func updateEmotionScore() {
         let latestJournalScore = journalRepository.getLatestEmotionScore()
         print("📝 Updated emotionScore to \(latestJournalScore)")
+    }
+    
+    // meditation
+    func startMeditation() {
+        isMeditationActive = true
+        print("LongPressed")
+    }
+
+    func endMeditation() {
+        isMeditationActive = false
+    }
+    
+    // change to settingsView
+    func openSettings() {
+        navigateToSettings = true
     }
 
 }

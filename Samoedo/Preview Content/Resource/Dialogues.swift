@@ -118,12 +118,14 @@ struct Dialogues {
         switch emotionScore {
         case 1:
             reactions = [
+                "Long press, meditation 🧘‍♂️",
                 "(rests head on your lap) I’m here for you!",
                 "(sits close to you silently)",
                 "(lays down beside you, ears drooping)"
             ]
         case 2:
             reactions = [
+                "Long press, meditation 🧘‍♂️",
                 "(nudges you) Let's do something fun!",
                 "(barks softly) Want to play?",
                 "(sits beside you wagging its tail)"
@@ -162,12 +164,14 @@ struct Dialogues {
         switch emotionScore {
         case 1:
             reactions = [
+                "You seem a bit down... Want to try meditating together? 🧘‍♂️",
                 "I'm here for you, buddy. Want a hug?",
                 "(sits beside you quietly) You can talk to me.",
                 "(lays head on your lap) It’s okay, I’m here."
             ]
         case 2:
             reactions = [
+                "You seem a bit down... Want to try meditating together? 🧘‍♂️",
                 "You seem a little off today. Let’s take it easy!",
                 "If you need a break, I'm here for you.",
                 "Let's just relax together, okay?"
