@@ -36,10 +36,10 @@ struct Dialogues {
         let baseDialogue = getBaseDialogue(for: stage, hunger: hunger)
         let emotionReaction = getEmotionReaction(for: stage, emotionScore: emotionScore)
 
-        // 🎲 50% 概率添加 emotionReaction，50% 只返回 baseDialogue
-        let includeEmotion = Bool.random()
-        
-        return includeEmotion ? "\(baseDialogue) \(emotionReaction)" : baseDialogue
+        let allDialogues =  [baseDialogue, emotionReaction]
+
+        return allDialogues.randomElement() ?? "🐶 *blinks curiously*"
+
     }
 
 
@@ -71,55 +71,135 @@ struct Dialogues {
     }
 
     private static func getPuppyEmotionReaction(_ emotionScore: Int) -> String {
+        let reactions: [String]
         switch emotionScore {
         case 1:
-            return "(whines and snuggles up to you)"
+            reactions = [
+                "(whines and snuggles up to you)",
+                "(whimpers softly and nudges you)",
+                "(curls up beside you quietly)"
+            ]
         case 2:
-            return "(nudges your hand and licks it softly)"
+            reactions = [
+                "(nudges your hand and licks it softly)",
+                "(rests head on your knee)",
+                "(gives you big puppy eyes)"
+            ]
         case 3:
-            return "(wag) Playtime?"
+            reactions = [
+                "(wag wag!)",
+                "(tilts head curiously)",
+                "(barks softly)"
+            ]
         case 4:
-            return "(jumps around excitedly) Woof woof!"
+            reactions = [
+                "(jumps around excitedly) Woof woof!",
+                "(paws at you playfully)",
+                "(does a little happy dance)"
+            ]
         case 5:
-            return "So much fun!!!"
+            reactions = [
+                "So much fun!!!",
+                "(zoomies around the room)",
+                "(spins in circles excitedly)"
+            ]
         default:
-            return "(tilts head) Woof?"
+            reactions = [
+                "(tilts head) Woof?",
+                "(looks at you expectantly)",
+                "(wiggles tail slightly)"
+            ]
         }
+        return reactions.randomElement() ?? "(tilts head) Woof?"
     }
 
     private static func getYoungEmotionReaction(_ emotionScore: Int) -> String {
+        let reactions: [String]
         switch emotionScore {
         case 1:
-            return "(rests head on your lap) I’m here for you!"
+            reactions = [
+                "(rests head on your lap) I’m here for you!",
+                "(sits close to you silently)",
+                "(lays down beside you, ears drooping)"
+            ]
         case 2:
-            return "(nudges you) Let's do something fun!"
+            reactions = [
+                "(nudges you) Let's do something fun!",
+                "(barks softly) Want to play?",
+                "(sits beside you wagging its tail)"
+            ]
         case 3:
-            return "(tail wagging) You seem okay! Wanna play?"
+            reactions = [
+                "(tail wagging) You seem okay! Wanna play?",
+                "(ears perk up) What’s next?",
+                "(tilts head and barks playfully)"
+            ]
         case 4:
-            return "(bounces happily) You're feeling great! Let's go outside!"
+            reactions = [
+                "(bounces happily) You're feeling great! Let's go outside!",
+                "(wags tail excitedly) Wanna go for a run?",
+                "(spins in circles) Let’s have fun!"
+            ]
         case 5:
-            return "(runs in circles) Yay! You look super happy!"
+            reactions = [
+                "(runs in circles) Yay! You look super happy!",
+                "(excited jumps) Let's play!",
+                "(barks happily) I love this energy!"
+            ]
         default:
-            return "How are you?"
+            reactions = [
+                "How are you?",
+                "(tilts head, curious)",
+                "(sits quietly, waiting)"
+            ]
         }
+        return reactions.randomElement() ?? "How are you?"
     }
 
+
     private static func getAdultEmotionReaction(_ emotionScore: Int) -> String {
+        let reactions: [String]
         switch emotionScore {
         case 1:
-            return "I'm here for you, buddy. Want a hug?"
+            reactions = [
+                "I'm here for you, buddy. Want a hug?",
+                "(sits beside you quietly) You can talk to me.",
+                "(lays head on your lap) It’s okay, I’m here."
+            ]
         case 2:
-            return "You seem a little off today. Let’s take it easy!"
+            reactions = [
+                "You seem a little off today. Let’s take it easy!",
+                "If you need a break, I'm here for you.",
+                "Let's just relax together, okay?"
+            ]
         case 3:
-            return "You're doing fine! Let’s have a good day together!"
+            reactions = [
+                "You're doing fine! Let’s have a good day together!",
+                "Let’s take things at your pace.",
+                "Everything’s going well, let’s keep it up!"
+            ]
         case 4:
-            return "You're feeling great! Maybe we should go for a walk?"
+            reactions = [
+                "You're feeling great! Maybe we should go for a walk?",
+                "Let’s make the most of today!",
+                "You have good energy! Let’s do something fun!"
+            ]
         case 5:
-            return "You're super happy! I love seeing you like this!"
+            reactions = [
+                "You're super happy! I love seeing you like this!",
+                "This is awesome! Let’s enjoy the moment!",
+                "(barks happily) You seem so excited!"
+            ]
         default:
-            return "Hey, how are you?"
+            reactions = [
+                "Hey, how are you?",
+                "(tilts head, curious)",
+                "(sits calmly, wagging tail)"
+            ]
         }
+        return reactions.randomElement() ?? "Hey, how are you?"
     }
+
     
     
 // FIRST Story
