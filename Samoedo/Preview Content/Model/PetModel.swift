@@ -12,14 +12,16 @@ struct Pet: Codable {
     var birthday = Date()
     var lastMeal: Date
     var foodCount: Int = 5
-    
+    var ageOffset: Int = 0
     var happinessLevel: String {
         hunger == "Hungry" ? "Unhappy" : "Happy"
     }
+
     
     var age: Int {
         let timeSince = calcTimeSince(data: birthday)
-        return timeSince
+        let ageTime = timeSince + ageOffset
+        return ageTime
     }
     
     var hunger: String {
@@ -38,19 +40,19 @@ struct Pet: Codable {
     
     var stage: String {
         switch age {
-        case 0..<600: return "Puppy"
-        case 600..<1000: return "Young"
-        case 1000...: return "Adult"
+        case 0..<1000: return "Puppy"
+        case 1000..<5000: return "Young"
+        case 5000...: return "Adult"
         default: return "Idk"
         }
     }
     
     var currentStageEnd: Int {
         switch stage {
-        case "Puppy": return 600
-        case "Young": return 1000
-        case "Adult": return 50000
-        default: return 120000
+        case "Puppy": return 1000
+        case "Young": return 5000
+        case "Adult": return 120000
+        default: return 1000000
         }
     }
 
@@ -62,16 +64,16 @@ struct Pet: Codable {
             switch stage {
             case "Puppy":
                 stageStart = 0
-                stageEnd = 600
-            case "Young":
-                stageStart = 600
                 stageEnd = 1000
-            case "Adult":
+            case "Young":
                 stageStart = 1000
-                stageEnd = 50000
-            default:
-                stageStart = 50000
+                stageEnd = 5000
+            case "Adult":
+                stageStart = 5000
                 stageEnd = 120000
+            default:
+                stageStart = 120000
+                stageEnd = 1000000
             }
 
             let progress = Double(age - stageStart) / Double(stageEnd - stageStart)
@@ -90,6 +92,7 @@ struct Pet: Codable {
     mutating func feed() {
         if foodCount > 0 {
             lastMeal = Date()
+            ageOffset += 100
             foodCount -= 1
         }
     }
@@ -97,4 +100,10 @@ struct Pet: Codable {
     mutating func gainFood(amount: Int) {
         foodCount += amount
     }
+    
+    func getPetDialogue(emotionScore: Int) -> String {
+        return Dialogues.getDialogue(for: stage, hunger: hunger, emotionScore: emotionScore)
+    }
+
+
 }

@@ -102,5 +102,24 @@ class JournalRepository {
         print("✏️ Updated journal with ID: \(entry.id)")
     }
 
+    //For Dialogues
+    func getLatestEmotionScore() -> Int {
+        let allJournals = loadAllJournals().sorted(by: { $0.date > $1.date })
+        guard let latestJournal = allJournals.first else {
+            print("⚠️ No journal data found, returning default emotion score 3")
+            return 3  // 默认值
+        }
+
+        if let emotionValue = Int(latestJournal.step1Response) {
+            print("📝 Latest journal emotion score: \(emotionValue)")
+            return emotionValue
+        } else {
+            print("❌ Invalid emotion score, returning default 3")
+            return 3
+        }
+    }
+
+
+
 }
 

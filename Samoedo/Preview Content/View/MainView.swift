@@ -16,7 +16,6 @@ struct MainView: View {
             ZStack{
                 Image("room_background")
                     .resizable()
-                    .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
                 
 // Leftup Information
@@ -37,11 +36,11 @@ struct MainView: View {
                         .padding(.horizontal, 30)
                     
                     Spacer()
-                    // samoyed image
+// samoyed image
                     Image(vm.pet.stageImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 400, height: 400)
+                        .frame(width: 450, height: 450)
                         .onTapGesture {
                             vm.didTapSamoyed()
                         }
@@ -94,7 +93,7 @@ struct MainView: View {
                     
                     Spacer().frame(width: 20)
                     
-                    // Journal Review
+// Journal Review
                     NavigationLink(destination: JournalReviewView()) {
                         ZStack {
                             Circle()
@@ -183,6 +182,7 @@ struct MainView: View {
                             .onTapGesture {
                                 vm.didTapChatbot()
                             }
+                            .padding()
                     }
                     
                     

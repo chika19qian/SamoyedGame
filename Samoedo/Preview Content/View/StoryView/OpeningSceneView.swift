@@ -18,53 +18,57 @@ struct OpeningSceneView: View {
                 AnyView(MainView())
             }
         } else {
-            VStack {
-                if vm.isNamingDog {
-                    nameDogView()
-                        .keyboardAware()
-                } else {
-                    storyDialogueView()
+            ZStack {
+                Image("door_box")
+                    .resizable()
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
+                    if vm.isNamingDog {
+                        nameDogView()
+                            .keyboardAware()
+                    } else {
+                        storyDialogueView()
+                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .edgesIgnoringSafeArea(.all)
+                .transition(.opacity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black.opacity(0.5))
-            .edgesIgnoringSafeArea(.all)
-            .transition(.opacity)
+            
         }
         
     }
 
     @ViewBuilder
     private func nameDogView() -> some View {
-        ZStack {
-            Image("puppy_door")
-            VStack {
-                Text("What will you name your puppy?")
-                    .chalkboardFont(size: 24)
-                    .foregroundColor(.white)
-                    .padding()
 
-                TextField("Enter a name", text: $vm.dogName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(width: 200)
-                    .padding()
-                    .background(Color.white.opacity(0.9))
-                    .cornerRadius(10)
-
-                Button("Confirm") {
-                    vm.confirmDogName(newName: vm.dogName)
-                }
-                .chalkboardFont(size: 22)
+        VStack {
+            Text("Please name your puppy")
+                .chalkboardFont(size: 24)
                 .foregroundColor(.white)
                 .padding()
-                .background(Color.brown.opacity(0.8))
+
+            TextField("Enter a name", text: $vm.dogName)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(width: 200)
+                .padding()
+                .background(Color.white.opacity(0.9))
                 .cornerRadius(10)
+
+            Button("Confirm") {
+                vm.confirmDogName(newName: vm.dogName)
             }
-            .frame(width: 350, height: 200)
-            .background(Color.brown.opacity(0.9))
-            .cornerRadius(12)
-            .transition(.opacity)
+            .chalkboardFont(size: 22)
+            .foregroundColor(.white)
+            .padding()
+            .background(Color.brown.opacity(0.8))
+            .cornerRadius(10)
         }
+        .frame(width: 350, height: 200)
+        .background(Color.brown.opacity(0.9))
+        .cornerRadius(12)
+        .transition(.opacity)
+    
         
     }
 
@@ -75,10 +79,11 @@ struct OpeningSceneView: View {
         let message = dialogueLine.message.replacingOccurrences(of: "{dogName}", with: vm.dogName)
 
         VStack {
+            Spacer().frame(height: 250)
             Text(speaker)
                 .bold()
                 .chalkboardFont(size: 28)
-                .foregroundColor(speaker == "Narration" ? .white : .yellow)
+                .foregroundColor(speaker == "Narration" ? .gray: .yellow)
                 .cornerRadius(12)
                 .padding(.bottom, 2)
 
@@ -90,6 +95,13 @@ struct OpeningSceneView: View {
                 .background(Color.brown.opacity(0.9))
                 .cornerRadius(12)
                 .padding()
+            Spacer().frame(height: 0.1)
+            Image(vm.openingDialogueIndex >= 3 ? "puppy_box" : "only_box")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 400, height: 400)
+            Spacer().frame(height: 10)
+
         }
         .onTapGesture {
             vm.nextOpeningDialogue()
@@ -99,7 +111,7 @@ struct OpeningSceneView: View {
                 vm.navigateToMain = true
             }
         }
-        .background(Image("puppy_door"))
+        
     }
 }
 

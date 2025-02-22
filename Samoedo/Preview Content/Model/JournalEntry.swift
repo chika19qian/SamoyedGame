@@ -16,7 +16,7 @@ struct JournalEntry: Codable, Identifiable {
     var step4Response: String
     var step5Response: String
     var journalContent: String
-    let previewText: String
+    var previewText: String
     
     init(id: UUID = UUID(), date: Date, step1Response: String, step2Response: [Event], step3Response: String, step4Response: String, step5Response: String, journalContent: String) {
         self.id = id
@@ -27,14 +27,23 @@ struct JournalEntry: Codable, Identifiable {
         self.step4Response = step4Response
         self.step5Response = step5Response
         self.journalContent = journalContent
-        self.previewText = JournalEntry.generatePreviewText(from: step2Response)
+        self.previewText = JournalEntry.generatePreviewText(from: journalContent)
     }
 
 
-    static func generatePreviewText(from step2Response: [Event]) -> String {
-        let step2Selection = step2Response.map { "\($0.icon) \($0.name)" }.joined(separator: ", ")
-        return step2Selection.isEmpty ? "Journal" : step2Selection
+    static func generatePreviewText(from content: String) -> String {
+        let sections = content.components(separatedBy: "\n\n").filter { !$0.isEmpty }
+
+        let validSections = sections.compactMap { section -> String? in
+            let lines = section.components(separatedBy: "\n").filter { !$0.isEmpty }
+            guard lines.count > 1 else { return nil } 
+            return section
+        }
+
+        return validSections.randomElement() ?? "Journal"
     }
+
+
 
     
     

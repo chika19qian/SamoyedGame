@@ -72,6 +72,7 @@ class JournalViewModel: ObservableObject {
         currentEntry.date = Date()
         journalRepository.saveJournal(currentEntry)
         vm.gainFoodJournal()
+        vm.journalChoicePhase = false
         
         onSave?()
     }

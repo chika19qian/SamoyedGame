@@ -52,9 +52,6 @@ struct Step5View: View {
                     )
                     .cornerRadius(15)
             }
-            
-          
-                
 
         }
         .padding()

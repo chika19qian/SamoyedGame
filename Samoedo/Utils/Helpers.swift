@@ -33,7 +33,7 @@ func setupNavigationBarAppearance() {
 
 func calcTimeSince(data: Date) -> Int {
     let timeInterval = Date().timeIntervalSince(data)
-    return Int(timeInterval)
+    return Int(timeInterval / 60)
 }
 
 extension View{

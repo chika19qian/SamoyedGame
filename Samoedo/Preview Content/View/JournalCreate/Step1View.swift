@@ -11,7 +11,7 @@ struct Step1View: View {
     @ObservedObject var viewModel: JournalViewModel
     
     
-    let morningMoods = ["moon", "moon.fill", "moon.zzz.fill", "moon.stars.fill", "moon.circle.fill"]
+    let morningMoods = ["moon.zzz.fill","moon", "moon.fill",  "moon.stars.fill", "moon.circle.fill"]
     let eveningMoods = [ "sun.dust", "sun.min", "sun.min.fill", "sun.max", "sun.max.fill"]
 
     var body: some View {

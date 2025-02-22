@@ -37,6 +37,9 @@ class MainViewModel: ObservableObject {
     @Published var showingDialog = false
     @Published var dialogMessage = ""
     private var dialogDismissTimer: Timer?
+    var emotionScore: Int {
+        return journalRepository.getLatestEmotionScore()
+    }
 
     
     @Published var showAgeInfo = false
@@ -131,9 +134,10 @@ class MainViewModel: ObservableObject {
     }
     
     func didTapSamoyed() {
+        if showingDialog { return }
         if showJournalPrompt {return}
-        
-        dialogMessage = Dialogues.messages.randomElement() ?? "Woof!"
+        updateEmotionScore()
+        dialogMessage = pet.getPetDialogue(emotionScore: emotionScore)
         showingDialog = true
         
         startDialogDismissTimer()
@@ -142,7 +146,7 @@ class MainViewModel: ObservableObject {
     
     func didTapChatbot() {
         if !showingDialog { return }
-        dialogMessage = Dialogues.messages.randomElement() ?? "Woof!"
+        dialogMessage = pet.getPetDialogue(emotionScore: emotionScore)
         startDialogDismissTimer()
     }
     
@@ -169,6 +173,11 @@ class MainViewModel: ObservableObject {
         objectWillChange.send()
         saveData()
         print("🍖 当前狗粮数量: \(pet.foodCount)")
+    }
+    
+    func updateEmotionScore() {
+        let latestJournalScore = journalRepository.getLatestEmotionScore()
+        print("📝 Updated emotionScore to \(latestJournalScore)")
     }
 
 }
