@@ -115,7 +115,7 @@ class MainViewModel: ObservableObject {
         hasMorningJournal = journalRepository.hasJournalForToday(morning: true)
         hasEveningJournal = journalRepository.hasJournalForToday(morning: false)
 
-        if let lastSkipped = lastSkippedTime, Date().timeIntervalSince(lastSkipped) < 3600 {
+        if let lastSkipped = lastSkippedTime, Date().timeIntervalSince(lastSkipped) < 30 {
             showJournalPrompt = false
         } else {
             showJournalPrompt = isMorning ? !hasMorningJournal : !hasEveningJournal
