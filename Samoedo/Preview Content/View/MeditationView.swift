@@ -8,14 +8,26 @@
 import SwiftUI
 
 struct MeditationView: View {
-    @ObservedObject var viewModel: MeditationViewModel
+    @StateObject private var viewModel = MeditationViewModel()
     @ObservedObject var mainViewModel: MainViewModel
 
     var body: some View {
         ZStack {
-            Color.brown.opacity(0.8).edgesIgnoringSafeArea(.all)
+            Color.brown.opacity(0.67).edgesIgnoringSafeArea(.all)
 
             VStack {
+                //Settings
+                HStack {
+                    Spacer()
+                    Button(action: mainViewModel.openSettings) {
+                        Image(systemName: "gearshape.fill")
+                            .resizable()
+                            .frame(width:30, height: 30)
+                            .foregroundColor(.brown)
+                    }
+                    Spacer().frame(width: 20)
+                }.padding()
+                
                 Spacer()
                 Text("🐶 Take a deep breath...")
                     .font(.custom("Chalkboard SE", size: 28))
@@ -71,13 +83,20 @@ struct MeditationView: View {
                 
                 Spacer()
             }
+            
+        }
+        .onAppear {
+                viewModel.setupAudio()
+            }
+        .onDisappear {
+            viewModel.stopMeditation()
         }
         .navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
-    MeditationView(viewModel: MeditationViewModel(), mainViewModel: MainViewModel())
+    MeditationView(mainViewModel: MainViewModel())
 }
 
         

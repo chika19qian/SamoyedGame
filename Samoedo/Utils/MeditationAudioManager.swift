@@ -9,7 +9,7 @@ import AVFoundation
 
 class MeditationAudioManager {
     static let shared = MeditationAudioManager()
-    private var player: AVAudioPlayer?
+    var player: AVAudioPlayer?
     var meditationVolume: Double = 0.5
 
     private init() {}

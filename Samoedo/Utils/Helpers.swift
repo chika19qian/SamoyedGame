@@ -85,7 +85,7 @@ struct HorizontalBrownProgressViewStyle: ProgressViewStyle {
             ZStack(alignment: .leading) {
                 // 背景 (浅褐色)
                 RoundedRectangle(cornerRadius: geometry.size.height / 2)
-                    .fill(Color.brown.opacity(0.3))
+                    .fill(Color.brown.opacity(0.5))
                     .frame(width: geometry.size.width, height: geometry.size.height)
 
                 // 进度部分 (深褐色)

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @ObservedObject var mvm: MainViewModel
+    
     @State private var bgmVolume: Double = AudioManager.shared.bgmVolume
     @State private var meditationVolume: Double = MeditationAudioManager.shared.meditationVolume
     @State private var isBGMPlaying: Bool = true
@@ -89,25 +92,25 @@ struct SettingsView: View {
 
                 Spacer()
 
-                // 🔙 关闭按钮
-                Button(action: {
-                    // 关闭设置界面
-                }) {
-                    Text("🐶 Back")
+  
+                Button("🐶 Back") {
+                    mvm.endSettings()
+                }
                         .font(.custom("Chalkboard SE", size: 22))
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: 200)
                         .background(Color.brown)
                         .cornerRadius(12)
-                }
-                .padding(.bottom, 30)
+                        .padding(.bottom, 30)
+                
+                
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(mvm: MainViewModel())
 }
 

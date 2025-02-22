@@ -200,6 +200,10 @@ class MainViewModel: ObservableObject {
     func openSettings() {
         navigateToSettings = true
     }
+    
+    func endSettings() {
+        navigateToSettings = false
+    }
 
 }
 

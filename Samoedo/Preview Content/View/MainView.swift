@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var vm = MainViewModel()
+    
     private let timer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -51,7 +52,9 @@ struct MainView: View {
 
 // Right up Status
                 ZStack {
+                    
                     VStack {
+                        //Settings
                         Button(action: vm.openSettings) {
                             Image(systemName: "gearshape.fill")
                                 .resizable()
@@ -59,6 +62,7 @@ struct MainView: View {
                                 .foregroundColor(.brown)
                         }
                         
+                        // Progress
                         ProgressView(value: vm.pet.stageProgress)
                             .progressViewStyle(VerticalBrownProgressViewStyle())
                             .frame(width: 30, height: 200)
@@ -206,10 +210,10 @@ struct MainView: View {
                     vm.checkJournalStatus()
                 }
                 .navigationDestination(isPresented: $vm.navigateToSettings) {
-                            SettingsView()
+                    SettingsView(mvm: vm)
                         }
                 .navigationDestination(isPresented: $vm.isMeditationActive){
-                    MeditationView(viewModel: MeditationViewModel(), mainViewModel: vm)
+                    MeditationView( mainViewModel: vm)
                 }
         }
 
