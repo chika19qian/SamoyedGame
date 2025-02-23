@@ -20,7 +20,7 @@ struct JournalReviewView: View {
                     JournalRowView(viewModel:viewModel, entry: entry)
                 }
             }
-            .navigationTitle("📖 Journal Reveiw")
+            .navigationTitle("📖 Journal Review")
 
             
         }

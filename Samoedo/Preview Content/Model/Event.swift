@@ -11,6 +11,10 @@ struct Event: Identifiable, Codable {
     let id: UUID
     let name: String
     let icon: String
+    
+    var localizedName: String {
+        NSLocalizedString(name, comment: "")
+    }
 }
 
 let eventCategories: [Event] = [

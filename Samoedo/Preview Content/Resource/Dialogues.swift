@@ -8,27 +8,58 @@
 import Foundation
 
 struct DialogueLine {
-    let speaker: String  // 角色名
-    let message: String  // 对话内容
+    let speakerKey: String
+    let messageKey: String
+
+    func localized(dogName: String) -> (speaker: String, message: String) {
+        let speaker = String(format: NSLocalizedString(speakerKey, comment: ""), dogName)
+        let message = String(format: NSLocalizedString(messageKey, comment: ""), dogName)
+        return (speaker, message)
+    }
 }
+
+
 
 // Daily Dialogues
 struct Dialogues {
 
     static let messages = [
-        "Woof!", "Wooooooooof!", "WOOOOOOF!",
-        "woof woof!", "Woof?",
-        "Woof..."
+        String(localized: "Woof!"), String(localized: "Wooooooooof!"), String(localized: "WOOOOOOF!"),
+        String(localized: "woof woof!"), String(localized: "Woof?"),
+        String(localized: "Woof...")
     ]
-    
-    static let puppyHappy = ["Woof woof!", "Yip! Yip!", "(wags tail) Woof!", "(Excited tail wagging) Arf! Arf!", "(Spinning in circles) Awoo~!"]
-    static let puppyHungry = ["Wh... woof?", "(stares at food bowl) Woof...", "Woof... (stomach rumbles)", "(Looking at diary then bowl) Arf?"]
-    
-    static let youngHappy = ["I like you! Woof!", "Wanna play? Woof!", "Let's go outside!", "H-happy! Woof!", "Fun! Joy! Love!"]
-    static let youngHungry = ["Woof... I'm kinda hungry.", "I think it's snack time... woof.", "(puppy eyes) Food soon?", "Food song time?"]
-    
-    static let adultHappy = ["You're the best! ❤️", "Let's go for a walk!", "I love you, hooman!","(Creating light patterns) Look what I learned!", "(Dancing with magical trails) Adventure time?", "We're perfect together! 🌟"]
-    static let adultHungry = ["I'm starving... Can we eat now?", "Time for dinner? Please?", "I would LOVE some food right now!", "The magic requires sustenance... and treats! ✨"]
+
+    static let puppyHappy = [
+        String(localized: "Woof woof!"), String(localized: "Yip! Yip!"), String(localized: "(wags tail) Woof!"),
+        String(localized: "(Excited tail wagging) Arf! Arf!"), String(localized: "(Spinning in circles) Awoo~!")
+    ]
+
+    static let puppyHungry = [
+        String(localized: "Wh... woof?"), String(localized: "(stares at food bowl) Woof..."),
+        String(localized: "Woof... (stomach rumbles)"), String(localized: "(Looking at diary then bowl) Arf?")
+    ]
+
+    static let youngHappy = [
+        String(localized: "I like you! Woof!"), String(localized: "Wanna play? Woof!"),
+        String(localized: "Let's go outside!"), String(localized: "H-happy! Woof!"), String(localized: "Fun! Joy! Love!")
+    ]
+
+    static let youngHungry = [
+        String(localized: "Woof... I'm kinda hungry."), String(localized: "I think it's snack time... woof."),
+        String(localized: "(puppy eyes) Food soon?"), String(localized: "Food song time?")
+    ]
+
+    static let adultHappy = [
+        String(localized: "You're the best! ❤️"), String(localized: "Let's go for a walk!"),
+        String(localized: "I love you, hooman!"), String(localized: "(Creating light patterns) Look what I learned!"),
+        String(localized: "(Dancing with magical trails) Adventure time?"), String(localized: "We're perfect together! 🌟")
+    ]
+
+    static let adultHungry = [
+        String(localized: "I'm starving... Can we eat now?"), String(localized: "Time for dinner? Please?"),
+        String(localized: "I would LOVE some food right now!"), String(localized: "The magic requires sustenance... and treats! ✨")
+    ]
+
 
     static var lastEmotionReaction: String? = nil
 
@@ -38,7 +69,7 @@ struct Dialogues {
 
         let allDialogues =  [baseDialogue, emotionReaction]
 
-        return allDialogues.randomElement() ?? "🐶 *blinks curiously*"
+        return allDialogues.randomElement() ?? "～"
 
     }
 
@@ -53,7 +84,7 @@ struct Dialogues {
         case "Adult":
             return (hunger == "Hungry") ? adultHungry.randomElement()! : adultHappy.randomElement()!
         default:
-            return "🐶 Woof?"
+            return "Woof?"
         }
     }
  
@@ -75,42 +106,42 @@ struct Dialogues {
         switch emotionScore {
         case 1:
             reactions = [
-                "(whines and snuggles up to you)",
-                "(whimpers softly and nudges you)",
-                "(curls up beside you quietly)"
+                String(localized: "(whines and snuggles up to you)"),
+                String(localized: "(whimpers softly and nudges you)"),
+                String(localized: "(curls up beside you quietly)")
             ]
         case 2:
             reactions = [
-                "(nudges your hand and licks it softly)",
-                "(rests head on your knee)",
-                "(gives you big puppy eyes)"
+                String(localized: "(nudges your hand and licks it softly)"),
+                String(localized: "(rests head on your knee)"),
+                String(localized: "(gives you big puppy eyes)")
             ]
         case 3:
             reactions = [
-                "(wag wag!)",
-                "(tilts head curiously)",
-                "(barks softly)"
+                String(localized: "(wag wag!)"),
+                String(localized: "(tilts head curiously)"),
+                String(localized: "(barks softly)")
             ]
         case 4:
             reactions = [
-                "(jumps around excitedly) Woof woof!",
-                "(paws at you playfully)",
-                "(does a little happy dance)"
+                String(localized: "(jumps around excitedly) Woof woof!"),
+                String(localized: "(paws at you playfully)"),
+                String(localized: "(does a little happy dance)")
             ]
         case 5:
             reactions = [
-                "So much fun!!!",
-                "(zoomies around the room)",
-                "(spins in circles excitedly)"
+                String(localized: "So much fun!!!"),
+                String(localized: "(zoomies around the room)"),
+                String(localized: "(spins in circles excitedly)")
             ]
         default:
             reactions = [
-                "(tilts head) Woof?",
-                "(looks at you expectantly)",
-                "(wiggles tail slightly)"
+                String(localized: "(tilts head) Woof?"),
+                String(localized: "(looks at you expectantly)"),
+                String(localized: "(wiggles tail slightly)")
             ]
         }
-        return reactions.randomElement() ?? "(tilts head) Woof?"
+        return reactions.randomElement() ?? String(localized: "(tilts head) Woof?")
     }
 
     private static func getYoungEmotionReaction(_ emotionScore: Int) -> String {
@@ -118,44 +149,44 @@ struct Dialogues {
         switch emotionScore {
         case 1:
             reactions = [
-                "Long press, meditation 🧘‍♂️",
-                "(rests head on your lap) I’m here for you!",
-                "(sits close to you silently)",
-                "(lays down beside you, ears drooping)"
+                String(localized: "Long press, meditation 🧘‍♂️"),
+                String(localized: "(rests head on your lap) I’m here for you!"),
+                String(localized: "(sits close to you silently)"),
+                String(localized: "(lays down beside you, ears drooping)")
             ]
         case 2:
             reactions = [
-                "Long press, meditation 🧘‍♂️",
-                "(nudges you) Let's do something fun!",
-                "(barks softly) Want to play?",
-                "(sits beside you wagging its tail)"
+                String(localized: "Long press, meditation 🧘‍♂️"),
+                String(localized: "(nudges you) Let's do something fun!"),
+                String(localized: "(barks softly) Want to play?"),
+                String(localized: "(sits beside you wagging its tail)")
             ]
         case 3:
             reactions = [
-                "(tail wagging) You seem okay! Wanna play?",
-                "(ears perk up) What’s next?",
-                "(tilts head and barks playfully)"
+                String(localized: "(tail wagging) You seem okay! Wanna play?"),
+                String(localized: "(ears perk up) What’s next?"),
+                String(localized: "(tilts head and barks playfully)")
             ]
         case 4:
             reactions = [
-                "(bounces happily) You're feeling great! Let's go outside!",
-                "(wags tail excitedly) Wanna go for a run?",
-                "(spins in circles) Let’s have fun!"
+                String(localized: "(bounces happily) You're feeling great! Let's go outside!"),
+                String(localized: "(wags tail excitedly) Wanna go for a run?"),
+                String(localized: "(spins in circles) Let’s have fun!")
             ]
         case 5:
             reactions = [
-                "(runs in circles) Yay! You look super happy!",
-                "(excited jumps) Let's play!",
-                "(barks happily) I love this energy!"
+                String(localized: "(runs in circles) Yay! You look super happy!"),
+                String(localized: "(excited jumps) Let's play!"),
+                String(localized: "(barks happily) I love this energy!")
             ]
         default:
             reactions = [
-                "How are you?",
-                "(tilts head, curious)",
-                "(sits quietly, waiting)"
+                String(localized: "How are you?"),
+                String(localized: "(tilts head, curious)"),
+                String(localized: "(sits quietly, waiting)")
             ]
         }
-        return reactions.randomElement() ?? "How are you?"
+        return reactions.randomElement() ?? String(localized: "How are you?")
     }
 
 
@@ -164,85 +195,87 @@ struct Dialogues {
         switch emotionScore {
         case 1:
             reactions = [
-                "You seem a bit down... Want to try meditating together? 🧘‍♂️",
-                "I'm here for you, buddy. Want a hug?",
-                "(sits beside you quietly) You can talk to me.",
-                "(lays head on your lap) It’s okay, I’m here."
+                String(localized: "You seem a bit down... Want to try meditating together? 🧘‍♂️"),
+                String(localized: "I'm here for you, buddy. Want a hug?"),
+                String(localized: "(sits beside you quietly) You can talk to me."),
+                String(localized: "(lays head on your lap) It’s okay, I’m here.")
             ]
         case 2:
             reactions = [
-                "You seem a bit down... Want to try meditating together? 🧘‍♂️",
-                "You seem a little off today. Let’s take it easy!",
-                "If you need a break, I'm here for you.",
-                "Let's just relax together, okay?"
+                String(localized: "You seem a bit down... Want to try meditating together? 🧘‍♂️"),
+                String(localized: "You seem a little off today. Let’s take it easy!"),
+                String(localized: "If you need a break, I'm here for you."),
+                String(localized: "Let's just relax together, okay?")
             ]
         case 3:
             reactions = [
-                "You're doing fine! Let’s have a good day together!",
-                "Let’s take things at your pace.",
-                "Everything’s going well, let’s keep it up!"
+                String(localized: "You're doing fine! Let’s have a good day together!"),
+                String(localized: "Let’s take things at your pace."),
+                String(localized: "Everything’s going well, let’s keep it up!")
             ]
         case 4:
             reactions = [
-                "You're feeling great! Maybe we should go for a walk?",
-                "Let’s make the most of today!",
-                "You have good energy! Let’s do something fun!"
+                String(localized: "You're feeling great! Maybe we should go for a walk?"),
+                String(localized: "Let’s make the most of today!"),
+                String(localized: "You have good energy! Let’s do something fun!")
             ]
         case 5:
             reactions = [
-                "You're super happy! I love seeing you like this!",
-                "This is awesome! Let’s enjoy the moment!",
-                "(barks happily) You seem so excited!"
+                String(localized: "You're super happy! I love seeing you like this!"),
+                String(localized: "This is awesome! Let’s enjoy the moment!"),
+                String(localized: "(barks happily) You seem so excited!")
             ]
         default:
             reactions = [
-                "Hey, how are you?",
-                "(tilts head, curious)",
-                "(sits calmly, wagging tail)"
+                String(localized: "Hey, how are you?"),
+                String(localized: "(tilts head, curious)"),
+                String(localized: "(sits calmly, wagging tail)")
             ]
         }
-        return reactions.randomElement() ?? "Hey, how are you?"
+        return reactions.randomElement() ?? String(localized: "Hey, how are you?")
     }
+
 
     
     
 // FIRST Story
     static let story: [DialogueLine] = [
         // 🎭 Discovering the Mysterious Box
-        DialogueLine(speaker: "Narration", message: "(You discover a softly glowing wooden box in the corner, with a yellow note attached)"),
-        DialogueLine(speaker: "Note", message: "『To the Chosen One: This is a gift from the Wizard Olivia. The little one inside has chosen you.』"),
-        DialogueLine(speaker: "Narration", message: "(You carefully open the box to find a puppy inside. A magical tag floats above its collar)"),
+        DialogueLine(speakerKey: "narration", messageKey: "(You discover a softly glowing wooden box in the corner, with a yellow note attached)"),
+        DialogueLine(speakerKey: "note", messageKey: "To the Chosen One: This is a gift from the Wizard Olivia. The little one inside has chosen you."),
+        DialogueLine(speakerKey: "narration", messageKey: "(You carefully open the box to find a puppy inside. A magical tag floats above its collar)"),
         
         // 🐾 First Meeting
-        DialogueLine(speaker: "Narration", message: "(The puppy stands up, looking at you curiously. Its ears twitch gently)"),
-        DialogueLine(speaker: "Narration", message: "(New tags appear in the air)"),
-        DialogueLine(speaker: "Note", message: "『This puppy comes from the Wizard's Nursery. It needs a warm home and a loving owner.』"),
-        DialogueLine(speaker: "Narration", message: "(The puppy starts wagging its tail softly, as a new tag forms in the air)"),
+        DialogueLine(speakerKey: "narration", messageKey: "(The puppy stands up, looking at you curiously. Its ears twitch gently)"),
+        DialogueLine(speakerKey: "narration", messageKey: "(New tags appear in the air)"),
+        DialogueLine(speakerKey: "note", messageKey: "This puppy comes from the Wizard's Nursery. It needs a warm home and a loving owner."),
+        DialogueLine(speakerKey: "narration", messageKey: "(The puppy starts wagging its tail softly, as a new tag forms in the air)"),
         
         // 🏷️ Magical Tags
-        DialogueLine(speaker: "Note", message: "『The Wizard says: Give it a name, and this will forge an eternal bond between you.』"),
-        // Wait for player to input name
-        DialogueLine(speaker: "Note", message: "『(The puppy spins in circles excitedly at its new name, the writing on the tag begins to glow)』"),
-        DialogueLine(speaker: "Note", message: "『It is now {dogName}! The magical contract is sealed.』"),
-        DialogueLine(speaker: "{dogName}", message: "Woof!"),
+        DialogueLine(speakerKey: "note", messageKey: "The Wizard says: Give it a name, and this will forge an eternal bond between you."),
+        DialogueLine(speakerKey: "note", messageKey: "(The puppy spins in circles excitedly at its new name, the writing on the tag begins to glow)"),
+        DialogueLine(speakerKey: "note", messageKey: "It is now {dogName}! The magical contract is sealed."),
+        DialogueLine(speakerKey: "dogName", messageKey: "Woof!"),
         
         // 📖 The Magic Diary
-        DialogueLine(speaker: "Narration", message: "(A light blue notebook with star patterns on its cover appears at the bottom of the box)"),
-        DialogueLine(speaker: "Note", message: "『(The puppy gently nudges the notebook with its nose, sending ripples of light across its surface)』"),
-        DialogueLine(speaker: "Note", message: "『This is the Magical Growth Diary. Your daily entries will transform into nourishment that {dogName} needs to grow.』"),
-        DialogueLine(speaker: "Note", message: "『Write down happy memories to make the dog food more delicious; record warm moments to help {dogName} grow healthier.』"),
+        DialogueLine(speakerKey: "narration", messageKey: "(A brown notebook appears at the bottom of the box)"),
+        DialogueLine(speakerKey: "note", messageKey: "(The puppy gently nudges the notebook with its nose, sending ripples of light across its surface)"),
+        DialogueLine(speakerKey: "note", messageKey: "This is the Magical Growth Diary. Your daily entries will transform into nourishment that {dogName} needs to grow."),
+        DialogueLine(speakerKey: "note", messageKey: "Write down happy memories to make the dog food more delicious; record warm moments to help {dogName} grow healthier."),
         
         // 🌟 A New Beginning
-        DialogueLine(speaker: "Narration", message: "(The puppy snuggles against your feet as one final tag slowly materializes above its collar)"),
-        DialogueLine(speaker: "Note", message: "『May your story be filled with laughter. Take good care of this little one — Wizard Olivia』"),
-        DialogueLine(speaker: "Note", message: "『(The puppy happily nuzzles your hand, its eyes sparkling with trust)』"),
-        DialogueLine(speaker: "Narration", message: "(This is the beginning of your story with {dogName}.)")
+        DialogueLine(speakerKey: "narration", messageKey: "(The puppy snuggles against your feet as one final tag slowly materializes above its head)"),
+        DialogueLine(speakerKey: "note", messageKey: "May your story be filled with laughter. Take good care of this little one — Wizard Olivia"),
+        DialogueLine(speakerKey: "note", messageKey: "(The puppy happily nuzzles your hand, its eyes sparkling with trust)"),
+        DialogueLine(speakerKey: "narration", messageKey: "(This is the beginning of your story with {dogName}.)"),
     ]
-    static let journalPrompt = "Would you like to record today’s journal?"
-    
+
+    static let journalPrompt = String(localized: "Would you like to record today’s journal?")
 
 
 }
+
+
 
 
 

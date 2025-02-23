@@ -1,5 +1,5 @@
 //
-//  JournalReveiwViewModel.swift
+//  JournalReviewViewModel.swift
 //  Samoedo
 //
 //  Created by chika on 2025/2/7.

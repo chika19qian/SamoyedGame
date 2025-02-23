@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		184B73132D6A16D5003EF4BA /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 184B73122D6A16D5003EF4BA /* Localizable.xcstrings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		18AAF7DA2D5476C6000C1EA8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		184B73122D6A16D5003EF4BA /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = /Users/nanamichika/Desktop/Localizable.xcstrings; sourceTree = "<absolute>"; };
 		18AAF7C72D5476C5000C1EA8 /* Samoedo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Samoedo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AAF7D92D5476C6000C1EA8 /* SamoedoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SamoedoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AAF7E32D5476C6000C1EA8 /* SamoedoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SamoedoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,7 @@
 		18AAF7BE2D5476C5000C1EA8 = {
 			isa = PBXGroup;
 			children = (
+				184B73122D6A16D5003EF4BA /* Localizable.xcstrings */,
 				18AAF7C92D5476C5000C1EA8 /* Samoedo */,
 				18AAF7DC2D5476C6000C1EA8 /* SamoedoTests */,
 				18AAF7E62D5476C6000C1EA8 /* SamoedoUITests */,
@@ -192,6 +198,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 18AAF7BE2D5476C5000C1EA8;
 			minimizedProjectReferenceProxies = 1;
@@ -212,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				184B73132D6A16D5003EF4BA /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +336,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -384,6 +393,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

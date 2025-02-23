@@ -95,21 +95,29 @@ class JournalViewModel: ObservableObject {
     }
     
     func generateStep3Question() -> String {
-            let selectedEvents = currentEntry.step2Response
-            let eventNames = selectedEvents.map { "\($0.icon) \($0.name)" }.joined(separator: ", ") 
+        let selectedEvents = currentEntry.step2Response
+        let eventNames = selectedEvents.map { "\($0.icon) \($0.name)" }.joined(separator: ", ")
 
-            if eventNames.isEmpty {
-                return morning ? "What beautiful memories do you have about your focus areas?" : "Why did the chosen event make you feel good?"
-            } else {
-                return morning ? "What beautiful memories do you have about \(eventNames)?" : "Why did \(eventNames) make you feel good?"
-            }
+        if eventNames.isEmpty {
+            return String(localized: morning ? "morning.step3.default" : "evening.step3.default")
+        } else {
+            return String(
+                localized: morning ? "morning.step3.dynamic" : "evening.step3.dynamic",
+                defaultValue: "What beautiful memories do you have about \(eventNames)?"
+            )
         }
+    }
+
     func generateStep4Question() -> String {
-            let selectedEvents = currentEntry.step2Response
-            let eventNames = selectedEvents.map { "\($0.icon) \($0.name)" }.joined(separator: ", ")
+        let selectedEvents = currentEntry.step2Response
+        let eventNames = selectedEvents.map { "\($0.icon) \($0.name)" }.joined(separator: ", ")
 
-            return morning ? "What is your plan for \(eventNames) today?" : "How would you praise yourself?"
-        }
+        return String(
+            localized: morning ? "morning.step4" : "evening.step4",
+            defaultValue: "What is your plan for \(eventNames) today?"
+        )
+    }
+
     
 }
 

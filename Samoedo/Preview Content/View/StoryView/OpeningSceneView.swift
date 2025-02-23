@@ -75,8 +75,8 @@ struct OpeningSceneView: View {
     @ViewBuilder
     private func storyDialogueView() -> some View {
         let dialogueLine = Dialogues.story[vm.openingDialogueIndex]
-        let speaker = dialogueLine.speaker.replacingOccurrences(of: "{dogName}", with: vm.dogName)
-        let message = dialogueLine.message.replacingOccurrences(of: "{dogName}", with: vm.dogName)
+        
+        let (speaker, message) = dialogueLine.localized(dogName: vm.dogName)
 
         VStack {
             Spacer().frame(height: 250)
@@ -114,6 +114,7 @@ struct OpeningSceneView: View {
         
     }
 }
+
 
 
 #Preview {

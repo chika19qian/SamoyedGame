@@ -14,7 +14,7 @@ struct Pet: Codable {
     var foodCount: Int = 5
     var ageOffset: Int = 0
     var happinessLevel: String {
-        hunger == "Hungry" ? "Unhappy" : "Happy"
+        return String(localized: hunger == "Hungry" ? "Unhappy" : "Happy")
     }
 
     
@@ -26,17 +26,15 @@ struct Pet: Codable {
     
     var hunger: String {
         let timeSince = calcTimeSince(data: lastMeal)
-        var string = ""
         
         switch timeSince {
-        case 0..<30: string = "Satiated"
-        case 30..<60: string = "Getting hungry"
-        case 60...: string = "Hungry"
-        default: string = "Idk"
+        case 0..<30: return String(localized: "Satiated")
+        case 30..<60: return String(localized: "Getting hungry")
+        case 60...: return String(localized: "Hungry")
+        default: return String(localized: "Idk")
         }
-        
-        return string
     }
+
     
     var stage: String {
         switch age {

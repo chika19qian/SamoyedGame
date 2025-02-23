@@ -33,7 +33,7 @@ struct Step2View: View {
                         VStack {
                             Text(event.icon)
                                 .font(.largeTitle)
-                            Text(event.name)
+                            Text(event.localizedName)
                                 .foregroundColor(Color.brown)
                         }
                         .padding()
