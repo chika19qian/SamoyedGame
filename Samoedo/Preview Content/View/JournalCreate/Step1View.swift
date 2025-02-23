@@ -11,8 +11,8 @@ struct Step1View: View {
     @ObservedObject var viewModel: JournalViewModel
     
     
-    let morningMoods = ["moon.zzz.fill","moon", "moon.fill",  "moon.stars.fill", "moon.circle.fill"]
-    let eveningMoods = [ "sun.dust", "sun.min", "sun.min.fill", "sun.max", "sun.max.fill"]
+    let morningMoods = ["moonphase.new.moon.inverse","moonphase.waning.crescent.inverse", "moonphase.last.quarter.inverse",  "moonphase.waning.gibbous.inverse", "moonphase.full.moon.inverse"]
+    let eveningMoods = [ "cloud.bolt.rain", "cloud.heavyrain",  "cloud","sun.min", "sun.max"]
 
     var body: some View {
         VStack {
@@ -40,7 +40,7 @@ struct Step1View: View {
                         Image(systemName: moods[index])
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 50, height: 50)
+                            .frame(width: CGFloat(45 + index * 3), height: CGFloat(45 + index * 3))
                             .foregroundColor(viewModel.currentEntry.step1Response == "\(index + 1)" ? .yellow : .brown)
                     }
                 }
