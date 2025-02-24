@@ -26,7 +26,7 @@ class JournalViewModel: ObservableObject {
     
     var content: String {
         get {
-            let step2Selection = currentEntry.step2Response.map { "\($0.icon) \($0.name)" }.joined(separator: ", ")
+            let step2Selection = currentEntry.step2Response.map { "\($0.icon) \($0.localizedName)" }.joined(separator: ", ")
             let step3Question = step2Selection.isEmpty
                 ? (morning ? "What beautiful memories do you have about your focus areas?" : "Why did the chosen event make you feel good?")
                 : (morning ? "What beautiful memories do you have about \(step2Selection)?" : "Why did \(step2Selection) make you feel good?")
@@ -96,7 +96,7 @@ class JournalViewModel: ObservableObject {
     
     func generateStep3Question() -> String {
         let selectedEvents = currentEntry.step2Response
-        let eventNames = selectedEvents.map { "\($0.icon) \($0.name)" }.joined(separator: ", ")
+        let eventNames = selectedEvents.map { "\($0.icon) \($0.localizedName)" }.joined(separator: ", ")
 
         if eventNames.isEmpty {
             return String(localized: morning ? "morning.step3.default" : "evening.step3.default")

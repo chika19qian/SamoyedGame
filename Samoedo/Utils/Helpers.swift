@@ -113,12 +113,12 @@ struct KeyboardAwareModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .padding(.bottom, keyboardHeight) // ✅ 根据键盘高度调整布局
+            .padding(.bottom, keyboardHeight)
             .onAppear {
                 NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
                     if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
                         withAnimation {
-                            self.keyboardHeight = keyboardFrame.height * 0.6 // ✅ 只移动 60% 避免 UI 过度上移
+                            self.keyboardHeight = keyboardFrame.height * 0.6 
                         }
                     }
                 }

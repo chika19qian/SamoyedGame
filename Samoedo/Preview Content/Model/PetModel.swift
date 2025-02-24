@@ -16,12 +16,14 @@ struct Pet: Codable {
     
     var happinessLevel: String {
         switch hunger {
-        case "Hungry":
+        case String(localized: "Hungry"):
             return String(localized: "Unhappy")
-        case "Getting hungry":
+        case String(localized: "Getting hungry"):
             return String(localized: "Normal")
-        default:
+        case String(localized: "Satiated"):
             return String(localized: "Happy")
+        default:
+            return String(localized: "Idk")
         }
     }
 
@@ -46,18 +48,18 @@ struct Pet: Codable {
     
     var stage: String {
         switch age {
-        case 0..<1000: return "Puppy"
-        case 1000..<5000: return "Young"
-        case 5000...: return "Adult"
+        case 0..<1000: return  String(localized: "Puppy")
+        case 1000..<5000: return String(localized: "Young")
+        case 5000...: return String(localized: "Adult")
         default: return "Idk"
         }
     }
     
     var currentStageEnd: Int {
         switch stage {
-        case "Puppy": return 1000
-        case "Young": return 5000
-        case "Adult": return 120000
+        case String(localized: "Puppy"): return 1000
+        case String(localized: "Young"): return 5000
+        case String(localized: "Adult"): return 120000
         default: return 1000000
         }
     }
@@ -68,13 +70,13 @@ struct Pet: Codable {
             let stageEnd: Int
 
             switch stage {
-            case "Puppy":
+            case String(localized: "Puppy"):
                 stageStart = 0
                 stageEnd = 1000
-            case "Young":
+            case String(localized: "Young"):
                 stageStart = 1000
                 stageEnd = 5000
-            case "Adult":
+            case String(localized: "Adult"):
                 stageStart = 5000
                 stageEnd = 120000
             default:
@@ -89,19 +91,19 @@ struct Pet: Codable {
     var stageImage: String {
         if happinessLevel == "Normal" {
             switch stage {
-            case "Puppy": return "puppy_normal"
-            case "Young": return "young_normal"
-            case "Adult": return "adult_normal"
+            case String(localized: "Puppy"): return "puppy_normal"
+            case String(localized: "Young"): return "young_normal"
+            case String(localized: "Adult"): return "adult_normal"
             default: return "old_normal"
             }
         }
 
         
         switch stage {
-        case "Puppy": return happinessLevel == "Happy" ? "puppy_happy_samoyed" : "puppy_sad_samoyed"
-        case "Young": return happinessLevel == "Happy" ? "young_happy_samoyed" : "young_sad_samoyed"
-        case "Adult": return happinessLevel == "Happy" ? "adult_happy_samoyed" : "adult_sad_samoyed"
-        default: return happinessLevel == "Happy" ? "old_happy_samoyed" : "old_sad_samoyed"
+        case String(localized: "Puppy"): return happinessLevel == String(localized: "Happy") ? "puppy_happy_samoyed" : "puppy_sad_samoyed"
+        case String(localized: "Young"): return happinessLevel == String(localized: "Happy") ? "young_happy_samoyed" : "young_sad_samoyed"
+        case String(localized: "Adult"): return happinessLevel == String(localized: "Happy") ? "adult_happy_samoyed" : "adult_sad_samoyed"
+        default: return happinessLevel == String(localized: "Happy") ? "old_happy_samoyed" : "old_sad_samoyed"
         }
     }
 

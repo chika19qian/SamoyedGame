@@ -10,7 +10,7 @@ import Foundation
 class JournalReviewViewModel: ObservableObject {
     private let journalRepository = JournalRepository()
 
-    @Published var journalEntries: [JournalEntry] = []  // ✅ 存储所有日记
+    @Published var journalEntries: [JournalEntry] = []  
 
     init() {
         loadJournals()
@@ -23,7 +23,7 @@ class JournalReviewViewModel: ObservableObject {
     func deleteJournal(_ entry: JournalEntry) {
         journalRepository.deleteJournal(id: entry.id)
         journalEntries.removeAll { $0.id == entry.id }
-        objectWillChange.send()
+        loadJournals()
     }
     
     

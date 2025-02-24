@@ -18,7 +18,7 @@ struct JournalReviewView: View {
                 Color.brown.opacity(0.67).edgesIgnoringSafeArea(.all)
 
                 List(viewModel.journalEntries) { entry in
-                    NavigationLink(destination: JournalDetailView(viewModel: JournalReviewViewModel(), entry: entry)) {
+                    NavigationLink(destination: JournalDetailView(viewModel: viewModel, entry: entry)) {
                         JournalRowView(viewModel: viewModel, entry: entry)
                     }
                 }
@@ -68,6 +68,9 @@ struct JournalRowView: View {
                 .lineLimit(2)  
                 .truncationMode(.tail)
         }
+        .background(Color.white.opacity(0.8))
+        .cornerRadius(15)
+        .shadow(color: .gray.opacity(0.3), radius: 3, x: 0, y: 2)
         .padding(.vertical, 8)
     }
 }

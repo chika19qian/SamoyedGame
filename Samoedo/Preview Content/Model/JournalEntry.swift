@@ -30,18 +30,17 @@ struct JournalEntry: Codable, Identifiable {
         self.previewText = JournalEntry.generatePreviewText(from: journalContent)
     }
 
-
+    
     static func generatePreviewText(from content: String) -> String {
-        let sections = content.components(separatedBy: "\n\n").filter { !$0.isEmpty }
+        let lines = content.components(separatedBy: "\n").filter { !$0.isEmpty }
 
-        let validSections = sections.compactMap { section -> String? in
-            let lines = section.components(separatedBy: "\n").filter { !$0.isEmpty }
-            guard lines.count > 1 else { return nil } 
-            return section
+        if lines.count >= 2 {
+            return lines.prefix(2).joined(separator: " ") // 显示前两行
+        } else {
+            return lines.first ?? "Journal" // 只有一行就返回第一行
         }
-
-        return validSections.randomElement() ?? "Journal"
     }
+
 
 
 

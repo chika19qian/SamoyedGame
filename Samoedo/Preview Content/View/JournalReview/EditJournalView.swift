@@ -22,22 +22,36 @@ struct EditJournalView: View {
     var body: some View {
         VStack {
             Text("Edit Journal")
-                .font(.title)
+                .chalkboardFont(size: 30)
+                .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 .bold()
 
             TextEditor(text: $editedContent)
-                .padding()
-                .border(Color.gray)
+                .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+                .padding(10)
+                .background(Color.white)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.brown, lineWidth: 2)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .shadow(color: .brown.opacity(0.2), radius: 3, x: 0, y: 2)
 
             Button("Save") {
                 viewModel.updateJournal(entry: entry, newContent: editedContent)
                 presentationMode.wrappedValue.dismiss()
             }
+            .chalkboardFont(size: 25)
             .foregroundColor(.white)
             .padding()
             .frame(width: 150, height: 50)
-            .background(Color.blue.opacity(0.9))
+            .background(Color.brown.opacity(0.9))
             .cornerRadius(15)
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.white, lineWidth: 5)
+            )
+        
         }
         .padding()
     }
