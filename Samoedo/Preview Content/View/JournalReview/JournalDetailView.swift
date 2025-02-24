@@ -22,27 +22,46 @@ struct JournalDetailView: View {
                 Text(formattedDate(entry.date))
                     .frame(alignment: .center)
                     .font(.custom("Chalkboard SE", size: 18))
-                    .foregroundColor(.gray)
+                    .foregroundColor(.brown)
                 Spacer()
 
                 Text(entry.journalContent)
-                    .font(.custom("Chalkboard SE", size: 18))
+                    .font(.custom("Chalkboard SE", size: 20))
+                    .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                     .padding()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             
         }
-        .navigationTitle("📜 Journal Details")
+        .navigationBarBackButtonHidden()
+
         .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Menu {
-                            Button("Edit", action: { showEditView = true })
-                            Button("Delete", role: .destructive, action: { showDeleteAlert = true })
-                        } label: {
-                            Image(systemName: "ellipsis.circle")
-                        }
+            ToolbarItem(placement: .principal) {
+                
+                Text("📜 Journal Details")
+                    .chalkboardFont(size: 28)
+                    .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+            }
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.brown)
+                            .font(.system(size: 20, weight: .bold))
                     }
+                }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button("Edit", action: { showEditView = true })
+                    Button("Delete", role: .destructive, action: { showDeleteAlert = true })
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .foregroundColor(.brown)
+                }
+            }
                 }
                 .alert("Are you sure you want to delete this journal?", isPresented: $showDeleteAlert) {
                     Button("Cancel", role: .cancel) {}
@@ -73,7 +92,7 @@ struct JournalDetailView: View {
         step3Response: "Had a productive study session",
         step4Response: "Plan to review notes",
         step5Response: "Looking forward to tomorrow!",
-        journalContent: "ok"
+        journalContent: "oksssddg"
     ))
 }
 

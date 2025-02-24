@@ -35,14 +35,11 @@ struct JournalEntry: Codable, Identifiable {
         let lines = content.components(separatedBy: "\n").filter { !$0.isEmpty }
 
         if lines.count >= 2 {
-            return lines.prefix(2).joined(separator: " ") // 显示前两行
+            return lines.prefix(2).joined(separator: " ") // TODO 显示前两行
         } else {
-            return lines.first ?? "Journal" // 只有一行就返回第一行
+            return lines.first ?? "📔"
         }
     }
-
-
-
 
     
     

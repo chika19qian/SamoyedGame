@@ -38,7 +38,7 @@ struct MainView: View {
                     
                     Spacer()
 // samoyed image
-                    if vm.pet.happinessLevel == "Normal" {
+                    if vm.pet.happinessLevel == String(localized: "Normal") {
                         AnimatedImageView(folderName: vm.pet.stageImage)
                             .onTapGesture {
                                 vm.didTapSamoyed()

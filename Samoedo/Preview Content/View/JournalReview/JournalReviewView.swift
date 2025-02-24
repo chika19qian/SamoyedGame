@@ -64,13 +64,12 @@ struct JournalRowView: View {
 
             Text(entry.previewText)
                 .font(.body)
+                .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 .font(.custom("Chalkboard SE", size: 16))
                 .lineLimit(2)  
                 .truncationMode(.tail)
         }
-        .background(Color.white.opacity(0.8))
-        .cornerRadius(15)
-        .shadow(color: .gray.opacity(0.3), radius: 3, x: 0, y: 2)
+        
         .padding(.vertical, 8)
     }
 }

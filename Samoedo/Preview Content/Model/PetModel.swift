@@ -89,7 +89,7 @@ struct Pet: Codable {
         }
     
     var stageImage: String {
-        if happinessLevel == "Normal" {
+        if happinessLevel == String(localized: "Normal") {
             switch stage {
             case String(localized: "Puppy"): return "puppy_normal"
             case String(localized: "Young"): return "young_normal"
