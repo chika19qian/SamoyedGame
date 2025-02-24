@@ -9,23 +9,47 @@ import SwiftUI
 
 struct JournalReviewView: View {
     @StateObject var viewModel = JournalReviewViewModel()
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        
         NavigationView {
+            ZStack {
 
+                Color.brown.opacity(0.67).edgesIgnoringSafeArea(.all)
+
+                List(viewModel.journalEntries) { entry in
+                    NavigationLink(destination: JournalDetailView(viewModel: JournalReviewViewModel(), entry: entry)) {
+                        JournalRowView(viewModel: viewModel, entry: entry)
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                .background(Color.clear)
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.brown)
+                            .font(.system(size: 20, weight: .bold))
+                    }
+                }
+                
+
+                ToolbarItem(placement: .principal) {
                     
-            List(viewModel.journalEntries) { entry in
-                NavigationLink(destination: JournalDetailView(viewModel: JournalReviewViewModel(), entry: entry)) {
-                    JournalRowView(viewModel:viewModel, entry: entry)
+                    Text("Journal Review")
+                        .chalkboardFont(size: 28)
+                        .foregroundColor(.white.opacity(0.8))
                 }
             }
-            .navigationTitle("📖 Journal Review")
-
-            
-        }
+            .toolbarBackground(Color.brown, for: .navigationBar)
+        }.navigationBarBackButtonHidden()
     }
 }
+
 
 
 struct JournalRowView: View {

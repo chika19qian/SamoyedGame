@@ -38,16 +38,27 @@ struct MainView: View {
                     
                     Spacer()
 // samoyed image
-                    Image(vm.pet.stageImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 450, height: 450)
-                        .onTapGesture {
-                            vm.didTapSamoyed()
-                        }
-                        .onLongPressGesture {
-                            vm.startMeditation()
-                        }
+                    if vm.pet.happinessLevel == "Normal" {
+                        AnimatedImageView(folderName: vm.pet.stageImage)
+                            .onTapGesture {
+                                vm.didTapSamoyed()
+                            }
+                            .onLongPressGesture {
+                                vm.startMeditation()
+                            }
+                    } else {
+                        Image(vm.pet.stageImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 450, height: 450)
+                            .onTapGesture {
+                                vm.didTapSamoyed()
+                            }
+                            .onLongPressGesture {
+                                vm.startMeditation()
+                            }
+                    }
+
                 }
 
 // Right up Status

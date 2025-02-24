@@ -13,8 +13,16 @@ struct Pet: Codable {
     var lastMeal: Date
     var foodCount: Int = 5
     var ageOffset: Int = 0
+    
     var happinessLevel: String {
-        return String(localized: hunger == "Hungry" ? "Unhappy" : "Happy")
+        switch hunger {
+        case "Hungry":
+            return String(localized: "Unhappy")
+        case "Getting hungry":
+            return String(localized: "Normal")
+        default:
+            return String(localized: "Happy")
+        }
     }
 
     
@@ -79,11 +87,21 @@ struct Pet: Codable {
         }
     
     var stageImage: String {
+        if happinessLevel == "Normal" {
+            switch stage {
+            case "Puppy": return "puppy_normal"
+            case "Young": return "young_normal"
+            case "Adult": return "adult_normal"
+            default: return "old_normal"
+            }
+        }
+
+        
         switch stage {
         case "Puppy": return happinessLevel == "Happy" ? "puppy_happy_samoyed" : "puppy_sad_samoyed"
         case "Young": return happinessLevel == "Happy" ? "young_happy_samoyed" : "young_sad_samoyed"
         case "Adult": return happinessLevel == "Happy" ? "adult_happy_samoyed" : "adult_sad_samoyed"
-        default: return happinessLevel == "Happy" ? "elder_happy_samoyed" : "elder_sad_samoyed"
+        default: return happinessLevel == "Happy" ? "old_happy_samoyed" : "old_sad_samoyed"
         }
     }
 
