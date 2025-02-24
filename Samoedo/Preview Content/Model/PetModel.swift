@@ -97,14 +97,29 @@ struct Pet: Codable {
             default: return "old_normal"
             }
         }
-
         
-        switch stage {
-        case String(localized: "Puppy"): return happinessLevel == String(localized: "Happy") ? "puppy_happy_samoyed" : "puppy_sad_samoyed"
-        case String(localized: "Young"): return happinessLevel == String(localized: "Happy") ? "young_happy_samoyed" : "young_sad_samoyed"
-        case String(localized: "Adult"): return happinessLevel == String(localized: "Happy") ? "adult_happy_samoyed" : "adult_sad_samoyed"
-        default: return happinessLevel == String(localized: "Happy") ? "old_happy_samoyed" : "old_sad_samoyed"
+        else if happinessLevel == String(localized: "Happy") {
+            switch stage {
+            case String(localized: "Puppy"): return "puppy_happy"
+            case String(localized: "Young"): return "young_happy"
+            case String(localized: "Adult"): return "adult_happy"
+            default: return "old_normal"
+            }
         }
+
+        else if happinessLevel == String(localized: "Unhappy") {
+            switch stage {
+            case String(localized: "Puppy"): return "puppy_sad_samoyed"
+            case String(localized: "Young"): return "young_sad_samoyed"
+            case String(localized: "Adult"): return "adult_sad_samoyed"
+            default: return "old_sad_samoyed"
+            }
+        }
+        
+        else {
+            return "old_normal"
+        }
+        
     }
 
     mutating func feed() {

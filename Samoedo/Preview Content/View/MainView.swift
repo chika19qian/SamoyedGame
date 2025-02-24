@@ -38,15 +38,7 @@ struct MainView: View {
                     
                     Spacer()
 // samoyed image
-                    if vm.pet.happinessLevel == String(localized: "Normal") {
-                        AnimatedImageView(folderName: vm.pet.stageImage)
-                            .onTapGesture {
-                                vm.didTapSamoyed()
-                            }
-                            .onLongPressGesture {
-                                vm.startMeditation()
-                            }
-                    } else {
+                    if vm.pet.happinessLevel == String(localized: "Unhappy") {
                         Image(vm.pet.stageImage)
                             .resizable()
                             .scaledToFit()
@@ -57,6 +49,15 @@ struct MainView: View {
                             .onLongPressGesture {
                                 vm.startMeditation()
                             }
+                    } else {
+                        AnimatedImageView(folderName: vm.pet.stageImage)
+                            .onTapGesture {
+                                vm.didTapSamoyed()
+                            }
+                            .onLongPressGesture {
+                                vm.startMeditation()
+                            }
+                        
                     }
 
                 }
