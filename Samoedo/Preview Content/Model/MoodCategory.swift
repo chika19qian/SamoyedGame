@@ -14,8 +14,22 @@ enum MoodCategory: String, Codable, CaseIterable {
     case good = "Good"
     case veryGood = "Very Good"
     
+    var score: Int {
+        switch self {
+        case .veryBad: return 1
+        case .bad: return 2
+        case .neutral: return 3
+        case .good: return 4
+        case .veryGood: return 5
+        }
+    }
+    
     var localizedName: String {
         return String(localized: String.LocalizationValue(self.rawValue))
+    }
+    
+    static func from(rawValue: String) -> MoodCategory? {
+        return MoodCategory(rawValue: rawValue)
     }
 }
 

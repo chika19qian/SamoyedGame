@@ -235,6 +235,7 @@ struct MainView: View {
                     if vm.showingDialog {
                         Text(String(localized: String.LocalizationValue(vm.dialogMessage)))
                             .chalkboardFont(size: 28)                     .foregroundColor(.white)
+                            .padding(12)
                             .frame(height: 150)
                             .frame(maxWidth: .infinity)
                             .background(Color.brown.opacity(0.55))

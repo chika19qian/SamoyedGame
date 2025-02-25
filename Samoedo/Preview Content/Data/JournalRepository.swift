@@ -118,17 +118,20 @@ class JournalRepository {
             print("⚠️ No journal data found, returning default emotion score 3")
             return 3  // 默认值
         }
-
+        
         if let emotionValue = Int(latestJournal.step1Response) {
             print("📝 Latest journal emotion score: \(emotionValue)")
             return emotionValue
-        } else {
-            print("❌ Invalid emotion score, returning default 3")
-            return 3
         }
+        
+        if let mood = MoodCategory.from(rawValue: latestJournal.step1Response) {
+            print("📝 Latest journal emotion score (from mood): \(mood.score)")
+            return mood.score
+        }
+        
+        print("❌ Invalid emotion score, returning default 3")
+        return 3
+        
     }
-
-
-
 }
 
