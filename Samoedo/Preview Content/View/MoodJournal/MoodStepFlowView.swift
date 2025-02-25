@@ -13,23 +13,28 @@ struct MoodStepFlowView: View {
     @ObservedObject var mainViewModel: MainViewModel
 
     var body: some View {
-        VStack {
-            MoodStepNavigationView(viewModel: viewModel)
+        ZStack {
+            Color(red: 0.96, green: 0.91, blue: 0.84)
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                MoodStepNavigationView(viewModel: viewModel)
 
-            switch viewModel.step {
-            case 1:
-                MoodStep1View(viewModel: viewModel)
-            case 2:
-                MoodStep2View(viewModel: viewModel)
-            case 3:
-                MoodStep3View(viewModel: viewModel)
-            case 4:
-                MoodStep4View(viewModel: viewModel,mainViewModel:mainViewModel)
-            default:
-                Text(String(localized: "Unknown Step"))
-            }
-        }.navigationBarHidden(true)
-        
+                switch viewModel.step {
+                case 1:
+                    MoodStep1View(viewModel: viewModel)
+                case 2:
+                    MoodStep2View(viewModel: viewModel)
+                case 3:
+                    MoodStep3View(viewModel: viewModel)
+                case 4:
+                    MoodStep4View(viewModel: viewModel,mainViewModel:mainViewModel)
+                default:
+                    Text(String(localized: "Unknown Step"))
+                }
+            }.navigationBarHidden(true)
+
+        }
+                
     }
 }
 

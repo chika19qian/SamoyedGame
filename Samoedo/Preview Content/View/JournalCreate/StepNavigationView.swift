@@ -12,28 +12,33 @@ struct StepFlowView: View {
     @ObservedObject var mainViewModel: MainViewModel
 
     var body: some View {
-        VStack {
-            StepNavigationView(viewModel: viewModel)
+        ZStack {
+            Color(red: 0.96, green: 0.91, blue: 0.84)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                StepNavigationView(viewModel: viewModel)
 
-            switch viewModel.step {
-            case 1:
-                Step1View(viewModel: viewModel)
-                    .navigationBarBackButtonHidden(true)
-            case 2:
-                Step2View(viewModel: viewModel)
-                    .navigationBarBackButtonHidden(true)
-            case 3:
-                Step3View(viewModel: viewModel)
-                    .navigationBarBackButtonHidden(true)
-            case 4:
-                Step4View(viewModel: viewModel)
-                    .navigationBarBackButtonHidden(true)
-            case 5:
-                Step5View(viewModel: viewModel, mainViewModel: mainViewModel)
-                    .navigationBarBackButtonHidden(true)
-            default:
-                Text("Unknown Step")
-                    .navigationBarBackButtonHidden(true)
+                switch viewModel.step {
+                case 1:
+                    Step1View(viewModel: viewModel)
+                        .navigationBarBackButtonHidden(true)
+                case 2:
+                    Step2View(viewModel: viewModel)
+                        .navigationBarBackButtonHidden(true)
+                case 3:
+                    Step3View(viewModel: viewModel)
+                        .navigationBarBackButtonHidden(true)
+                case 4:
+                    Step4View(viewModel: viewModel)
+                        .navigationBarBackButtonHidden(true)
+                case 5:
+                    Step5View(viewModel: viewModel, mainViewModel: mainViewModel)
+                        .navigationBarBackButtonHidden(true)
+                default:
+                    Text("Unknown Step")
+                        .navigationBarBackButtonHidden(true)
+                }
             }
         }
     }

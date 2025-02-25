@@ -13,7 +13,7 @@ struct MeditationView: View {
 
     var body: some View {
         ZStack {
-            Color.brown.opacity(0.67).edgesIgnoringSafeArea(.all)
+            Color(red: 0.82, green: 0.74, blue: 0.62).edgesIgnoringSafeArea(.all)
 
             VStack {
                 //Settings

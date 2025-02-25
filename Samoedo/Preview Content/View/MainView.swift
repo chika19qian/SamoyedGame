@@ -34,7 +34,7 @@ struct MainView: View {
                         
                     }.chalkboardFont(size: 20)
                         .foregroundColor(.brown)
-                        .padding(.horizontal, 30)
+                        .padding(.horizontal, 40)
                     
                     Spacer()
 // samoyed image
@@ -104,7 +104,7 @@ struct MainView: View {
                 
 // 4 Buttons
                 VStack {
-                    Spacer().frame(height: 40)
+                    Spacer().frame(height: 50)
                     HStack {
                         //Feed
                         Button(action: vm.feed) {

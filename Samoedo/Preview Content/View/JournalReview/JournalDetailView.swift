@@ -16,63 +16,73 @@ struct JournalDetailView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        ScrollView {
-                                
-            VStack(alignment: .leading, spacing: 10) {
-                Text(formattedDate(entry.date))
-                    .frame(alignment: .center)
-                    .font(.custom("Chalkboard SE", size: 18))
-                    .foregroundColor(.brown)
-                Spacer()
+        ZStack {
+            Color(red: 0.97, green: 0.94, blue: 0.88)
 
-                Text(entry.journalContent)
-                    .font(.custom("Chalkboard SE", size: 20))
-                    .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
-                    .padding()
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
+                .edgesIgnoringSafeArea(.all)
             
-        }
-        .navigationBarBackButtonHidden()
-
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                
-                Text("📜 Journal Details")
-                    .chalkboardFont(size: 28)
-                    .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
-            }
-            
-            ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.brown)
-                            .font(.system(size: 20, weight: .bold))
-                    }
-                }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu {
-                    Button("Edit", action: { showEditView = true })
-                    Button("Delete", role: .destructive, action: { showDeleteAlert = true })
-                } label: {
-                    Image(systemName: "ellipsis.circle")
+            ScrollView {
+                                    
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(formattedDate(entry.date))
+                        .frame(alignment: .center)
+                        .font(.custom("Chalkboard SE", size: 18))
                         .foregroundColor(.brown)
+                    Spacer()
+
+                    Text(entry.journalContent)
+                        .font(.system(size: 20, weight: .medium, design: .rounded))
+                        .foregroundColor(Color(red: 0.55, green: 0.38, blue: 0.28))
+                        .padding()
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                
             }
+            .navigationBarBackButtonHidden()
+
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    
+                    Text("📜 Journal Details")
+                        .chalkboardFont(size: 28)
+                        .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 }
-                .alert("Are you sure you want to delete this journal?", isPresented: $showDeleteAlert) {
-                    Button("Cancel", role: .cancel) {}
-                    Button("Delete", role: .destructive) {
-                        viewModel.deleteJournal(entry)
-                        presentationMode.wrappedValue.dismiss()
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.brown)
+                                .font(.system(size: 20, weight: .bold))
+                        }
+                    }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button("Edit", action: { showEditView = true })
+                        Button("Delete", role: .destructive, action: { showDeleteAlert = true })
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                            .foregroundColor(.brown)
                     }
                 }
-                .sheet(isPresented: $showEditView) {
-                    EditJournalView(viewModel: viewModel, entry: entry)
-                }
+                    }
+            .toolbarBackground(Color(red: 0.97, green: 0.94, blue: 0.88), for: .navigationBar)
+
+                    .alert("Are you sure you want to delete this journal?", isPresented: $showDeleteAlert) {
+                        Button("Cancel", role: .cancel) {}
+                        Button("Delete", role: .destructive) {
+                            viewModel.deleteJournal(entry)
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                    .sheet(isPresented: $showEditView) {
+                        EditJournalView(viewModel: viewModel, entry: entry)
+                    }
+
+        }
+        
             
     }
 
@@ -92,7 +102,7 @@ struct JournalDetailView: View {
         step3Response: "Had a productive study session",
         step4Response: "Plan to review notes",
         step5Response: "Looking forward to tomorrow!",
-        journalContent: "oksssddg"
+        journalContent: "oksssddg, Looking forward to tomorrow!"
     ))
 }
 

@@ -17,6 +17,7 @@ struct LoadingView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack(spacing: 20) {
+                Spacer()
                 Text("🐾 Getting things ready...")
                     .font(.custom("Chalkboard SE", size: 22))
                     .foregroundColor(.white)

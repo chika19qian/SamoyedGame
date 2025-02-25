@@ -15,12 +15,13 @@ struct JournalReviewView: View {
         NavigationView {
             ZStack {
 
-                Color.brown.opacity(0.67).edgesIgnoringSafeArea(.all)
+                Color(red: 0.82, green: 0.74, blue: 0.62).edgesIgnoringSafeArea(.all)
 
                 List(viewModel.journalEntries) { entry in
                     NavigationLink(destination: JournalDetailView(viewModel: viewModel, entry: entry)) {
                         JournalRowView(viewModel: viewModel, entry: entry)
-                    }
+                    }.listRowBackground(Color(red: 0.97, green: 0.94, blue: 0.88))
+
                 }
                 .scrollContentBackground(.hidden)
                 .background(Color.clear)
@@ -32,7 +33,7 @@ struct JournalReviewView: View {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "chevron.left")
-                            .foregroundColor(.brown)
+                            .foregroundColor(Color(red: 0.65, green: 0.50, blue: 0.35))
                             .font(.system(size: 20, weight: .bold))
                     }
                 }
@@ -63,8 +64,8 @@ struct JournalRowView: View {
                 .foregroundColor(.gray)
 
             Text(viewModel.previewText(for: entry))
-                .font(.body)
-                .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+                .font(.system(size: 18, weight: .medium, design: .rounded)) // SF Rounded
+                .foregroundColor(Color(red: 0.45, green: 0.35, blue: 0.25))
                 .lineLimit(2)
                 .truncationMode(.tail)
         }

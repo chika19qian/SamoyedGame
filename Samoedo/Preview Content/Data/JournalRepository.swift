@@ -116,7 +116,7 @@ class JournalRepository {
         let allJournals = loadAllJournals().sorted(by: { $0.date > $1.date })
         guard let latestJournal = allJournals.first else {
             print("⚠️ No journal data found, returning default emotion score 3")
-            return 3  // 默认值
+            return 3  
         }
         
         if let emotionValue = Int(latestJournal.step1Response) {

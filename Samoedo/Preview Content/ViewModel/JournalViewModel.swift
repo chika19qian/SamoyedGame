@@ -45,8 +45,8 @@ class JournalViewModel: ObservableObject {
 
             contentArray.append(
                 String(format: String(localized: morning
-                    ? "How was your sleep last night?\n%d/5"
-                    : "How do you feel today?\n%d"), currentEntry.step1Response)
+                    ? "How was your sleep last night?\n%@/5"
+                    : "How do you feel today?\n%@/5"), currentEntry.step1Response)
             )
 
             contentArray.append(

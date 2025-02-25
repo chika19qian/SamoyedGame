@@ -71,12 +71,20 @@ class MeditationViewModel: ObservableObject {
     
     func stopMeditation() {
         MeditationAudioManager.shared.stopMeditation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { 
-            if !AudioManager.shared.isBGMManuallyStopped {
-                AudioManager.shared.playBGM(filename: "main_bgm")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let lastSelectedBGM = AudioRepository.shared.getSelectedBGM()
+            let shouldPlayBGM = AudioRepository.shared.isBGMPlaying()
+
+            if shouldPlayBGM {
+                AudioManager.shared.playBGM(filename: lastSelectedBGM)  
+                print("🎵 冥想结束，恢复 BGM: \(lastSelectedBGM)")
+            } else {
+                print("🔇 用户之前暂停了 BGM，不恢复")
             }
         }
     }
+
 
 }
 
