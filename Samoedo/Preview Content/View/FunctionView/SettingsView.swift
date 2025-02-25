@@ -13,8 +13,7 @@ struct SettingsView: View {
     
     @State private var bgmVolume: Double = AudioManager.shared.bgmVolume
     @State private var meditationVolume: Double = MeditationAudioManager.shared.meditationVolume
-    @State private var isBGMPlaying: Bool = true
-
+    @State private var isBGMPlaying: Bool = AudioRepository.shared.isBGMPlaying()
     var body: some View {
         ZStack {
             // 🌟 背景
@@ -46,29 +45,61 @@ struct SettingsView: View {
 
                         Image(systemName: "speaker.wave.3.fill")
                             .foregroundColor(.brown)
+                    }.onChange(of: bgmVolume) {
+                        AudioManager.shared.setBGMVolume(bgmVolume)
+                        AudioManager.shared.playVolumeFeedback() 
                     }
+
                 }
                 .padding()
-
-                Button(action: {
-                    if isBGMPlaying {
-                        AudioManager.shared.pauseBGM()
-                    } else {
-                        AudioManager.shared.resumeBGM()
+                
+                HStack(spacing:30) {
+                    Button(action: {
+                        AudioManager.shared.playRemixBGM()
+                    }) {
+                        Text("🔀")
+                            .font(.custom("Chalkboard SE", size: 18))
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 55, height: 55)
+                            .background(Color.brown.opacity(0.8))
+                            .cornerRadius(12)
                     }
-                    isBGMPlaying.toggle()
-                }) {
-                    Text(isBGMPlaying ? "⏸️ Pause BGM" : "▶️ Play BGM")
-                        .font(.custom("Chalkboard SE", size: 20))
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 200)
-                        .background(Color.brown.opacity(0.8))
-                        .cornerRadius(15)
+                    
+                    Button(action: {
+                        if isBGMPlaying {
+                            AudioManager.shared.pauseBGM()
+                        } else {
+                            AudioManager.shared.resumeBGM()
+                        }
+                        isBGMPlaying.toggle()
+                    }) {
+                        Text(isBGMPlaying ? "⏸️ Pause BGM" : "▶️ Play BGM")
+                            .font(.custom("Chalkboard SE", size: 20))
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 180,height: 65)
+                            .background(Color.brown.opacity(0.8))
+                            .cornerRadius(15)
+                    }
+                    
+                    
+                    Button(action: {
+                        AudioManager.shared.playNextBGM()  // 切换下一首 BGM
+                    }) {
+                        Text("⏭️")
+                            .font(.custom("Chalkboard SE", size: 18))
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 55, height: 55)
+                            .background(Color.brown.opacity(0.8))
+                            .cornerRadius(12)
+                    }
                 }
-                .padding(.bottom, 10)
 
+                
 
+// Meditation Part
                 VStack(alignment: .leading, spacing: 8) {
                     Text("🧘 Meditation Audio Volume")
                         .font(.custom("Chalkboard SE", size: 20))
@@ -86,6 +117,10 @@ struct SettingsView: View {
 
                         Image(systemName: "speaker.wave.3.fill")
                             .foregroundColor(.brown)
+                    }
+                    .onChange(of: meditationVolume) {
+                        MeditationAudioManager.shared.setMeditationVolume(meditationVolume)
+                        MeditationAudioManager.shared.playShortMeditationFeedback()
                     }
                 }
                 .padding()

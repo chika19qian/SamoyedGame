@@ -20,8 +20,14 @@ class MeditationAudioManager {
             player = try AVAudioPlayer(contentsOf: url)
             player?.volume = Float(meditationVolume)
             player?.play()
-        } catch { print("冥想音频播放失败") }
+
+            print("🎵 Playing Meditation: \(filename)")
+        } catch {
+            print("❌ 冥想音频播放失败: \(error.localizedDescription)")
+        }
     }
+
+
 
     func stopMeditation() {
         player?.stop()
@@ -31,4 +37,29 @@ class MeditationAudioManager {
         meditationVolume = volume
         player?.volume = Float(volume)
     }
+    
+    func playShortMeditationFeedback() {
+        guard let player = player else {
+            playMeditation(filename: AudioLibrary.meditationCalm) // 播放默认冥想音频
+            return
+        }
+
+        let wasBGMPlaying = AudioManager.shared.bgmPlayer?.isPlaying ?? false
+        if wasBGMPlaying {
+            AudioManager.shared.pauseBGM()
+        }
+
+        let originalTime = player.currentTime
+        player.currentTime = 0
+        player.play()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            player.pause()
+            player.currentTime = originalTime
+            if wasBGMPlaying {
+                AudioManager.shared.resumeBGM()
+            }
+        }
+    }
+
 }

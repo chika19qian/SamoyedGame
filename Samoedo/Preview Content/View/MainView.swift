@@ -73,6 +73,7 @@ struct MainView: View {
                                 .frame(width:30, height: 30)
                                 .foregroundColor(.brown)
                         }
+                        Spacer().frame(height: 10)
                         
                         // Progress
                         ProgressView(value: vm.pet.stageProgress)
@@ -84,24 +85,24 @@ struct MainView: View {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                     vm.showAgeInfo = false
                                 }
-                            }
+                            }                  
                         
-                        if vm.showAgeInfo {
-                            VStack {
-                                Text("**\(vm.pet.stage )** ")
-                                Text(" **\(vm.pet.age)** /**\(vm.pet.currentStageEnd)**")
-                            }.chalkboardFont(size: 20)
-                                .foregroundColor(.brown)
-                                .padding(.horizontal, 0)
-                                .transition(.opacity)
-                                .animation(.easeInOut, value: vm.showAgeInfo)
-                        }
+                    }
+                    if vm.showAgeInfo {
+                        VStack {
+                            Text("**\(vm.pet.stage )** ")
+                            Text(" **\(vm.pet.age)** /**\(vm.pet.currentStageEnd)**")
+                        }.chalkboardFont(size: 20)
+                            .foregroundColor(.brown)
+                            .padding(.horizontal, 0)
+                            .transition(.opacity)
+                            .animation(.easeInOut, value: vm.showAgeInfo)
                     }
                     
                 }.offset(x: 120, y: -250)
                 
                 
-// Three Buttons
+// 4 Buttons
                 VStack {
                     Spacer().frame(height: 40)
                     HStack {
@@ -149,9 +150,24 @@ struct MainView: View {
                                     .frame(width: 60, height: 60)
                                     .overlay(Circle().stroke(Color.white, lineWidth: 3))
                                 
-                                Image("pen")
+                                Image("happy")
                                     .resizable()
-                                    .frame(width: 40, height: 38)
+                                    .frame(width: 40, height: 40)
+                            }
+                        }
+                        
+                        Spacer().frame(width: 20)
+                        
+                        NavigationLink(destination: Outdoor()) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.brown)
+                                    .frame(width: 60, height: 60)
+                                    .overlay(Circle().stroke(Color.white, lineWidth: 3))
+                                
+                                Image("nature")
+                                    .resizable()
+                                    .frame(width: 45, height: 45)
                             }
                         }
                         

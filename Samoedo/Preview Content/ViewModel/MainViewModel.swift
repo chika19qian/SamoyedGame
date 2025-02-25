@@ -51,7 +51,16 @@ class MainViewModel: ObservableObject {
     @Published var navigateToSettings = false
     
     init() {
-        AudioManager.shared.playBGM(filename: "main_bgm")
+        // bgm
+        let selectedBGM = AudioRepository.shared.getSelectedBGM()
+        let shouldPlayBGM = AudioRepository.shared.isBGMPlaying()
+
+        if shouldPlayBGM {
+            AudioManager.shared.playBGM(filename: selectedBGM)
+        } else {
+            print("🔇 BGM is set to OFF by user, not playing at startup.")
+        }
+        
         pet = repository.loadData()
         checkJournalStatus()
         
