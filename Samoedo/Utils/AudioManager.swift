@@ -11,10 +11,12 @@ class AudioManager {
     static let shared = AudioManager()
     private var bgmPlayer: AVAudioPlayer?
     var bgmVolume: Double = 0.5
+    var isBGMManuallyStopped: Bool = false
 
     private init() { }
 
     func playBGM(filename: String) {
+        guard !isBGMManuallyStopped else { return }
         guard let url = Bundle.main.url(forResource: filename, withExtension: "mp3") else {
             print("❌ No Found Audio: \(filename)")
             return
@@ -37,12 +39,14 @@ class AudioManager {
 
     func pauseBGM() {
         bgmPlayer?.pause()
+        isBGMManuallyStopped = true
         print("⏸️ BGM stopped")
     }
 
 
     func resumeBGM() {
         bgmPlayer?.play()
+        isBGMManuallyStopped = false
         print("▶️ BGM 继续播放")
     }
 
@@ -50,6 +54,7 @@ class AudioManager {
     func stopBGM() {
         bgmPlayer?.stop()
         bgmPlayer = nil
+        isBGMManuallyStopped = true
         print("⏹️ BGM 停止播放")
     }
 }

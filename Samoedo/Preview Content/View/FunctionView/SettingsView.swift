@@ -39,8 +39,8 @@ struct SettingsView: View {
 
                         Slider(value: $bgmVolume, in: 0...1, step: 0.1)
                             .accentColor(.brown)
-                            .onChange(of: bgmVolume) { newValue in
-                                AudioManager.shared.setBGMVolume(newValue)
+                            .onChange(of: bgmVolume) {
+                                AudioManager.shared.setBGMVolume(bgmVolume)
                             }
 
 
@@ -80,8 +80,8 @@ struct SettingsView: View {
 
                         Slider(value: $meditationVolume, in: 0...1, step: 0.1)
                             .accentColor(.brown)
-                            .onChange(of: meditationVolume) { newValue in
-                                MeditationAudioManager.shared.setMeditationVolume(newValue)
+                            .onChange(of: meditationVolume) { 
+                                MeditationAudioManager.shared.setMeditationVolume(meditationVolume)
                             }
 
                         Image(systemName: "speaker.wave.3.fill")

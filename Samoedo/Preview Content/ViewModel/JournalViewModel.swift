@@ -16,6 +16,7 @@ class JournalViewModel: ObservableObject {
     @Published var currentEntry: JournalEntry = JournalEntry(
         id: UUID(),
         date: Date(),
+        mode: .morning,
         step1Response: "",
         step2Response: [],
         step3Response: "",

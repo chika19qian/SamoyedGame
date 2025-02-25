@@ -1,34 +1,31 @@
 //
-//  Step5View.swift
+//  MoodStep4View.swift
 //  Samoedo
 //
-//  Created by chika on 2025/2/7.
+//  Created by chika on 2025/2/25.
 //
 
 import SwiftUI
 
-struct Step5View: View {
-    @ObservedObject var viewModel: JournalViewModel
+struct MoodStep4View: View {
+    @ObservedObject var viewModel: MoodJournalViewModel
     @ObservedObject var mainViewModel: MainViewModel
-    @Environment(\.presentationMode) private var presentationMode
-
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
-        
             Spacer()
-            Text(viewModel.morning ? "If today is fulfilling and brings unexpected joy, how would you feel?" : "What beautiful things are you looking forward to tomorrow?")
+
+            Text(String(localized: "Why do you feel this way?"))
                 .chalkboardFont(size: 28)
                 .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 .frame(alignment:.center)
                 .padding()
-            
-            Spacer()
-            
+
             TextEditor(text: $viewModel.currentEntry.step5Response)
                 .font(.custom("Chalkboard SE", size: 18))
                 .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
-                .frame(height: 370)
+                .frame(height: 350)
                 .border(Color.gray, width: 2)
                 .cornerRadius(15)
                 .overlay(
@@ -36,11 +33,16 @@ struct Step5View: View {
                         .stroke(Color.brown, lineWidth: 4)
                 )
                 .padding()
-            
-            Button(action: { viewModel.saveJournal(vm: mainViewModel)
-                
-                presentationMode.wrappedValue.dismiss()}) {
-                Text("Save")
+
+            Spacer()
+
+            Button(action: {
+                viewModel.saveJournal(vm: mainViewModel)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    presentationMode.wrappedValue.dismiss()  
+                }
+            }) {
+                Text(String(localized: "Save"))
                     .chalkboardFont(size: 25)
                     .foregroundColor(Color.white)
                     .padding()
@@ -52,12 +54,13 @@ struct Step5View: View {
                     )
                     .cornerRadius(15)
             }
+            .padding()
 
+            Spacer()
         }
         .padding()
     }
 }
-
 #Preview {
-    Step5View(viewModel: JournalViewModel(),mainViewModel: MainViewModel())
+    MoodStep4View(viewModel: MoodJournalViewModel(),mainViewModel: MainViewModel())
 }

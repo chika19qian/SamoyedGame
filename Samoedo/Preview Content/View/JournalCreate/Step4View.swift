@@ -25,7 +25,7 @@ struct Step4View: View {
             TextEditor(text: $viewModel.currentEntry.step4Response)
                 .font(.custom("Chalkboard SE", size: 18))
                 .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
-                .frame(height: 350)
+                .frame(height: 370)
                 .border(Color.gray, width: 2)
                 .cornerRadius(15)
                 .overlay(

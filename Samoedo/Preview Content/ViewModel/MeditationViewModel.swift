@@ -71,8 +71,10 @@ class MeditationViewModel: ObservableObject {
     
     func stopMeditation() {
         MeditationAudioManager.shared.stopMeditation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // 延迟 0.5 秒后播放 BGM
-            AudioManager.shared.playBGM(filename: "main_bgm")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { 
+            if !AudioManager.shared.isBGMManuallyStopped {
+                AudioManager.shared.playBGM(filename: "main_bgm")
+            }
         }
     }
 

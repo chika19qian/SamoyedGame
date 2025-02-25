@@ -86,7 +86,7 @@ struct JournalDetailView: View {
 #Preview {
     JournalDetailView(viewModel: JournalReviewViewModel(), entry: JournalEntry(
         id: UUID(),
-        date: Date(),
+        date: Date(), mode: .morning,
         step1Response: "Slept well 😴",
         step2Response: [Event(id: UUID(), name: "Study", icon: "📖")],
         step3Response: "Had a productive study session",

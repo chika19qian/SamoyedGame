@@ -62,11 +62,10 @@ struct JournalRowView: View {
                 .font(.custom("Chalkboard SE", size: 16))
                 .foregroundColor(.gray)
 
-            Text(entry.previewText)
+            Text(viewModel.previewText(for: entry))
                 .font(.body)
                 .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
-                .font(.custom("Chalkboard SE", size: 16))
-                .lineLimit(2)  
+                .lineLimit(2)
                 .truncationMode(.tail)
         }
         

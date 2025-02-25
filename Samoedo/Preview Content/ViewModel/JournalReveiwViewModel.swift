@@ -41,5 +41,11 @@ class JournalReviewViewModel: ObservableObject {
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
         return formatter.string(from: date)
     }
+    
+    func previewText(for entry: JournalEntry) -> String {
+        let lines = entry.journalContent.components(separatedBy: .newlines)
+            .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+        return lines.prefix(2).joined(separator: "\n")
+    }
 
 }

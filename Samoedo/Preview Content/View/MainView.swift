@@ -101,43 +101,63 @@ struct MainView: View {
                 }.offset(x: 120, y: -250)
                 
                 
-// Two Buttons
-                HStack {
-                    //Feed
-                    Button(action: vm.feed) {
-                        ZStack {
-                            Circle()
-                                .fill(Color.brown)
-                                .frame(width: 60, height: 60)
-                                .overlay(Circle().stroke(Color.white, lineWidth: 3))
-                            
-                            Image("pet-bowl")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
+// Three Buttons
+                VStack {
+                    Spacer().frame(height: 40)
+                    HStack {
+                        //Feed
+                        Button(action: vm.feed) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.brown)
+                                    .frame(width: 60, height: 60)
+                                    .overlay(Circle().stroke(Color.white, lineWidth: 3))
+                                
+                                Image("pet-bowl")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                            }
                         }
-                    }
-                    .disabled(vm.pet.foodCount == 0)
-                    
-                    
-                    Spacer().frame(width: 20)
-                    
-                    // Journal Review
-                    NavigationLink(destination: JournalReviewView()) {
-                        ZStack {
-                            Circle()
-                                .fill(Color.brown)
-                                .frame(width: 60, height: 60)
-                                .overlay(Circle().stroke(Color.white, lineWidth: 3))
-                            
-                            
-                            Image("diary")
-                                .resizable()
-                                .frame(width: 43, height: 40)
+                        .disabled(vm.pet.foodCount == 0)
+                        
+                        
+                        Spacer().frame(width: 20)
+                        
+                        // Journal Review
+                        NavigationLink(destination: JournalReviewView()) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.brown)
+                                    .frame(width: 60, height: 60)
+                                    .overlay(Circle().stroke(Color.white, lineWidth: 3))
+                                
+                                
+                                Image("diary")
+                                    .resizable()
+                                    .frame(width: 43, height: 40)
+                            }
                         }
+                  
                     }
-                    
+                    // Mood Journal
+                    HStack {
+                        NavigationLink(destination: MoodStepFlowView(mainViewModel: vm)) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.brown)
+                                    .frame(width: 60, height: 60)
+                                    .overlay(Circle().stroke(Color.white, lineWidth: 3))
+                                
+                                Image("pen")
+                                    .resizable()
+                                    .frame(width: 40, height: 38)
+                            }
+                        }
+                        
+                    } 
                 }.offset(x: -110, y: -200)
+               
                 
                 
 // Daily Journal Prompt

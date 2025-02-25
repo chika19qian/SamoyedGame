@@ -61,6 +61,7 @@ struct EditJournalView: View {
     EditJournalView(viewModel: JournalReviewViewModel(), entry: JournalEntry(
         id: UUID(),
         date: Date(),
+        mode: .morning,
         step1Response: "Slept well 😴",
         step2Response: [Event(id: UUID(), name: "Study", icon: "📖")],
         step3Response: "Had a productive study session",
