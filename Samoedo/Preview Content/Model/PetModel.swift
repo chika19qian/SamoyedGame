@@ -9,7 +9,7 @@ import Foundation
 
 struct Pet: Codable {
     var name: String
-    var birthday = Date()
+    var birthday: Date?
     var lastMeal: Date
     var foodCount: Int = 6
     var ageOffset: Int = 0
@@ -29,6 +29,7 @@ struct Pet: Codable {
 
     
     var age: Int {
+        guard let birthday = birthday else { return 0 }
         let timeSince = calcTimeSince(data: birthday)
         let ageTime = timeSince + ageOffset
         return ageTime

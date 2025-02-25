@@ -20,6 +20,12 @@ class PetRepository {
         } else {
             self.cachedPet = Pet(name: "Samoyed", lastMeal: Date())
         }
+        
+        let storyRepo = StoryRepository()
+        if storyRepo.hasSeenOpening(), cachedPet?.birthday == nil {
+            cachedPet?.birthday = Date()
+            saveData()
+        }
     }
 
     func loadData() -> Pet {

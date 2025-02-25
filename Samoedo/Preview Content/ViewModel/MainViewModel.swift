@@ -95,6 +95,10 @@ class MainViewModel: ObservableObject {
         } else {
             print("✅ nextOpeningDialogue: Marking opening scene as seen")
             storyRepository.setSeenOpening()
+            
+            pet.birthday = Date()
+            repository.saveData(pet: pet)
+            
             DispatchQueue.main.async {
                 withAnimation {
                     self.showOpeningScene = false
