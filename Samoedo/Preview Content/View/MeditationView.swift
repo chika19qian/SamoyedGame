@@ -41,8 +41,8 @@ struct MeditationView: View {
 
 
                 HStack(spacing: 40) {
-                    Button(action: viewModel.backward5s) {
-                        Image(systemName: "gobackward.5")
+                    Button(action: viewModel.backward15s) {
+                        Image(systemName: "gobackward.15")
                             .font(.system(size: 30))
                             .foregroundColor(.brown)
                     }
@@ -53,8 +53,8 @@ struct MeditationView: View {
                             .foregroundColor(.brown)
                     }
 
-                    Button(action: viewModel.forward5s) {
-                        Image(systemName: "goforward.5") 
+                    Button(action: viewModel.forward15s) {
+                        Image(systemName: "goforward.15")
                             .font(.system(size: 30))
                             .foregroundColor(.brown)
                     }

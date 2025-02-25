@@ -56,15 +56,15 @@ class MeditationViewModel: ObservableObject {
     }
 
     
-    func forward5s() {
+    func forward15s() {
         guard let player = MeditationAudioManager.shared.player else { return }
-        let newTime = min(player.currentTime + 5, player.duration)
+        let newTime = min(player.currentTime + 15, player.duration)
         player.currentTime = newTime
     }
 
-    func backward5s() {
+    func backward15s() {
         guard let player = MeditationAudioManager.shared.player else { return }
-        let newTime = max(player.currentTime - 5, 0)
+        let newTime = max(player.currentTime - 15, 0)
         player.currentTime = newTime
     }
 
