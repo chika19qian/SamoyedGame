@@ -54,13 +54,19 @@ class MainViewModel: ObservableObject {
         // bgm
         let selectedBGM = AudioRepository.shared.getSelectedBGM()
         let shouldPlayBGM = AudioRepository.shared.isBGMPlaying()
-
-        if shouldPlayBGM {
-            AudioManager.shared.playBGM(filename: selectedBGM)
-        } else {
-            print("🔇 BGM is set to OFF by user, not playing at startup.")
-        }
         
+        print("🎵 初始化 MainViewModel")
+        print("🔍 选中的 BGM: \(selectedBGM)")
+        print("🔍 是否应该播放 BGM: \(shouldPlayBGM)")
+
+        // 🛑 确保 BGM 只在用户允许的情况下播放
+        if shouldPlayBGM {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                AudioManager.shared.playBGM(filename: selectedBGM)
+            }
+        } else {
+            print("🔇 BGM 被用户关闭，启动时不播放")
+        }
         pet = repository.loadData()
         checkJournalStatus()
         

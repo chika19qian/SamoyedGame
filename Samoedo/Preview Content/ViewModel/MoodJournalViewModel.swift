@@ -45,23 +45,23 @@ class MoodJournalViewModel: ObservableObject {
             let step2Question = String(localized: "Events that influenced your mood")
             let step2Answer = currentEntry.step2Response.isEmpty
                 ? String(localized: "No events selected")
-                : currentEntry.step2Response.map { "\($0.icon) \($0.name)" }.joined(separator: ", ")
+            : currentEntry.step2Response.map { "\($0.icon) \($0.localizedName)" }.joined(separator: ", ")
 
-            // Step 3: 具体情绪（包含用户输入的 Other）
+
             let step3Question = String(localized: "Specific Feelings")
             let step3Answer = currentEntry.step3Response.isEmpty
                 ? String(localized: "No specific feelings recorded")
                 : currentEntry.step3Response
 
-            // Step 4: 用户输入的原因
+
             let step4Question = String(localized: "Reason")
             let step4Answer = currentEntry.step4Response.isEmpty ? String(localized: "No reason provided") : currentEntry.step4Response
 
-            // Step 5: 额外的自我反思（如果有的话）
+
             let step5Question = String(localized: "Any additional reflections?")
             let step5Answer = currentEntry.step5Response.isEmpty ? "" : currentEntry.step5Response
 
-            // 组合成完整的日记内容，每个问题 + 回答 **用空行隔开**
+
             var contentArray: [String] = []
             contentArray.append("\(step1Question)\n\(step1Answer)")
             contentArray.append("\(step2Question)\n\(step2Answer)")

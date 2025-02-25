@@ -233,7 +233,7 @@ struct MainView: View {
 
     // Daily Talk
                     if vm.showingDialog {
-                        Text(vm.dialogMessage)
+                        Text(String(localized: String.LocalizationValue(vm.dialogMessage)))
                             .chalkboardFont(size: 28)                     .foregroundColor(.white)
                             .frame(height: 150)
                             .frame(maxWidth: .infinity)

@@ -28,34 +28,58 @@ class JournalViewModel: ObservableObject {
     var content: String {
         get {
             let step2Selection = currentEntry.step2Response.map { "\($0.icon) \($0.localizedName)" }.joined(separator: ", ")
+
             let step3Question = step2Selection.isEmpty
-                ? (morning ? "What beautiful memories do you have about your focus areas?" : "Why did the chosen event make you feel good?")
-                : (morning ? "What beautiful memories do you have about \(step2Selection)?" : "Why did \(step2Selection) make you feel good?")
-            
+                ? (morning ? String(localized: "What beautiful memories do you have about your focus areas?")
+                           : String(localized: "Why did the chosen event make you feel good?"))
+                : (morning ? String(format: String(localized: "What beautiful memories do you have about %@?"), step2Selection)
+                           : String(format: String(localized: "Why did %@ make you feel good?"), step2Selection))
+
             let step4Question = step2Selection.isEmpty
-                ? (morning ? "What is your plan for today?" : "How would you praise yourself?")
-                : (morning ? "What is your plan for \(step2Selection) today?" : "How would you praise yourself?")
+                ? (morning ? String(localized: "What is your plan for today?")
+                           : String(localized: "How would you praise yourself?"))
+                : (morning ? String(format: String(localized: "What is your plan for %@ today?"), step2Selection)
+                           : String(localized: "How would you praise yourself?"))
 
             var contentArray: [String] = []
 
-            contentArray.append("\(morning ? "How was your sleep last night?" : "How do you feel today?")\n\(currentEntry.step1Response)/5")
-            contentArray.append("\(morning ? "What did you focus on today?" : "What made you feel good today?")\n\(step2Selection)")
+            contentArray.append(
+                String(format: String(localized: morning
+                    ? "How was your sleep last night?\n%d/5"
+                    : "How do you feel today?\n%d"), currentEntry.step1Response)
+            )
+
+            contentArray.append(
+                String(format: String(localized: morning
+                    ? "What did you focus on today?\n%@"
+                    : "What made you feel good today?\n%@"), step2Selection)
+            )
 
             if !currentEntry.step3Response.isEmpty {
-                contentArray.append("\(step3Question)\n\(currentEntry.step3Response)")
+                contentArray.append(
+                    String(format: "%@\n%@", step3Question, currentEntry.step3Response)
+                )
             }
 
             if !currentEntry.step4Response.isEmpty {
-                contentArray.append("\(step4Question)\n\(currentEntry.step4Response)")
+                contentArray.append(
+                    String(format: "%@\n%@", step4Question, currentEntry.step4Response)
+                )
             }
 
             if !currentEntry.step5Response.isEmpty {
-                contentArray.append("\(morning ? "If today is fulfilling and brings unexpected joy, how would you feel?" : "What beautiful things are you looking forward to tomorrow?")\n\(currentEntry.step5Response)")
+                contentArray.append(
+                    String(format: String(localized: morning
+                        ? "If today is fulfilling and brings unexpected joy, how would you feel?\n%@"
+                        : "What beautiful things are you looking forward to tomorrow?\n%@"),
+                        currentEntry.step5Response)
+                )
             }
 
             return contentArray.joined(separator: "\n\n")
         }
     }
+
 
     
     var morning: Bool

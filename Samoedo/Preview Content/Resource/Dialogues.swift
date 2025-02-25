@@ -77,11 +77,11 @@ struct Dialogues {
     
     static func getBaseDialogue(for stage: String, hunger: String) -> String {
         switch stage {
-        case "Puppy":
+        case String(localized: "Puppy"):
             return (hunger == "Hungry") ? puppyHungry.randomElement()! : puppyHappy.randomElement()!
-        case "Young":
+        case String(localized: "Young"):
             return (hunger == "Hungry") ? youngHungry.randomElement()! : youngHappy.randomElement()!
-        case "Adult":
+        case String(localized: "Adult"):
             return (hunger == "Hungry") ? adultHungry.randomElement()! : adultHappy.randomElement()!
         default:
             return "Woof?"
@@ -90,14 +90,14 @@ struct Dialogues {
  
     static func getEmotionReaction(for stage: String, emotionScore: Int) -> String {
         switch stage {
-        case "Puppy":
+        case String(localized: "Puppy"):
             return getPuppyEmotionReaction(emotionScore)
-        case "Young":
+        case String(localized: "Young"):
             return getYoungEmotionReaction(emotionScore)
-        case "Adult":
+        case String(localized: "Adult"):
             return getAdultEmotionReaction(emotionScore)
         default:
-            return "(tilts head) How are you feeling?"
+            return String(localized: "(tilts head) How are you feeling?")
         }
     }
 

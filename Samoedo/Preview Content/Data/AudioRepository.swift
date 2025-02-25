@@ -23,8 +23,15 @@ class AudioRepository {
 
 
     func getSelectedBGM() -> String {
-        return UserDefaults.standard.string(forKey: selectedBGMKey) ?? AudioLibrary.bgmMain
+        if let storedBGM = UserDefaults.standard.string(forKey: selectedBGMKey) {
+            return storedBGM
+        } else {
+            let defaultBGM = AudioLibrary.bgmMain
+            saveSelectedBGM(defaultBGM)
+            return defaultBGM
+        }
     }
+
 
 
     func saveSelectedMeditation(_ filename: String) {
@@ -53,6 +60,10 @@ class AudioRepository {
 
 
     func isBGMPlaying() -> Bool {
+        if UserDefaults.standard.object(forKey: isBGMPlayingKey) == nil {
+            saveBGMPlayingState(true)  // 记录默认值
+            return true
+        }
         return UserDefaults.standard.bool(forKey: isBGMPlayingKey)
     }
 

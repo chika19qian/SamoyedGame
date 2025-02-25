@@ -13,6 +13,10 @@ enum MoodCategory: String, Codable, CaseIterable {
     case neutral = "Neutral"
     case good = "Good"
     case veryGood = "Very Good"
+    
+    var localizedName: String {
+        return String(localized: String.LocalizationValue(self.rawValue))
+    }
 }
 
 let moodDetailsMap: [MoodCategory: [String]] = [

@@ -18,44 +18,50 @@ class AudioManager {
     private init() { }
 
     func playBGM(filename: String? = nil) {
-        let bgmToPlay = filename ?? AudioRepository.shared.getSelectedBGM()
+        let bgmToPlay = filename ?? AudioRepository.shared.getSelectedBGM()  
         
         guard let url = Bundle.main.url(forResource: bgmToPlay, withExtension: "mp3") else {
-            print("❌ No Found Audio: \(bgmToPlay)")
+            print("❌ No Found Audio: \(bgmToPlay).mp3")
             return
         }
+        
         do {
             bgmPlayer = try AVAudioPlayer(contentsOf: url)
             bgmPlayer?.numberOfLoops = -1
             bgmPlayer?.volume = Float(bgmVolume)
+            bgmPlayer?.play()
 
-            // 🛑 只有当用户允许播放 BGM 时才播放
-            if AudioRepository.shared.isBGMPlaying() {
-                bgmPlayer?.play()
-                print("🎵 Playing BGM: \(bgmToPlay)")
-            }
 
-            // 📌 存储选中的 BGM
             AudioRepository.shared.saveSelectedBGM(bgmToPlay)
+            print("🎵 Playing BGM: \(bgmToPlay) ✅")
 
         } catch {
             print("❌ BGM failed to play: \(error.localizedDescription)")
         }
     }
 
+
     func pauseBGM() {
         bgmPlayer?.pause()
         isBGMManuallyStopped = true
-        AudioRepository.shared.saveBGMPlayingState(false)  // 📌 记录 BGM 已暂停
+        AudioRepository.shared.saveBGMPlayingState(false)
         print("⏸️ BGM Stopped")
     }
 
     func resumeBGM() {
-        bgmPlayer?.play()
+        if bgmPlayer == nil {
+            let selectedBGM = AudioRepository.shared.getSelectedBGM()
+            print("🎵 bgmPlayer 为空，重新加载 BGM: \(selectedBGM)")
+            playBGM(filename: selectedBGM)
+        } else {
+            bgmPlayer?.play()
+        }
+        
         isBGMManuallyStopped = false
-        AudioRepository.shared.saveBGMPlayingState(true)  // 📌 记录 BGM 已恢复
+        AudioRepository.shared.saveBGMPlayingState(true)
         print("▶️ BGM Resumed")
     }
+
 
 
     func playNextBGM() {

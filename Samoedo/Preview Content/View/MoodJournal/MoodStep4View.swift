@@ -22,7 +22,7 @@ struct MoodStep4View: View {
                 .frame(alignment:.center)
                 .padding()
 
-            TextEditor(text: $viewModel.currentEntry.step5Response)
+            TextEditor(text: $viewModel.userInputReason)
                 .font(.custom("Chalkboard SE", size: 18))
                 .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 .frame(height: 350)

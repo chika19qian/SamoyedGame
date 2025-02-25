@@ -44,7 +44,7 @@ struct MoodStep1View: View {
                         Button(action: {
                             viewModel.selectMood(mood)
                         }) {
-                            Text(mood.rawValue)
+                            Text(mood.localizedName)
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(Color.brown)
                                 .padding(.vertical, 5)
