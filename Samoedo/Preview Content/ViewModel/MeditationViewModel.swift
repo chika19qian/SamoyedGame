@@ -15,18 +15,20 @@ class MeditationViewModel: ObservableObject {
     @Published var progress: Double = 0.0
     @Published var isPlaying: Bool = false
     @Published var isMeditationFinished = false
+    @Published var selectedMeditationTitle: String = ""
 
     private var playerObserver: AnyCancellable?
 
     init() {
+        selectedMeditationTitle = AudioRepository.shared.getSelectedMeditation()
     }
     
 
     func setupAudio() {
         AudioManager.shared.stopBGM()
-        MeditationAudioManager.shared.playMeditation(filename: "meditation_audio")
+        MeditationAudioManager.shared.playMeditation(filename: selectedMeditationTitle)
         
-        isPlaying = MeditationAudioManager.shared.player?.isPlaying ?? false // 确保状态正确
+        isPlaying = MeditationAudioManager.shared.player?.isPlaying ?? false
         print("🎵 Meditation Started: \(isPlaying)")
         
         playerObserver = Timer.publish(every: 1, on: .main, in: .common)
@@ -54,6 +56,17 @@ class MeditationViewModel: ObservableObject {
         }
         print("🎵 Toggle Play State: \(isPlaying)")
     }
+    
+    func playNextMeditation() {
+        MeditationAudioManager.shared.playNextMeditation()
+        selectedMeditationTitle = AudioRepository.shared.getSelectedMeditation()
+    }
+
+    func playPreviousMeditation() {
+        MeditationAudioManager.shared.playPreviousMeditation()
+        selectedMeditationTitle = AudioRepository.shared.getSelectedMeditation()  
+    }
+
 
     
     func forward15s() {

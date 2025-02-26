@@ -15,7 +15,6 @@ struct AudioLibrary {
     // 🧘‍♂️ 冥想音频列表
     static let meditationList = ["meditation_audio", "meditation-cozy-forest", "meditation-music-without-nature-sound"]
     static let meditationCalm = "meditation_audio"
-    static let meditationSleep = "meditation_sleep"
-    static let meditationEnergy = "meditation_energy"
+
 
 }

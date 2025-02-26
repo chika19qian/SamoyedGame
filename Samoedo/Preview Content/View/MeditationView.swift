@@ -29,7 +29,8 @@ struct MeditationView: View {
                 }.padding()
                 
                 Spacer()
-                Text("🐶 Take a deep breath...")
+                
+                Text("🐶 \(viewModel.selectedMeditationTitle)")
                     .font(.custom("Chalkboard SE", size: 28))
                     .foregroundColor(.white)
                     .padding()
@@ -41,6 +42,13 @@ struct MeditationView: View {
 
 
                 HStack(spacing: 40) {
+                    
+                    Button(action: viewModel.playPreviousMeditation) {
+                        Image(systemName: "backward.end.fill")
+                            .font(.system(size: 30))
+                            .foregroundColor(.brown)
+                    }
+                    
                     Button(action: viewModel.backward15s) {
                         Image(systemName: "gobackward.15")
                             .font(.system(size: 30))
@@ -55,6 +63,12 @@ struct MeditationView: View {
 
                     Button(action: viewModel.forward15s) {
                         Image(systemName: "goforward.15")
+                            .font(.system(size: 30))
+                            .foregroundColor(.brown)
+                    }
+                    
+                    Button(action: viewModel.playNextMeditation) {
+                        Image(systemName: "forward.end.fill")
                             .font(.system(size: 30))
                             .foregroundColor(.brown)
                     }

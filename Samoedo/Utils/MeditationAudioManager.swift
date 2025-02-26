@@ -11,22 +11,26 @@ class MeditationAudioManager {
     static let shared = MeditationAudioManager()
     var player: AVAudioPlayer?
     var meditationVolume: Double = 0.5
+    private var currentMeditationIndex = 0
 
     private init() {}
 
-    func playMeditation(filename: String) {
-        guard let url = Bundle.main.url(forResource: filename, withExtension: "mp3") else { return }
+    func playMeditation(filename: String? = nil) {
+        let meditationToPlay = filename ?? AudioLibrary.meditationList[currentMeditationIndex]
+        
+        guard let url = Bundle.main.url(forResource: meditationToPlay, withExtension: "mp3") else { return }
         do {
             player = try AVAudioPlayer(contentsOf: url)
             player?.volume = Float(meditationVolume)
             player?.play()
 
-            print("🎵 Playing Meditation: \(filename)")
+            // 存储当前播放的冥想音频
+            AudioRepository.shared.saveSelectedMeditation(meditationToPlay)
+            print("🎵 播放冥想音频: \(meditationToPlay)")
         } catch {
             print("❌ 冥想音频播放失败: \(error.localizedDescription)")
         }
     }
-
 
 
     func stopMeditation() {
@@ -36,6 +40,16 @@ class MeditationAudioManager {
     func setMeditationVolume(_ volume: Double) {
         meditationVolume = volume
         player?.volume = Float(volume)
+    }
+    
+    func playNextMeditation() {
+        currentMeditationIndex = (currentMeditationIndex + 1) % AudioLibrary.meditationList.count
+        playMeditation(filename: AudioLibrary.meditationList[currentMeditationIndex])
+    }
+
+    func playPreviousMeditation() {
+        currentMeditationIndex = (currentMeditationIndex - 1 + AudioLibrary.meditationList.count) % AudioLibrary.meditationList.count
+        playMeditation(filename: AudioLibrary.meditationList[currentMeditationIndex])
     }
     
     func playShortMeditationFeedback() {
