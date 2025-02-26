@@ -45,7 +45,7 @@ struct MeditationView: View {
                             .frame(width: 285, height: 12)
                             .padding()
                     }
-                    .contentShape(Rectangle()) // 让整个区域都可交互
+                    .contentShape(Rectangle()) 
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged { gesture in

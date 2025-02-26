@@ -23,7 +23,7 @@ struct MainView: View {
                 VStack {
                     Spacer().frame(height: 30)
                     VStack(alignment: .leading) {
-                        TextField("Change Name!", text: $vm.pet.name)
+                        Text("\(vm.pet.name)")
                             .chalkboardFont(size: 28)
                             .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                         
@@ -35,6 +35,7 @@ struct MainView: View {
                     }.chalkboardFont(size: 20)
                         .foregroundColor(.brown)
                         .padding(.horizontal, 40)
+                        .offset(x: -75, y: -5)
                     
                     Spacer()
 // samoyed image

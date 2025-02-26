@@ -149,11 +149,6 @@ struct SettingsView: View {
                 
             }
         }.navigationBarBackButtonHidden(true)
-        .gesture(DragGesture().onEnded { value in
-            if value.translation.width > 100 {
-                presentationMode.wrappedValue.dismiss()
-            }
-        })
     }
 }
 

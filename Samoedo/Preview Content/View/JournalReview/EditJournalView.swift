@@ -52,6 +52,8 @@ struct EditJournalView: View {
                     .stroke(Color.white, lineWidth: 5)
             )
         
+        }.onTapGesture {
+            hideKeyboard()
         }
         .padding()
     }
