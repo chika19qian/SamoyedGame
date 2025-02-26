@@ -48,6 +48,11 @@ struct JournalReviewView: View {
             }
             .toolbarBackground(Color.brown, for: .navigationBar)
         }.navigationBarBackButtonHidden()
+            .gesture(DragGesture().onEnded { value in
+                if value.translation.width > 100 { 
+                    presentationMode.wrappedValue.dismiss()
+                }
+            })
     }
 }
 
