@@ -35,13 +35,28 @@ struct MeditationView: View {
                     .foregroundColor(.white)
                     .padding()
                 
-                ProgressView(value: viewModel.progress)
-                    .progressViewStyle(HorizontalBrownProgressViewStyle())
-                    .frame(width: 300, height: 12)
-                    .padding()
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        ProgressView(value: viewModel.progress)
+                            .progressViewStyle(HorizontalBrownProgressViewStyle())
+                            .frame(width: 285, height: 12)
+                            .padding()
+                    }
+                    .contentShape(Rectangle()) // 让整个区域都可交互
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { gesture in
+                                let locationX = gesture.location.x
+                                let newProgress = min(max(locationX / geometry.size.width, 0), 1)
+                                viewModel.seekToTime(newProgress * viewModel.duration)
+                            }
+                    )
+                }
+                .frame(width: 320, height: 12)
+                .padding()
 
 
-                HStack(spacing: 40) {
+                HStack(spacing: 50) {
                     
                     Button(action: viewModel.playPreviousMeditation) {
                         Image(systemName: "backward.end.fill")
@@ -49,11 +64,6 @@ struct MeditationView: View {
                             .foregroundColor(.brown)
                     }
                     
-                    Button(action: viewModel.backward15s) {
-                        Image(systemName: "gobackward.15")
-                            .font(.system(size: 30))
-                            .foregroundColor(.brown)
-                    }
                     
                     Button(action: viewModel.togglePlayPause) {
                         Image(systemName: viewModel.isPlaying ? "pause.fill" : "play.fill")
@@ -61,11 +71,6 @@ struct MeditationView: View {
                             .foregroundColor(.brown)
                     }
 
-                    Button(action: viewModel.forward15s) {
-                        Image(systemName: "goforward.15")
-                            .font(.system(size: 30))
-                            .foregroundColor(.brown)
-                    }
                     
                     Button(action: viewModel.playNextMeditation) {
                         Image(systemName: "forward.end.fill")
@@ -75,12 +80,7 @@ struct MeditationView: View {
                 }
                 .padding()
                 
-                if viewModel.isMeditationFinished {
-                    Text("Great job! You look more relaxed now. 🧘‍♂️")
-                        .font(.custom("Chalkboard SE", size: 25))
-                        .foregroundColor(.white)
-                        .padding()
-                }
+                
                 
 
                 Button("Finish") {
@@ -90,7 +90,6 @@ struct MeditationView: View {
                 .padding()
                 .chalkboardFont(size: 25)
                 .foregroundColor(Color.brown)
-                .padding()
                 .frame(width: 150, height: 50)
                 .background(Color.white.opacity(0.9))
                 .cornerRadius(15)

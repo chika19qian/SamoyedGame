@@ -14,7 +14,6 @@ class MeditationViewModel: ObservableObject {
     @Published var duration: Double = 1.0
     @Published var progress: Double = 0.0
     @Published var isPlaying: Bool = false
-    @Published var isMeditationFinished = false
     @Published var selectedMeditationTitle: String = ""
 
     private var playerObserver: AnyCancellable?
@@ -66,19 +65,10 @@ class MeditationViewModel: ObservableObject {
         MeditationAudioManager.shared.playPreviousMeditation()
         selectedMeditationTitle = AudioRepository.shared.getSelectedMeditation()  
     }
-
-
     
-    func forward15s() {
+    func seekToTime(_ time: Double) {
         guard let player = MeditationAudioManager.shared.player else { return }
-        let newTime = min(player.currentTime + 15, player.duration)
-        player.currentTime = newTime
-    }
-
-    func backward15s() {
-        guard let player = MeditationAudioManager.shared.player else { return }
-        let newTime = max(player.currentTime - 15, 0)
-        player.currentTime = newTime
+        player.currentTime = time
     }
 
     
