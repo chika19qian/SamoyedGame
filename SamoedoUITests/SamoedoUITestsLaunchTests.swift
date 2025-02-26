@@ -1,13 +1,13 @@
 //
-//  SamoedoUITestsLaunchTests.swift
-//  SamoedoUITests
+//  SamoDiaryUITestsLaunchTests.swift
+//  SamoDiaryUITests
 //
 //  Created by chika on 2025/2/6.
 //
 
 import XCTest
 
-final class SamoedoUITestsLaunchTests: XCTestCase {
+final class SamoeDiaryUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
