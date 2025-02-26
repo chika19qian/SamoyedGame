@@ -57,8 +57,8 @@ struct SettingsView: View {
                     Button(action: {
                         AudioManager.shared.playRemixBGM()
                     }) {
-                        Text("🔀")
-                            .font(.custom("Chalkboard SE", size: 18))
+                        Image(systemName: "shuffle")
+                            .font(.custom("Chalkboard SE", size: 23))
                             .foregroundColor(.white)
                             .padding()
                             .frame(width: 55, height: 55)
@@ -74,20 +74,25 @@ struct SettingsView: View {
                         }
                         isBGMPlaying.toggle()
                     }) {
-                        Text(isBGMPlaying ? "⏸️ Pause BGM" : "▶️ Play BGM")
-                            .font(.custom("Chalkboard SE", size: 20))
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 180,height: 65)
-                            .background(Color.brown.opacity(0.8))
-                            .cornerRadius(15)
+                        HStack {
+                            Image(systemName: isBGMPlaying ? "pause.fill" : "play.fill") // 内部 SF Symbol 图标
+                                .font(.title) // 设置图标大小
+                            Text(isBGMPlaying ? "Pause BGM" : "Play BGM")
+                                .font(.custom("Chalkboard SE", size: 20))
+                        }
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 180, height: 65)
+                        .background(Color.brown.opacity(0.8))
+                        .cornerRadius(15)
                     }
+
                     
                     
                     Button(action: {
                         AudioManager.shared.playNextBGM()  // 切换下一首 BGM
                     }) {
-                        Text("⏭️")
+                        Image(systemName: "forward.fill")
                             .font(.custom("Chalkboard SE", size: 18))
                             .foregroundColor(.white)
                             .padding()
