@@ -40,15 +40,13 @@ class MainViewModel: ObservableObject {
     var emotionScore: Int {
         return journalRepository.getLatestEmotionScore()
     }
-    
-    // meditation
-    @Published var isMeditationActive = false
 
-    
     @Published var showAgeInfo = false
 
     // change views
     @Published var navigateToSettings = false
+    @Published var isMeditationActive = false
+    @Published var fromMeditation = false
     
     init() {
         // bgm
@@ -213,7 +211,7 @@ class MainViewModel: ObservableObject {
         print("📝 Updated emotionScore to \(latestJournalScore)")
     }
     
-    // meditation
+// meditation
     func startMeditation() {
         isMeditationActive = true
         print("LongPressed")
@@ -223,14 +221,24 @@ class MainViewModel: ObservableObject {
         isMeditationActive = false
     }
     
-    // change to settingsView
+// change to settingsView
     func openSettings() {
-        navigateToSettings = true
+        if !navigateToSettings {
+            print("🟢 打开 SettingsView (fromMeditation: \(fromMeditation))")
+            navigateToSettings = true
+        } else {
+            print("⚠️ 已经打开 SettingsView，阻止重复跳转")
+        }
     }
-    
+
     func endSettings() {
+        if fromMeditation {
+            isMeditationActive = true
+        }
         navigateToSettings = false
+        fromMeditation = false
     }
+
 
 }
 

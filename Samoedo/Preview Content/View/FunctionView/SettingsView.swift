@@ -14,6 +14,8 @@ struct SettingsView: View {
     @State private var bgmVolume: Double = AudioManager.shared.bgmVolume
     @State private var meditationVolume: Double = MeditationAudioManager.shared.meditationVolume
     @State private var isBGMPlaying: Bool = AudioRepository.shared.isBGMPlaying()
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         ZStack {
             // 🌟 背景
@@ -147,6 +149,11 @@ struct SettingsView: View {
                 
             }
         }.navigationBarBackButtonHidden(true)
+        .gesture(DragGesture().onEnded { value in
+            if value.translation.width > 100 {
+                presentationMode.wrappedValue.dismiss()
+            }
+        })
     }
 }
 

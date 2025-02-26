@@ -19,7 +19,10 @@ struct MeditationView: View {
                 //Settings
                 HStack {
                     Spacer()
-                    Button(action: mainViewModel.openSettings) {
+                    Button(action:{
+                        mainViewModel.openSettings()
+                        mainViewModel.fromMeditation = true
+                    }) {
                         Image(systemName: "gearshape.fill")
                             .resizable()
                             .frame(width:30, height: 30)
@@ -109,7 +112,8 @@ struct MeditationView: View {
 }
 
 #Preview {
-    MeditationView(mainViewModel: MainViewModel())
+    MeditationView(mainViewModel: MainViewModel())    
 }
+
 
         

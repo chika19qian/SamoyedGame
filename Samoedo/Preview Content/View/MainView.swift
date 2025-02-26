@@ -67,7 +67,10 @@ struct MainView: View {
                     
                     VStack {
                         //Settings
-                        Button(action: vm.openSettings) {
+                        Button(action:{
+                            vm.openSettings()
+                            vm.fromMeditation = false
+                        }) {
                             Image(systemName: "gearshape.fill")
                                 .resizable()
                                 .frame(width:30, height: 30)
@@ -259,8 +262,11 @@ struct MainView: View {
                     vm.checkJournalStatus()
                 }
                 .navigationDestination(isPresented: $vm.navigateToSettings) {
-                    SettingsView(mvm: vm)
-                        }
+                    if !vm.isMeditationActive {  
+                        SettingsView(mvm: vm)
+                    }
+                }
+
                 .navigationDestination(isPresented: $vm.isMeditationActive){
                     MeditationView( mainViewModel: vm)
                 }
