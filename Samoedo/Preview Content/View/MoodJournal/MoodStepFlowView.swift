@@ -14,7 +14,7 @@ struct MoodStepFlowView: View {
 
     var body: some View {
         ZStack {
-            Color(red: 0.96, green: 0.91, blue: 0.84)
+            Color(red: 0.99, green: 0.97, blue: 0.93)
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 MoodStepNavigationView(viewModel: viewModel)
@@ -32,7 +32,8 @@ struct MoodStepFlowView: View {
                     Text(String(localized: "Unknown Step"))
                 }
             }.navigationBarHidden(true)
-
+        }.onTapGesture {
+            hideKeyboard()
         }
                 
     }
@@ -68,4 +69,8 @@ struct MoodStepNavigationView: View {
         }
         .padding(.horizontal)
     }
+}
+
+#Preview {
+    MoodStepFlowView(viewModel: MoodJournalViewModel(), mainViewModel: MainViewModel())
 }

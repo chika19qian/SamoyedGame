@@ -13,7 +13,7 @@ struct StepFlowView: View {
 
     var body: some View {
         ZStack {
-            Color(red: 0.96, green: 0.91, blue: 0.84)
+            Color(red: 0.99, green: 0.97, blue: 0.93)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -40,6 +40,8 @@ struct StepFlowView: View {
                         .navigationBarBackButtonHidden(true)
                 }
             }
+        }.onTapGesture {
+            hideKeyboard()
         }
     }
 }
@@ -75,4 +77,8 @@ struct StepNavigationView: View {
         }
         .padding(.horizontal)
     }
+}
+
+#Preview {
+    StepFlowView(viewModel: JournalViewModel(), mainViewModel: MainViewModel())
 }
