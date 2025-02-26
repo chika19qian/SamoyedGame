@@ -13,7 +13,7 @@ struct AudioLibrary {
     static let bgmMain = bgmList.first! 
     
     // 🧘‍♂️ 冥想音频列表
-    static let meditationList = ["3 Minutes Breathing excercise", "Cozy Forest", "Meditation Music1"]
+    static let meditationList = ["3 Minutes Breathing excercise", "Cozy Forest", "Meditation Music1", "Piano Meditation", "Gentle Awareness"]
     static let meditationCalm = "3 Minutes Breathing excercise"
 
 
