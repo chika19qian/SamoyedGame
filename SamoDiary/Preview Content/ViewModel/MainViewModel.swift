@@ -48,16 +48,18 @@ class MainViewModel: ObservableObject {
     @Published var isMeditationActive = false
     @Published var fromMeditation = false
     
+    //Tutorial
+    @Published var tutorialStep: Int = 0
+    @Published var isTutorialActive: Bool = true
+    @Published var highlightFeedButton: Bool = false
+    @Published var highlightMoodJournal: Bool = false
+
+    
     init() {
         // bgm
         let selectedBGM = AudioRepository.shared.getSelectedBGM()
         let shouldPlayBGM = AudioRepository.shared.isBGMPlaying()
-        
-        print("🎵 初始化 MainViewModel")
-        print("🔍 选中的 BGM: \(selectedBGM)")
-        print("🔍 是否应该播放 BGM: \(shouldPlayBGM)")
 
-        // 🛑 确保 BGM 只在用户允许的情况下播放
         if shouldPlayBGM {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 AudioManager.shared.playBGM(filename: selectedBGM)
@@ -72,9 +74,12 @@ class MainViewModel: ObservableObject {
         if !storyRepository.hasSeenOpening() {
             showOpeningScene = true
             print("✅ First launch: Showing opening scene")
-        } else {
+        } else if !storyRepository.hasSeenTutorial() {
+            isTutorialActive = true
+        }
+        else {
             showOpeningScene = false
-            print("✅ Opening scene already seen: Skipping to main")
+            isTutorialActive = false
         }
     }
     
@@ -121,10 +126,32 @@ class MainViewModel: ObservableObject {
         
     }
     
+    func nextTutorialStep() {
+        tutorialStep += 1
+        if tutorialStep == 4 {
+            highlightFeedButton = true
+            highlightMoodJournal = false
+        } else if tutorialStep == 3 {
+            highlightFeedButton = false
+            highlightMoodJournal = true
+        } else {
+            highlightFeedButton = false
+            highlightMoodJournal = false
+        }
+
+        if tutorialStep >= Dialogues.tutorial.count {
+            isTutorialActive = false
+            storyRepository.setSeenTutorial()
+            checkJournalStatus()
+        }
+    }
+
+
+    
 // Daily
     
     func checkJournalStatus() {
-        if showOpeningScene {
+        if showOpeningScene || isTutorialActive {
             showJournalPrompt = false
             return }
         
@@ -188,6 +215,9 @@ class MainViewModel: ObservableObject {
     func feed() {
         pet.feed()
         saveData()
+        if highlightFeedButton {
+            nextTutorialStep()
+        }
     }
     
     func gainFoodJournal() {

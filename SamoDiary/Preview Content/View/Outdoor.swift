@@ -15,6 +15,9 @@ struct Outdoor: View {
             Text("New Scene Coming Soon!")
                 .chalkboardFont(size: 35)
                 .foregroundColor(.white)
+            //Text("你好啊1234abcd")
+                .chalkboardFont(size: 35)
+                .foregroundColor(.white)
         }
         
     }

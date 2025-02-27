@@ -11,6 +11,16 @@ class StoryRepository {
     
     private let hasSeenOpeningKey = "HasSeenOpening"
     private let userDefaults = UserDefaults.standard
+    private let hasSeenTutorialKey = "HasSeenTutorial"
+
+    func hasSeenTutorial() -> Bool {
+        return userDefaults.bool(forKey: hasSeenTutorialKey)
+    }
+
+    func setSeenTutorial() {
+        userDefaults.set(true, forKey: hasSeenTutorialKey)
+        userDefaults.synchronize()
+    }
     
     func hasSeenOpening() -> Bool {
         let seen = userDefaults.bool(forKey: hasSeenOpeningKey)

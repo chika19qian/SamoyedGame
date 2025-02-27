@@ -10,11 +10,15 @@ import Foundation
 struct DialogueLine {
     let speakerKey: String
     let messageKey: String
-
-    func localized(dogName: String) -> (speaker: String, message: String) {
+    func localized(dogName: String) -> (speaker: String, message: AttributedString) {
         let speaker = String(format: NSLocalizedString(speakerKey, comment: ""), dogName)
-        let message = String(format: NSLocalizedString(messageKey, comment: ""), dogName)
-        return (speaker, message)
+        let rawMessage = String(format: NSLocalizedString(messageKey, comment: ""), dogName)
+
+        let formattedMessage = rawMessage.replacingOccurrences(of: "{dogName}", with: "{bold}\(dogName){bold}")
+
+        let attributedMessage = TextFormatter.parse(formattedMessage)
+
+        return (speaker, attributedMessage)
     }
 }
 
@@ -243,7 +247,7 @@ struct Dialogues {
         // 🎭 Discovering the Mysterious Box
         DialogueLine(speakerKey: "narration", messageKey: "(You discover a softly glowing wooden box in the corner, with a yellow note attached)"),
         DialogueLine(speakerKey: "note", messageKey: "To the Chosen One: This is a gift from the Wizard Olivia. The little one inside has chosen you."),
-        DialogueLine(speakerKey: "narration", messageKey: "(You carefully open the box to find a puppy inside. A magical tag floats above its collar)"),
+        DialogueLine(speakerKey: "narration", messageKey: "(You carefully open the box to find a {bold}puppy{bold} inside. A magical tag floats above its collar)"),
         
         // 🐾 First Meeting
         DialogueLine(speakerKey: "narration", messageKey: "(The puppy stands up, looking at you curiously. Its ears twitch gently)"),
@@ -252,7 +256,7 @@ struct Dialogues {
         DialogueLine(speakerKey: "narration", messageKey: "(The puppy starts wagging its tail softly, as a new tag forms in the air)"),
         
         // 🏷️ Magical Tags
-        DialogueLine(speakerKey: "note", messageKey: "The Wizard says: Give it a name, and this will forge an eternal bond between you."),
+        DialogueLine(speakerKey: "note", messageKey: "The Wizard says: {bold}Give it a name{bold}, and this will forge an eternal bond between you."),
         DialogueLine(speakerKey: "note", messageKey: "(The puppy spins in circles excitedly at its new name, the writing on the tag begins to glow)"),
         DialogueLine(speakerKey: "note", messageKey: "It is now {dogName}! The magical contract is sealed."),
         DialogueLine(speakerKey: "dogName", messageKey: "Woof!"),
@@ -271,6 +275,17 @@ struct Dialogues {
     ]
 
     static let journalPrompt = String(localized: "Would you like to record today’s journal?")
+    
+    static let tutorial: [DialogueLine] = [
+        DialogueLine(speakerKey: "note", messageKey: NSLocalizedString("tutorial_step_1", comment: "")),
+        DialogueLine(speakerKey: "note", messageKey: NSLocalizedString("tutorial_step_2", comment: "")),
+        DialogueLine(speakerKey: "note", messageKey: NSLocalizedString("tutorial_step_3", comment: "")),
+        DialogueLine(speakerKey: "note", messageKey: NSLocalizedString("tutorial_step_4", comment: "")),
+        DialogueLine(speakerKey: "note", messageKey: NSLocalizedString("tutorial_step_5", comment: "")),
+        DialogueLine(speakerKey: "note", messageKey: NSLocalizedString("tutorial_step_6", comment: ""))
+    ]
+
+
 
 
 }
