@@ -45,9 +45,9 @@
 			path = SamoDiaryTests;
 			sourceTree = "<group>";
 		};
-		18AAF7E62D5476C6000C1EA8 /* SamoedoUITests */ = {
+		18AAF7E62D5476C6000C1EA8 /* SamoDiaryUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SamoedoUITests;
+			path = SamoDiaryUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -83,7 +83,7 @@
 				184B73122D6A16D5003EF4BA /* Localizable.xcstrings */,
 				18AAF7C92D5476C5000C1EA8 /* SamoDiary */,
 				18AAF7DC2D5476C6000C1EA8 /* SamoDiaryTests */,
-				18AAF7E62D5476C6000C1EA8 /* SamoedoUITests */,
+				18AAF7E62D5476C6000C1EA8 /* SamoDiaryUITests */,
 				18AAF7C82D5476C5000C1EA8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -160,7 +160,7 @@
 				18AAF7E52D5476C6000C1EA8 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				18AAF7E62D5476C6000C1EA8 /* SamoedoUITests */,
+				18AAF7E62D5476C6000C1EA8 /* SamoDiaryUITests */,
 			);
 			name = SamoDiaryUITests;
 			packageProductDependencies = (
