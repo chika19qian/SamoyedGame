@@ -44,15 +44,17 @@ class JournalViewModel: ObservableObject {
             var contentArray: [String] = []
 
             contentArray.append(
-                String(format: String(localized: morning
-                    ? "How was your sleep last night?\n%@/5"
-                    : "How do you feel today?\n%@/5"), currentEntry.step1Response)
+                String(
+                    format: NSLocalizedString(morning ? "step1MorningQuestion" : "step1EveningQuestion", comment: ""),
+                    currentEntry.step1Response
+                )
             )
 
             contentArray.append(
-                String(format: String(localized: morning
-                    ? "What did you focus on today?\n%@"
-                    : "What made you feel good today?\n%@"), step2Selection)
+                String(
+                    format: NSLocalizedString(morning ? "step2MorningQuestion" : "step2EveningQuestion", comment: ""),
+                    step2Selection
+                )
             )
 
             if !currentEntry.step3Response.isEmpty {
@@ -68,13 +70,11 @@ class JournalViewModel: ObservableObject {
             }
 
             if !currentEntry.step5Response.isEmpty {
-                contentArray.append(
-                    String(format: String(localized: morning
-                        ? "If today is fulfilling and brings unexpected joy, how would you feel?\n%@"
-                        : "What beautiful things are you looking forward to tomorrow?\n%@"),
-                        currentEntry.step5Response)
-                )
+                let key: String.LocalizationValue = morning ? "step5MorningQuestion" : "step5EveningQuestion"
+                let localizedQuestion = String(localized: key, table: "Localizable")
+                contentArray.append(String(format: localizedQuestion, currentEntry.step5Response))
             }
+
 
             return contentArray.joined(separator: "\n\n")
         }
