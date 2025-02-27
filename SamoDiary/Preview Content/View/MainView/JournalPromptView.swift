@@ -11,7 +11,7 @@ struct JournalPromptView: View {
     @ObservedObject var vm: MainViewModel
     
     var body: some View {
-        if vm.showJournalPrompt {
+        if vm.showJournalPrompt && !vm.journalChoicePhase {
             VStack {
                 Text(Dialogues.journalPrompt)
                     .chalkboardFont(size: 28)                     .foregroundColor(.white)

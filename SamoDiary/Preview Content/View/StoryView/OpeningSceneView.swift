@@ -49,10 +49,12 @@ struct OpeningSceneView: View {
                 .padding()
 
             TextField("Enter a name", text: $vm.dogName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .textFieldStyle(PlainTextFieldStyle())
+                .chalkboardFont(size: 24)
+                .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 .frame(width: 200)
                 .padding()
-                .background(Color.white.opacity(0.9))
+                .background(Color.white)
                 .cornerRadius(10)
 
             Button("Confirm") {
@@ -91,7 +93,7 @@ struct OpeningSceneView: View {
                 .chalkboardFont(size: 24)
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
-                .frame(width: 340, height: 180)
+                .frame(width: 350, height: 180)
                 .background(Color.brown.opacity(0.9))
                 .cornerRadius(12)
                 .padding()

@@ -26,6 +26,9 @@ struct Step3View: View {
                 .frame(height: 370)
                 .border(Color.gray, width: 2)
                 .cornerRadius(15)
+                .scrollContentBackground(.hidden)
+                .background(Color(red: 0.99, green: 0.97, blue: 0.93))
+                .cornerRadius(15)
                 .overlay(
                     RoundedRectangle(cornerRadius: 15)
                         .stroke(Color.brown, lineWidth: 4)

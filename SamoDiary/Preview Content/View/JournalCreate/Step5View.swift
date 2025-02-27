@@ -30,6 +30,8 @@ struct Step5View: View {
                 .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                 .frame(height: 370)
                 .border(Color.gray, width: 2)
+                .scrollContentBackground(.hidden)
+                .background(Color(red: 0.99, green: 0.97, blue: 0.93))
                 .cornerRadius(15)
                 .overlay(
                     RoundedRectangle(cornerRadius: 15)
