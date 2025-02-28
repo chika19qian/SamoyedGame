@@ -11,15 +11,16 @@ struct DailyDialogueView: View {
     @ObservedObject var vm: MainViewModel
     
     var body: some View {
-        if vm.showingDialog {
+        if vm.showingDialog && !vm.isTutorialActive {
             Text(String(localized: String.LocalizationValue(vm.dialogMessage)))
                 .chalkboardFont(size: 28)                     .foregroundColor(.white)
                 .padding(12)
                 .frame(height: 150)
                 .frame(maxWidth: .infinity)
                 .background(Color.brown.opacity(0.55))
+                .cornerRadius(15)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 0)
+                    RoundedRectangle(cornerRadius: 15)
                         .stroke(Color.white, lineWidth: 2)
                 )
                 .multilineTextAlignment(.center)

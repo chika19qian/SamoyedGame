@@ -20,6 +20,7 @@ struct EditJournalView: View {
     }
 
     var body: some View {
+        
         VStack {
             Text("Edit Journal")
                 .chalkboardFont(size: 30)

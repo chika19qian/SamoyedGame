@@ -11,7 +11,7 @@ struct Pet: Codable {
     var name: String
     var birthday: Date?
     var lastMeal: Date
-    var foodCount: Int = 6
+    var foodCount: Int = 5
     var ageOffset: Int = 0
     
     var happinessLevel: String {
@@ -126,7 +126,7 @@ struct Pet: Codable {
     mutating func feed() {
         if foodCount > 0 {
             lastMeal = Date()
-            ageOffset += 100
+            ageOffset += 50
             foodCount -= 1
         }
     }

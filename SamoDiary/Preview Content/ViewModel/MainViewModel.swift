@@ -11,6 +11,8 @@ import Combine
 
 
 class MainViewModel: ObservableObject {
+    @ObservedObject var settingsRepo = SettingsRepository.shared
+    
     @Published var pet: Pet
     private var repository = PetRepository()
     private var journalRepository = JournalRepository()
@@ -81,6 +83,7 @@ class MainViewModel: ObservableObject {
             showOpeningScene = false
             isTutorialActive = false
         }
+        print("📢 Current Language: \(settingsRepo.selectedLanguage)")
     }
     
 // Story First !

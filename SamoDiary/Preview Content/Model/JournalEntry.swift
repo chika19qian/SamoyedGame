@@ -39,7 +39,7 @@ struct JournalEntry: Codable, Identifiable {
     
     var isMorning: Bool {
         let hour = Calendar.current.component(.hour, from: date)
-        return hour < 14
+        return hour > 5 && hour < 14
     }
     func isToday() -> Bool {
         return Calendar.current.isDateInToday(date)

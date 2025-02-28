@@ -18,7 +18,6 @@ struct JournalDetailView: View {
     var body: some View {
         ZStack {
             Color(red: 0.97, green: 0.94, blue: 0.88)
-
                 .edgesIgnoringSafeArea(.all)
             
             ScrollView {

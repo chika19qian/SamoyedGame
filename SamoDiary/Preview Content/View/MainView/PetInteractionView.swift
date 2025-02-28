@@ -15,7 +15,7 @@ struct PetInteractionView: View {
 // Leftup Information
         VStack {
             Spacer().frame(height: 30)
-            VStack {
+            
                 VStack(alignment: .leading) {
                     Text("\(vm.pet.name)")
                         .chalkboardFont(size: 28)
@@ -23,7 +23,7 @@ struct PetInteractionView: View {
                     
                     HStack {
                         Text("\(vm.pet.happinessLevel)").bold()
-                        Text(" and ")
+                        Text("and")
                         Text("\(vm.pet.hunger)").bold()
                     }
                     
@@ -31,10 +31,10 @@ struct PetInteractionView: View {
                 }
                 .chalkboardFont(size: 20)
                 .foregroundColor(.brown)
-                .padding(.horizontal, 40)
-                .frame(maxWidth: 300, alignment: .leading) // ✅ 限制最大宽度，防止超出
-                .offset(x: -70, y: -5) // ✅ 适当调整偏移量
-            }
+                .padding(.leading, 50)
+                .frame(maxWidth: 340,alignment: .leading)
+                .offset(x: -70, y: -5)
+            
 
             
             Spacer()

@@ -39,7 +39,7 @@ class MoodJournalViewModel: ObservableObject {
         get {
             // Step 1: 用户选择的心情
             let step1Question = String(localized: "Today's Mood")
-            let step1Answer = currentEntry.step1Response.isEmpty ? String(localized: "Not selected") : currentEntry.step1Response
+            let step1Answer = currentEntry.step1Response.isEmpty ? String(localized: "Not selected") : NSLocalizedString(currentEntry.step1Response, comment: "")
 
             // Step 2: 影响心情的事件
             let step2Question = String(localized: "Events that influenced your mood")

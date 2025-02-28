@@ -10,11 +10,17 @@ import SwiftUI
 struct SettingsView: View {
     
     @ObservedObject var mvm: MainViewModel
+    @ObservedObject var settingsRepo = SettingsRepository.shared
     
     @State private var bgmVolume: Double = AudioManager.shared.bgmVolume
     @State private var meditationVolume: Double = MeditationAudioManager.shared.meditationVolume
     @State private var isBGMPlaying: Bool = AudioRepository.shared.isBGMPlaying()
     @Environment(\.presentationMode) var presentationMode
+    
+    let languages = [
+        "en": "English",
+        "zh-Hans": "简体中文"
+    ]
     
     var body: some View {
         ZStack {
@@ -131,6 +137,42 @@ struct SettingsView: View {
                     }
                 }
                 .padding()
+                
+                // 🌎 Language Picker 替换为自定义 Menu
+                VStack {
+                    
+                    Text("🌐 Reset to change language")
+                        .font(.custom("Chalkboard SE", size: 20))
+                        .foregroundColor(.brown)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Menu {
+                        ForEach(languages.keys.sorted(), id: \.self) { key in
+                            Button(action: {
+                                settingsRepo.selectedLanguage = key
+                            }) {
+                                Text(languages[key]!)
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Text(languages[settingsRepo.selectedLanguage] ?? languages[Locale.current.language.languageCode?.identifier ?? "en"] ?? "English")
+                                .font(.custom("Chalkboard SE", size:22))
+                                .foregroundColor(.brown)
+                            Spacer()
+                            Image(systemName: "chevron.down")
+                                .foregroundColor(.brown)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.brown.opacity(0.2))
+                        .cornerRadius(15)
+                    }
+                    
+                    
+                        
+                }.padding()
+
 
                 Spacer()
 
