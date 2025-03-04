@@ -25,10 +25,10 @@ struct MainView: View {
                     
                     PetInteractionView(vm: vm)
                     ActionButtonsView(vm: vm).position(x: geometry.size.width * 0.25, y: geometry.size.height * 0.23)
-                    TutorialOverlayView(vm: vm)
+                    TutorialOverlayView(vm: vm).position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                     
                     // Daily Journal Prompt
-                    JournalPromptView(vm:vm)
+                    JournalPromptView(vm:vm).position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                         
                     // Daily Talk
                     DailyDialogueView(vm: vm)

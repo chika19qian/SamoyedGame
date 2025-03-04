@@ -21,8 +21,19 @@ class SettingsRepository: ObservableObject {
     }
     
     private init() {
-        self.selectedLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? Locale.current.identifier
+        let systemLanguage = Locale.preferredLanguages.first ?? "en"
+        
+        if systemLanguage.starts(with: "zh") {
+            self.selectedLanguage = "zh-Hans"
+        }  else {
+            self.selectedLanguage = "en"
+        }
+
+        if let savedLanguage = UserDefaults.standard.string(forKey: "appLanguage") {
+            self.selectedLanguage = savedLanguage
+        }
     }
+
     
     func setAppLanguage(_ language: String) {
         selectedLanguage = language

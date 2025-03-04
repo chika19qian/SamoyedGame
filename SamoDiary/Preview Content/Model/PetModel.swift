@@ -126,7 +126,7 @@ struct Pet: Codable {
     mutating func feed() {
         if foodCount > 0 {
             lastMeal = Date()
-            ageOffset += 50
+            ageOffset += 25
             foodCount -= 1
         }
     }
